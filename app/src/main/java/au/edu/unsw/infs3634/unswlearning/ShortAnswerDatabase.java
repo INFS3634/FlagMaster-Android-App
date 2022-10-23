@@ -21,8 +21,8 @@ public class ShortAnswerDatabase {
         // Create SHORT_ANSWER_QUIZ table
         String createShortAnswerQuizTable = "DROP TABLE IF EXISTS SHORT_ANSWER_QUIZ"
                 + "CREATE TABLE SHORT_ANSWER_QUIZ ("
-                + "region TEXT PRIMARY KEY"
-                + ", country TEXT NOT NULL"
+                + "region TEXT NOT NULL"
+                + ", country TEXT PRIMARY KEY"
                 + ", question TEXT NOT NULL"
                 + ", answer TEXT NOT NULL"
                 + ", image VARBINARY NOT NULL)";
