@@ -1,11 +1,22 @@
 package au.edu.unsw.infs3634.unswlearning;
 
-public class MultipleChoice extends Question {
+public class MultipleChoiceQuestion extends Question {
     private String choiceA;
     private String choiceB;
     private String choiceC;
     private String choiceD;
-    
+    final int level = 1;
+
+    //Constructor
+    public MultipleChoiceQuestion(int id, String region, int level, String textQuestion, String answer,
+                                  String choiceA, String choiceB, String choiceC, String choiceD){
+        super(id, region, level, textQuestion, answer);
+        this.choiceA = choiceA;
+        this.choiceB = choiceB;
+        this.choiceC = choiceC;
+        this.choiceD = choiceD;
+    }
+
     //what about questions that A, B, C, D are images??
     
     //Setter methods
@@ -24,4 +35,6 @@ public class MultipleChoice extends Question {
     public void setChoiceD(String choiceD) {
         this.choiceD = choiceD;
     }
+
+
 }

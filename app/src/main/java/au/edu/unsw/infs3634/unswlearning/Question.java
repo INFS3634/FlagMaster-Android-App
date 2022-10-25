@@ -1,11 +1,24 @@
 package au.edu.unsw.infs3634.unswlearning;
 
-public abstract class Question {
+public class Question {
+    private int id;
     private String region;
     private int level;
-    private int id;
-    private String question;
+    private String textQuestion;
     private String answer;
+
+    //Constructor
+    public Question(){
+
+    }
+
+    public Question(int id, String region, int level, String textQuestion, String answer) {
+        this.id = id;
+        this.region = region;
+        this.level = level;
+        this.textQuestion = textQuestion;
+        this.answer = answer;
+    }
 
     //Setter methods
     public void setRegion(String region) {
@@ -20,8 +33,8 @@ public abstract class Question {
         this.id = id;
     }
 
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setTextQuestion(String question) {
+        this.textQuestion = question;
     }
 
     public void setAnswer(String answer) {
@@ -42,7 +55,7 @@ public abstract class Question {
     }
 
     public String getQuestion() {
-        return question;
+        return textQuestion;
     }
 
     public String getAnswer() {
