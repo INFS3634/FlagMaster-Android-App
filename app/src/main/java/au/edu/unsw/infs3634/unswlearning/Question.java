@@ -8,7 +8,7 @@ public class Question {
     private String answer;
 
     //Constructor
-    public Question(){
+    public Question(int id, String region, String textQuestion, String answer){
 
     }
 
