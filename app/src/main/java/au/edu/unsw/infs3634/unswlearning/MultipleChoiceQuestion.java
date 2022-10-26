@@ -36,5 +36,20 @@ public class MultipleChoiceQuestion extends Question {
         this.choiceD = choiceD;
     }
 
+    //Getter methods
+    public String getChoiceA() {
+        return choiceA;
+    }
 
+    public String getChoiceB() {
+        return choiceB;
+    }
+
+    public String getChoiceC() {
+        return choiceC;
+    }
+
+    public String getChoiceD() {
+        return choiceD;
+    }
 }

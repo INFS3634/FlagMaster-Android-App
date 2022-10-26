@@ -11,7 +11,7 @@ public class MCQDatabase {
 
     private static final String MCQ_DB_PATH = "jdbc:sqlite:mcq.db";
 
-    private Connection conn = null;
+    private static Connection conn;
 
     public MCQDatabase() throws SQLException {
 
@@ -59,23 +59,22 @@ public class MCQDatabase {
     }
 
 
-    private void openConnection() throws SQLException {
+    private static void openConnection() throws SQLException {
         conn = DriverManager.getConnection(MCQ_DB_PATH);
     }
 
-    private void closeConnection() throws SQLException {
+    private static void closeConnection() throws SQLException {
         if (conn != null) {
             conn.close();
         }
     }
 
-    public ArrayList<MultipleChoiceQuestion> getAllQuestions() throws SQLException {
+    public static ArrayList<MultipleChoiceQuestion> getAllQuestions() throws SQLException {
             openConnection();
 
             Statement st = conn.createStatement();
 
-            String query = "SELECT id, region, level, textQuestion, answer, choiceA, choiceB, choiceC, choiceD" +
-                    " FROM MCQ_TABLE";
+            String query = "SELECT * FROM MCQ_TABLE";
 
             //Execute the query and get ResultSet of all orders that exist in the database
             ResultSet rs = st.executeQuery(query);

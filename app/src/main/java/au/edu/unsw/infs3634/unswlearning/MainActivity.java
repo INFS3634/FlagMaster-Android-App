@@ -13,15 +13,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Create a button to start quiz
     }
 
-    /*
     private void startQuiz() {
-        Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+        Intent intent = new Intent(MainActivity.this, MCQQuizActivity.class);
         startActivity(intent);
     }
 
-     */
 
     /*
     BottomNavigationView.OnNavigationItemSelectedListener {item ->
