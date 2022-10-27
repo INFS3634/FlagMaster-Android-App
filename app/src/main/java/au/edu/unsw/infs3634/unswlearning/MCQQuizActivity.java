@@ -3,7 +3,9 @@ package au.edu.unsw.infs3634.unswlearning;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -11,12 +13,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
 public class MCQQuizActivity extends AppCompatActivity {
+
+    public MCQQuizActivity() {
+
+    }
+
     private TextView quizRegion;
     private TextView textViewQuestion;
     private TextView textViewQuizScore;
@@ -170,5 +178,8 @@ public class MCQQuizActivity extends AppCompatActivity {
     }
 
 
-
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
 }
