@@ -16,7 +16,6 @@ public class User {
                 int countPoints) {
         this.name = name;
         this.username = username;
-        this.registerDate = registerDate;
         this.location = location;
         this.countLevels = countLevels;
         this.countPoints = countPoints;
