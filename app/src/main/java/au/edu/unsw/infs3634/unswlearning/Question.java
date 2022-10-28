@@ -3,19 +3,18 @@ package au.edu.unsw.infs3634.unswlearning;
 public class Question {
     private int id;
     private String region;
-    private int level;
     private String textQuestion;
     private String answer;
 
     //Constructor
-    public Question(int id, String region, String textQuestion, String answer){
+    public Question(){
 
     }
 
-    public Question(int id, String region, int level, String textQuestion, String answer) {
+    public Question(int id, String region, String textQuestion, String answer) {
         this.id = id;
         this.region = region;
-        this.level = level;
+        //this.level = level;
         this.textQuestion = textQuestion;
         this.answer = answer;
     }
@@ -25,9 +24,9 @@ public class Question {
         this.region = region;
     }
 
-    public void setLevel(int level) {
+    /*public void setLevel(int level) {
         this.level = level;
-    }
+    }*/
 
     public void setId(int id) {
         this.id = id;
@@ -46,9 +45,9 @@ public class Question {
         return region;
     }
 
-    public int getLevel() {
+    /*public int getLevel() {
         return level;
-    }
+    }*/
 
     public int getId() {
         return id;
