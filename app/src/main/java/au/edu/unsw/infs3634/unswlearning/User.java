@@ -12,7 +12,7 @@ public class User {
 
     }
 
-    public User(String name, String username, String registerDate, String location, int countLevels,
+    public User(String name, String username, String location, int countLevels,
                 int countPoints) {
         this.name = name;
         this.username = username;
