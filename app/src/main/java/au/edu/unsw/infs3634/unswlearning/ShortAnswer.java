@@ -1,11 +1,13 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 public class ShortAnswer extends Question{
-    private String userAnswer;
-    private ImageView questionImage; //NOT NULL
-    private String questionText;
+        private String userAnswer;
+        private ImageView questionImage; //NOT NULL
+        private String questionText;
 
     //Setter methods
     public void setUserAnswer(String userAnswer) { this.userAnswer = userAnswer; }
