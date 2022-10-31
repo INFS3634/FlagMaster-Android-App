@@ -1,5 +1,6 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -41,13 +43,15 @@ public class MCQQuizActivity extends AppCompatActivity {
     private ColorStateList textColorDefaultRb;
 
     //Track questions and answer
-    private List<MultipleChoiceQuestion> questionList;
+    private ArrayList<MultipleChoiceQuestion> questionListByRegion;
     final int questionCountTotal = 5;
     private MultipleChoiceQuestion currentQuestion;
     private int questionCount;
     private int quizScore;
     private boolean answered;
 
+    //Region question banks chosen
+    public static String regionChosen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +74,32 @@ public class MCQQuizActivity extends AppCompatActivity {
         //Color
         textColorDefaultRb = choiceA.getTextColors();
 
+        //Take the region name from QuizActivity screen
+        Intent intent = getIntent();
+        //prevent app from crashing
+        //if the intent has been passed through successfully
+        if (intent.hasExtra(regionChosen)) {
+            //Get message passed from the MainActivity
+            String message = intent.getStringExtra(regionChosen);
+            //Update text with message
+            quizRegion.setText(regionChosen);
+        }
+
+        //Get question bank
         try {
-            questionList = MCQDatabase.getAllQuestions();
+            //questionList = MCQDatabase.getAllQuestions();
+            //Get set of questions based on user's choice of region
+            ArrayList<MultipleChoiceQuestion> questionListByRegion = MCQDatabase.getQuestionsByRegion(regionChosen);
+            //Create set of questions for each quiz
+            /*for (MultipleChoiceQuestion q: questionList) {
+
+            }*/
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         //Shuffle the question list
-        Collections.shuffle(questionList);
+        Collections.shuffle(questionListByRegion);
         showNextQuestion();
 
         submitButton.setOnClickListener(new View.OnClickListener() {
@@ -112,7 +134,7 @@ public class MCQQuizActivity extends AppCompatActivity {
 
         //only show next question when having questions left
         if (questionCount < questionCountTotal) {
-            currentQuestion = questionList.get(questionCount);
+            currentQuestion = questionListByRegion.get(questionCount);
             textViewQuestion.setText(currentQuestion.getQuestion());
             choiceA.setText(currentQuestion.getChoiceA());
             choiceB.setText(currentQuestion.getChoiceB());

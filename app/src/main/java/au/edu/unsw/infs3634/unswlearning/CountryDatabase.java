@@ -25,6 +25,7 @@ public class CountryDatabase {
                 + "CREATE TABLE COUNTRY ("
                 + "name TEXT PRIMARY KEY"
                 + ", region TEXT NOT NULL"
+                + ", flagURL TEXT NOT NULL"
                 + ", capital TEXT NOT NULL"
                 + ", area FLOAT NOT NULL"
                 + ", population INT NOT NULL)";
@@ -171,6 +172,9 @@ public class CountryDatabase {
         for (String thisStatement: insertStatements) {
             st.execute(thisStatement);
         }
+
+        //PreparedStatement for flagURL
+
 
         st.close();
         conn.close();
