@@ -63,5 +63,13 @@ public class User {
     public int getCountPoints() {
         return countPoints;
     }
+
+    public void addPoints() {
+        this.countPoints += 10;
+    }
+
+    public void addLevelPassed() {
+        this.countLevels += 1;
+    }
 }
 

@@ -2,6 +2,7 @@ package au.edu.unsw.infs3634.unswlearning;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -120,4 +121,27 @@ public class MCQDatabase {
             closeConnection();
             return MCQList;
         }
+    public static ArrayList<MultipleChoiceQuestion> getQuestionsByRegion(String regionChosen) throws SQLException {
+        openConnection();
+
+        Statement st = conn.createStatement();
+
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM MCQ_TABLE WHERE Region = ?");
+        ps.setString(1, regionChosen);
+
+        //Execute the query and get ResultSet of all orders that exist in the database
+        ResultSet rs = ps.executeQuery();
+        ArrayList<MultipleChoiceQuestion> questionByRegion = new ArrayList<>();
+
+        //Add each row in the ResultSet to the countryList
+        while (rs.next()) {
+            questionByRegion.add((MultipleChoiceQuestion) new au.edu.unsw.infs3634.unswlearning.MultipleChoiceQuestion(rs.getInt(1), rs.getString(2),
+                    rs.getString(3), rs.getString(4),
+                    rs.getString(5), rs.getString(6), rs.getString(7),
+                    rs.getString(8)));
+        }
+        st.close();
+        closeConnection();
+        return questionByRegion;
+    }
     }
