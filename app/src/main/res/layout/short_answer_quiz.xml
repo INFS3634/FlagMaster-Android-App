@@ -24,10 +24,9 @@
             android:id="@+id/submitAnswerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="80dp"
             android:text="Submit"
             app:layout_constraintEnd_toEndOf="@+id/userAnswerET"
-            app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toStartOf="@+id/userAnswerET"
             app:layout_constraintTop_toBottomOf="@+id/userAnswerET" />
 
@@ -104,6 +103,14 @@
             android:text="Score: 0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/quizLevelTV" />
+
+        <TextView
+            android:id="@+id/answerFeedbackTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="575dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

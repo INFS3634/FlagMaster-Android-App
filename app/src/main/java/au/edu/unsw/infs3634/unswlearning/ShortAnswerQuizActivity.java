@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 public class ShortAnswerQuizActivity extends AppCompatActivity {
     private TextView quizRegionTV;
