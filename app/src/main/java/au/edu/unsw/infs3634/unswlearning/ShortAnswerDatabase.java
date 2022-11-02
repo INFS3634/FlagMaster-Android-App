@@ -11,7 +11,7 @@ public class ShortAnswerDatabase {
 
     private static final String SHORT_ANSWER_DB_PATH = "jdbc:sqlite:shortanswer.db";
 
-    private Connection conn = null;
+    private static Connection conn = null;
 
     public ShortAnswerDatabase() throws SQLException {
         // Connect to Database
@@ -119,17 +119,17 @@ public class ShortAnswerDatabase {
 
     }
 
-    public void openConnection() throws SQLException {
+    public static void openConnection() throws SQLException {
         conn = DriverManager.getConnection(SHORT_ANSWER_DB_PATH);
     }
 
-    private void closeConnection() throws SQLException {
+    private static void closeConnection() throws SQLException {
         if (conn != null) {
             conn.close();
         }
     }
     
-    public ArrayList<ShortAnswer> getShortAnswers() throws SQLException {
+    public static ArrayList<ShortAnswer> getShortAnswerQuestion() throws SQLException {
         openConnection();
         Statement st = conn.createStatement();
         String query = "SELECT question, answer, image FROM SHORT_ANSWER_QUIZ";
@@ -138,7 +138,7 @@ public class ShortAnswerDatabase {
         ResultSet rs = st.executeQuery(query);
         ArrayList<ShortAnswer> shortAnswerQuizList = new ArrayList<>();
 
-        //Add each row in the ResultSet to the list
+//        //Add each row in the ResultSet to the list
 //        while (rs.next()) {
 //            shortAnswerQuizList.add(new ShortAnswer(rs.getString(1), rs.getString(2),
 //                    rs.getImageView(3)));
