@@ -2,6 +2,7 @@ package au.edu.unsw.infs3634.unswlearning;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -25,7 +26,7 @@ public class CountryDatabase {
                 + "CREATE TABLE COUNTRY ("
                 + "name TEXT PRIMARY KEY"
                 + ", region TEXT NOT NULL"
-                + ", flagURL TEXT NOT NULL"
+                + ", flagAPI TEXT NOT NULL"
                 + ", capital TEXT NOT NULL"
                 + ", area FLOAT NOT NULL"
                 + ", population INT NOT NULL)";

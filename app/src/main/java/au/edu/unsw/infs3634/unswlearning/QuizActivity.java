@@ -27,6 +27,7 @@ public class QuizActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
+        setTitle("Quiz");
         bottomNav = findViewById(R.id.bottomNavigationView);
 
         asiaMap = findViewById(R.id.asiaMap);
@@ -63,8 +64,6 @@ public class QuizActivity extends AppCompatActivity {
 
 
         //https://www.geeksforgeeks.org/how-to-implement-bottom-navigation-with-activities-in-android/
-
-
 
         chooseRegion();
     }

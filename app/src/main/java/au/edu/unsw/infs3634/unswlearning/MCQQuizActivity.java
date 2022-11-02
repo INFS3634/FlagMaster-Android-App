@@ -87,13 +87,8 @@ public class MCQQuizActivity extends AppCompatActivity {
 
         //Get question bank
         try {
-            //questionList = MCQDatabase.getAllQuestions();
             //Get set of questions based on user's choice of region
             ArrayList<MultipleChoiceQuestion> questionListByRegion = MCQDatabase.getQuestionsByRegion(regionChosen);
-            //Create set of questions for each quiz
-            /*for (MultipleChoiceQuestion q: questionList) {
-
-            }*/
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -118,7 +113,6 @@ public class MCQQuizActivity extends AppCompatActivity {
                 }
             }
         });
-
 
     }
 
@@ -196,9 +190,14 @@ public class MCQQuizActivity extends AppCompatActivity {
     }
 
     private void finishQuiz() {
+        //If user gets 5/5 correct answers, add 10 points to Total Points
+        if (quizScore == questionCountTotal) {
+            User currentUser = new User();
+            currentUser.addPoints();
+            currentUser.addLevelPassed();
+        }
         finish();
     }
-
 
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {

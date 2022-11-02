@@ -8,7 +8,7 @@ public class Country {
     private String capital;
     private float area;
     private int population;
-    private ImageView flag;
+    private String flagAPI;
 
     //Constructor
     public Country(){
@@ -44,8 +44,8 @@ public class Country {
         this.population = population;
     }
 
-    public void setFlag(ImageView flag) {
-        this.flag = flag;
+    public void setFlag(String flagAPI) {
+        this.flagAPI = flagAPI;
     }
 
     //Getter methods
@@ -69,7 +69,7 @@ public class Country {
         return this.population;
     }
 
-    public ImageView getFlag() {
-        return flag;
+    public String getFlagAPI() {
+        return this.flagAPI;
     }
 }
