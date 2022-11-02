@@ -5,12 +5,11 @@ public class MultipleChoiceQuestion extends Question {
     private String choiceB;
     private String choiceC;
     private String choiceD;
-    final int level = 1;
 
     //Constructor
-    public MultipleChoiceQuestion(int id, String region, int level, String textQuestion, String answer,
+    public MultipleChoiceQuestion(int id, String region, String textQuestion, String answer,
                                   String choiceA, String choiceB, String choiceC, String choiceD){
-        super(id, region, level, textQuestion, answer);
+        super(id, region, textQuestion, answer);
         this.choiceA = choiceA;
         this.choiceB = choiceB;
         this.choiceC = choiceC;

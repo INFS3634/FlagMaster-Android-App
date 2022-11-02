@@ -5,18 +5,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ShortAnswer extends Question{
-        private String userAnswer;
-        private ImageView questionImage; //NOT NULL
-        private String questionText;
-
+        
+    private String userAnswer;
+    private ImageView questionImage; //NOT NULL
+//Constructor
+    public ShortAnswer(int id, String region, String textQuestion, String answer,
+                       String userAnswer, ImageView questionImage) {
+        super(id, region, textQuestion, answer);
+        this.userAnswer = userAnswer;
+        this.questionImage = questionImage;
+    }
     //Setter methods
     public void setUserAnswer(String userAnswer) { this.userAnswer = userAnswer; }
 
     public void setQuestionImage(ImageView questionImage) {
         this.questionImage = questionImage;
     }
-
-    public void setQuestionText(String questionText) {this.questionText = questionText; }
 
     //Getter methods
     public String getUserAnswer(){
@@ -27,5 +31,4 @@ public class ShortAnswer extends Question{
         return questionImage;
     }
 
-    public String getQuestionText() { return questionText; }
 }

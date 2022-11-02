@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <item
-        android:id="@+id/page_1"
-        android:enabled="true"
-        android:icon="@drawable/explore_icon"
-        android:title="@string/nav_1"
-        app:itemIconSize="20dp"
-        app:showAsAction="always" />
-    <item
-        android:id="@+id/page_2"
+        android:id="@+id/quiz_page"
         android:enabled="true"
         android:icon="@drawable/quiz_icon"
         android:title="@string/nav_2"
@@ -17,7 +11,15 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/page_3"
+        android:id="@+id/learn_page"
+        android:enabled="true"
+        android:icon="@drawable/explore_icon"
+        android:title="@string/nav_1"
+        app:itemIconSize="20dp"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/leaderboard_page"
         android:enabled="true"
         android:icon="@drawable/leaderboard_icon"
         android:title="@string/nav_3"
@@ -25,7 +27,7 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/page_4"
+        android:id="@+id/profile_page"
         android:enabled="true"
         android:icon="@drawable/profile_icon"
         android:title="@string/nav_4"

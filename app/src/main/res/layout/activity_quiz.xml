@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    //Draw a horizontal line at the top of the screen
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="55dp"
+            android:background="#000000" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/africa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Africa"
+        app:layout_constraintEnd_toEndOf="@+id/africaMap"
+        app:layout_constraintStart_toStartOf="@+id/africaMap"
+        app:layout_constraintTop_toBottomOf="@+id/africaMap" />
+
+    <TextView
+        android:id="@+id/europe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Europe"
+        app:layout_constraintEnd_toEndOf="@+id/europeMap"
+        app:layout_constraintStart_toStartOf="@+id/europeMap"
+        app:layout_constraintTop_toBottomOf="@+id/europeMap" />
+
+    <TextView
+        android:id="@+id/asia"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Asia"
+        app:layout_constraintEnd_toEndOf="@+id/asiaMap"
+        app:layout_constraintStart_toStartOf="@+id/asiaMap"
+        app:layout_constraintTop_toBottomOf="@+id/asiaMap" />
+
+    <TextView
+        android:id="@+id/northAmerica"
+        android:layout_width="92dp"
+        android:layout_height="29dp"
+        android:text="North America"
+        app:layout_constraintEnd_toEndOf="@+id/northAmericaMap"
+        app:layout_constraintStart_toStartOf="@+id/northAmericaMap"
+        app:layout_constraintTop_toBottomOf="@+id/northAmericaMap" />
+
+    <ImageView
+        android:id="@+id/africaMap"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:srcCompat="@drawable/africa_map" />
+
+    <ImageView
+        android:id="@+id/asiaMap"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:srcCompat="@drawable/asia_map" />
+
+    <ImageView
+        android:id="@+id/europeMap"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/africa"
+        app:srcCompat="@drawable/europe_map" />
+
+    <ImageView
+        android:id="@+id/northAmericaMap"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/asia"
+        app:srcCompat="@drawable/north_america" />
+
+    <ImageView
+        android:id="@+id/oceaniaMap"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/europe"
+        app:srcCompat="@drawable/oceania_map" />
+
+    <ImageView
+        android:id="@+id/southAmericaMap"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/northAmerica"
+        app:srcCompat="@drawable/south_america" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="140dp"
+        android:text="Learning Quiz"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    //Create Bottom Navigation View
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigationView"
+        android:layout_width="433dp"
+        android:layout_height="54dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:menu="@menu/bottom_navigation_menu">
+        //android:background="@android:color"
+        //app:itemTextColor
+
+    </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+    //Not overlap the bottom navigation
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragment_container"
+        android:name="au.edu.unsw.infs3634.unswlearning.QuizActivity"
+        android:layout_width="407dp"
+        android:layout_height="678dp"
+        android:layout_above="@id/bottomNavigationView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/oceania"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Oceania"
+        app:layout_constraintEnd_toEndOf="@+id/oceaniaMap"
+        app:layout_constraintStart_toStartOf="@+id/oceaniaMap"
+        app:layout_constraintTop_toBottomOf="@+id/oceaniaMap" />
+
+    <TextView
+        android:id="@+id/southAmerica"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="South America"
+        app:layout_constraintEnd_toEndOf="@+id/southAmericaMap"
+        app:layout_constraintStart_toStartOf="@+id/southAmericaMap"
+        app:layout_constraintTop_toBottomOf="@+id/southAmericaMap" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="73dp"
+        android:layout_marginTop="40dp"
+        android:text="Earn more badges by completing more quizzes"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
