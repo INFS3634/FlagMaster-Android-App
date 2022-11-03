@@ -31,6 +31,8 @@ public class ShortAnswerQuizActivity extends AppCompatActivity {
     private boolean answered;
     private int quizScore;
 
+    public static String regionChosen;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,7 +64,7 @@ public class ShortAnswerQuizActivity extends AppCompatActivity {
 
         if (questionCount < totalQuestionCount) {
             currentQuestion = shortAnswerQuestionList.get(questionCount);
-            questionTextTV.setText(currentQuestion.getQuestionText());
+            questionTextTV.setText(currentQuestion.getTextQuestion());
 
             // Set image to question image
             // questionImageIV.setImage(currentQuestion.getQuestionImage());

@@ -129,7 +129,7 @@ public class MCQQuizActivity extends AppCompatActivity {
         //only show next question when having questions left
         if (questionCount < questionCountTotal) {
             currentQuestion = questionListByRegion.get(questionCount);
-            textViewQuestion.setText(currentQuestion.getQuestion());
+            textViewQuestion.setText(currentQuestion.getTextQuestion());
             choiceA.setText(currentQuestion.getChoiceA());
             choiceB.setText(currentQuestion.getChoiceB());
             choiceC.setText(currentQuestion.getChoiceC());

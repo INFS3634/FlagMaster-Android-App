@@ -53,7 +53,7 @@ public class Question {
         return id;
     }
 
-    public String getQuestion() {
+    public String getTextQuestion() {
         return textQuestion;
     }
 

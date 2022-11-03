@@ -6,26 +6,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:background="#0C3B2E">
 
     //Draw a horizontal line at the top of the screen
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="2dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="55dp"
-            android:background="#000000" />
-
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="45dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/star" />
 
     <TextView
         android:id="@+id/africa"
@@ -33,6 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Africa"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="@+id/africaMap"
         app:layout_constraintStart_toStartOf="@+id/africaMap"
         app:layout_constraintTop_toBottomOf="@+id/africaMap" />
@@ -43,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Europe"
+        android:textColor="#ffff"
         app:layout_constraintEnd_toEndOf="@+id/europeMap"
         app:layout_constraintStart_toStartOf="@+id/europeMap"
         app:layout_constraintTop_toBottomOf="@+id/europeMap" />
@@ -53,15 +49,29 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Asia"
+        android:textColor="#ffff"
         app:layout_constraintEnd_toEndOf="@+id/asiaMap"
         app:layout_constraintStart_toStartOf="@+id/asiaMap"
         app:layout_constraintTop_toBottomOf="@+id/asiaMap" />
 
     <TextView
+        android:id="@+id/countQuiz"
+        android:layout_width="40dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="22dp"
+        android:text="Quiz"
+        android:textColor="#ffba00"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/northAmerica"
         android:layout_width="92dp"
         android:layout_height="29dp"
+        android:layout_marginTop="10dp"
         android:text="North America"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="@+id/northAmericaMap"
         app:layout_constraintStart_toStartOf="@+id/northAmericaMap"
         app:layout_constraintTop_toBottomOf="@+id/northAmericaMap" />
@@ -120,7 +130,7 @@
         android:id="@+id/southAmericaMap"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/northAmerica"
@@ -133,7 +143,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="140dp"
         android:text="Learning Quiz"
-        android:textColor="#000000"
+        android:textColor="#ffff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -154,14 +164,32 @@
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
     //Not overlap the bottom navigation
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragment_container"
         android:name="au.edu.unsw.infs3634.unswlearning.QuizActivity"
-        android:layout_width="407dp"
-        android:layout_height="678dp"
+        android:layout_width="410dp"
+        android:layout_height="677dp"
         android:layout_above="@id/bottomNavigationView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="188dp"
+        tools:layout_editor_absoluteY="22dp">
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="2dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="55dp"
+            android:background="#ffffff" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/oceania"
@@ -169,6 +197,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Oceania"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="@+id/oceaniaMap"
         app:layout_constraintStart_toStartOf="@+id/oceaniaMap"
         app:layout_constraintTop_toBottomOf="@+id/oceaniaMap" />
@@ -179,6 +208,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="South America"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="@+id/southAmericaMap"
         app:layout_constraintStart_toStartOf="@+id/southAmericaMap"
         app:layout_constraintTop_toBottomOf="@+id/southAmericaMap" />
@@ -187,12 +217,23 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="73dp"
+        android:layout_marginStart="60dp"
         android:layout_marginTop="40dp"
         android:text="Earn more badges by completing more quizzes"
+        android:textColor="#ffffff"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
+    <TextView
+        android:id="@+id/countPoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="60dp"
+        android:text="Point"
+        android:textColor="#ffba00"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
