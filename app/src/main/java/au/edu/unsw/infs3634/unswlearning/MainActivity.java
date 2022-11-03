@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.short_answer_quiz);
+        setContentView(R.layout.activity_main);
 
         Button startButton = findViewById(R.id.startButton);
 

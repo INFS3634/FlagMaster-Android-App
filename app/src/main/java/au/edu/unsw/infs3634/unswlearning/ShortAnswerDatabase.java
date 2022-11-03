@@ -2,6 +2,7 @@ package au.edu.unsw.infs3634.unswlearning;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -138,15 +139,39 @@ public class ShortAnswerDatabase {
         ResultSet rs = st.executeQuery(query);
         ArrayList<ShortAnswer> shortAnswerQuizList = new ArrayList<>();
 
-//        //Add each row in the ResultSet to the list
-//        while (rs.next()) {
-//            shortAnswerQuizList.add(new ShortAnswer(rs.getString(1), rs.getString(2),
-//                    rs.getImageView(3)));
-//        }
+        //Add each row in the ResultSet to the list
+        while (rs.next()) {
+            shortAnswerQuizList.add(new ShortAnswer(rs.getInt(1), rs.getString(2),
+                    rs.getString(2), rs.getString(4)));
+        }
         
         st.close();
         closeConnection();
         return shortAnswerQuizList;
+    }
+
+    public static ArrayList<ShortAnswer> getShortAnswerQuestionByRegion(String regionChosen)
+            throws SQLException {
+        openConnection();
+        Statement st = conn.createStatement();
+        PreparedStatement ps = conn.prepareStatement("SELECT * FROM HARD_QUIZ WHERE Region = ?");
+        ps.setString(1, regionChosen);
+
+        ResultSet rs = ps.executeQuery();
+        ArrayList<ShortAnswer> shortAnswerQuestionByRegion = new ArrayList<>();
+
+        //Add each row in the ResultSet to the countryList
+        while (rs.next()) {
+            shortAnswerQuestionByRegion.add((ShortAnswer)
+                    new au.edu.unsw.infs3634.unswlearning.ShortAnswer(rs.getInt(1),
+                            rs.getString(2), rs.getString(3), rs.getString(4),
+                            rs.getString(5), rs.getString(6), rs.getString(7),
+                            rs.getString(8)));
+        }
+        st.close();
+        closeConnection();
+
+        return shortAnswerQuestionByRegion;
     }
 
 }
