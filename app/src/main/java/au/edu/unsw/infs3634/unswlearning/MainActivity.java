@@ -28,11 +28,4 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-    /*public void launchQuizActivity() {
-        //refer when switching screen
-        Intent intent = new Intent(MainActivity.this, QuizActivity.class); //refer to the current activity in main
-        //start new activity
-        startActivity(intent); //call variable intent
-    }*/
 }

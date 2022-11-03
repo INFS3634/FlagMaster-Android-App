@@ -3,7 +3,24 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-
+        <entry key="app/src/main/res/drawable/badge_circle.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/circle.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/square_box.xml" value="0.144" />
+        <entry key="app/src/main/res/layout/activity_bottom_navigation.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_learn.xml" value="0.30885416666666665" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.17131753414311215" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.27534306302983697" />
+        <entry key="app/src/main/res/layout/activity_quiz.xml" value="0.34846625766871164" />
+        <entry key="app/src/main/res/layout/easy_quiz.xml" value="0.27006822481777715" />
+        <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.5749557495117188" />
+        <entry key="app/src/main/res/layout/fragment_quiz.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/quiz_home_page.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/quiz_level_popup.xml" value="0.22541503906249993" />
+        <entry key="app/src/main/res/layout/short_answer_quiz.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/user_profile.xml" value="0.25831298828125" />
+        <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />
       </map>
     </option>
   </component>
