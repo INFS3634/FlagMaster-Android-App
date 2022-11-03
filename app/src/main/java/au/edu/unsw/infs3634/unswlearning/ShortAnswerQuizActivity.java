@@ -3,6 +3,7 @@ package au.edu.unsw.infs3634.unswlearning;
 import static java.util.Arrays.*;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -30,6 +31,7 @@ public class ShortAnswerQuizActivity extends AppCompatActivity {
     private ImageView questionImageIV;
     private EditText userAnswerET;
     private Button submitAnswerButton;
+    private TextView answerFeedbackTV;
 
     private List<ShortAnswer> shortAnswerQuestionList;
     final int totalQuestionCount = 5;
@@ -54,6 +56,7 @@ public class ShortAnswerQuizActivity extends AppCompatActivity {
         questionImageIV = findViewById(R.id.questionImageIV);
         userAnswerET = findViewById(R.id.userAnswerET);
         submitAnswerButton = findViewById(R.id.submitAnswerButton);
+        answerFeedbackTV = findViewById(R.id.answerFeedbackTV);
 
         //Take the region name from QuizActivity screen
         Intent intent = getIntent();
@@ -137,7 +140,16 @@ public class ShortAnswerQuizActivity extends AppCompatActivity {
     }
 
     private void showCorrectAnswer() {
+        String correctAnswer = currentQuestion.getAnswer();
+        answerFeedbackTV.setText("The correct answer is " + correctAnswer);
+        answerFeedbackTV.setTextColor(Color.RED);
 
+        //Handle submit button
+        if (questionCount < questionCount) {
+            submitAnswerButton.setText("Next");
+        } else {
+            submitAnswerButton.setText("FINISH");
+        }
     }
 
     private void finishQuiz() {
