@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -14,12 +12,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class MCQQuizActivity extends AppCompatActivity {
 
@@ -56,13 +52,12 @@ public class MCQQuizActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.easy_quiz);
+        setContentView(R.layout.mcq_quiz);
 
         //Assign design attributes
         quizRegion = findViewById(R.id.quizRegion);
         textViewQuestion = findViewById(R.id.textQuestion);
         textViewQuizScore = findViewById(R.id.quizScore);
-        textViewQuizLevel = findViewById(R.id.quizLevel);
         textViewQuestionCount = findViewById(R.id.questionCount);
         rbGroup = findViewById(R.id.rbGroup);
         choiceA = findViewById(R.id.choiceA);

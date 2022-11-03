@@ -2,15 +2,9 @@ package au.edu.unsw.infs3634.unswlearning;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.MotionEvent;
+
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,12 +27,14 @@ public class QuizActivity extends AppCompatActivity {
     private String regionChosen;
     private String quizLevel;
 
+    Intent intent = getIntent();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
-        setTitle("Quiz");
-        bottomNav = findViewById(R.id.bottomNavigationView);
+
+        //bottomNav = findViewById(R.id.bottomNavigationView);
 
         asiaMap = findViewById(R.id.asiaMap);
         africaMap = findViewById(R.id.africaMap);
@@ -51,7 +47,7 @@ public class QuizActivity extends AppCompatActivity {
         bottomNav.setSelectedItemId(R.id.quiz_page);
 
         //Perform item selected listener
-        bottomNav.setOnNavigationItemSelectedListener( new BottomNavigationView.OnNavigationItemSelectedListener() {
+        /*bottomNav.setOnNavigationItemSelectedListener( new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(MenuItem item) {
 
@@ -70,7 +66,7 @@ public class QuizActivity extends AppCompatActivity {
                 }
                 return false;
             }
-            });
+            });*/
 
         //Choose Region to learn
         chooseRegion();

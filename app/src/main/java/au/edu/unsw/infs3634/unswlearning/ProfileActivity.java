@@ -3,6 +3,7 @@ package au.edu.unsw.infs3634.unswlearning;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +27,10 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView southAmericaBadge;
     private ImageView oceaniaBadge;
 
+    //Edit profile
+    private ImageView editButton;
+    private TextView editName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,7 +41,7 @@ public class ProfileActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         userLocation = findViewById(R.id.userLocation);
         countLevelPassed = findViewById(R.id.countLevelPassed);
-        countPoints = findViewById(R.id.countPoints);
+        countPoints = findViewById(R.id.countTotalPoints);
         africaBadge = findViewById(R.id.africaBadge);
         asiaBadge = findViewById(R.id.asiaBadge);
         europeBadge = findViewById(R.id.europeBadge);
@@ -45,6 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
         oceaniaBadge = findViewById(R.id.oceaniaBadge);
         //Bottom Navigation View
         bottomNav = findViewById(R.id.bottomNavigationView);
+        editButton = findViewById(R.id.editButton);
 
         //Create a new user (example)
         User user = new User("Paul Ramos", "paul_ramos_01", "Spain", 2, 100);
@@ -53,8 +59,8 @@ public class ProfileActivity extends AppCompatActivity {
         name.setText(user.getName());
         username.setText(user.getUsername());
         userLocation.setText(user.getLocation());
-        countLevelPassed.setText(user.getCountLevels() + " Levels Passed");
-        countPoints.setText(user.getCountPoints() + " Points Earned");
+        countLevelPassed.setText(user.getCountLevels());
+        countPoints.setText(user.getCountPoints());
 
         //Set up bottom navigation bar
         bottomNav.setSelectedItemId(R.id.profile_page);
@@ -81,8 +87,20 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        //Edit profile
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editProfile();
+            }
+        });
         //Set up badges
 
+    }
+
+    public void editProfile() {
+        editName.setVisibility(View.VISIBLE);
+        name.setVisibility(View.INVISIBLE);
     }
 }
     /*@Override
