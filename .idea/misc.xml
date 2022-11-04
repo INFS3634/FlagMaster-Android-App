@@ -11,14 +11,17 @@
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/ic_notifications_black_24dp.xml" value="0.1645" />
         <entry key="app/src/main/res/drawable/nav_bar_color.xml" value="0.18" />
+        <entry key="app/src/main/res/drawable/selector.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/square_box.xml" value="0.144" />
         <entry key="app/src/main/res/layout/activity_bottom_navigation.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_learn.xml" value="0.30885416666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3186365649048309" />
-        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.14114583333333333" />
+        <entry key="app/src/main/res/layout/activity_main2.xml" value="0.12795308430989583" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.33471043363530584" />
-        <entry key="app/src/main/res/layout/activity_quiz.xml" value="0.36165618896484375" />
+        <entry key="app/src/main/res/layout/activity_quiz.xml" value="0.3066864013671875" />
         <entry key="app/src/main/res/layout/easy_quiz.xml" value="0.27006822481777715" />
+        <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.3098958333333333" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.3098958333333333" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.5749557495117188" />
         <entry key="app/src/main/res/layout/fragment_quiz.xml" value="0.1" />

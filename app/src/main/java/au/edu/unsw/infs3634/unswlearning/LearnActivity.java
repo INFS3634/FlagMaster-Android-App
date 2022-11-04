@@ -16,10 +16,10 @@ public class LearnActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn);
-        bottomNav = findViewById(R.id.bottomNavigationView);
 
+        bottomNav = findViewById(R.id.bottomNavigationView);
         //Set Quiz selected
-        bottomNav.setSelectedItemId(R.id.learn_page);
+        bottomNav.setSelectedItemId(R.id.learn);
 
         //Perform item selected listener
         bottomNav.setOnNavigationItemSelectedListener( new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -28,14 +28,14 @@ public class LearnActivity extends AppCompatActivity {
 
                 //Check which item is selected
                 switch(item.getItemId()) {
-                    case R.id.quiz_page:
-                        startActivity(new Intent(getApplicationContext(), QuizActivity.class));
+                    case R.id.quiz:
+                        startActivity(new Intent(LearnActivity.this, QuizActivity.class));
                         overridePendingTransition(0,0);
                         return true;
-                    case R.id.learn_page:
+                    case R.id.learn:
                         return true;
-                    case R.id.profile_page:
-                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                    case R.id.profile:
+                        startActivity(new Intent(LearnActivity.this, ProfileActivity.class));
                         overridePendingTransition(0,0);
                         return true;
                 }

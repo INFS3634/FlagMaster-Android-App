@@ -63,7 +63,7 @@ public class ProfileActivity extends AppCompatActivity {
         countPoints.setText(user.getCountPoints());
 
         //Set up bottom navigation bar
-        bottomNav.setSelectedItemId(R.id.profile_page);
+        bottomNav.setSelectedItemId(R.id.profile);
 
         //Perform item selected listener
         bottomNav.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -72,15 +72,15 @@ public class ProfileActivity extends AppCompatActivity {
 
                 //Check which item is selected
                 switch (item.getItemId()) {
-                    case R.id.quiz_page:
+                    case R.id.quiz:
                         startActivity(new Intent(getApplicationContext(), QuizActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    case R.id.learn_page:
+                    case R.id.learn:
                         startActivity(new Intent(getApplicationContext(), LearnActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
-                    case R.id.profile_page:
+                    case R.id.profile:
                         return true;
                 }
                 return false;

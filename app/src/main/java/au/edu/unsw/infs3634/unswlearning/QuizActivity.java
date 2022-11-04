@@ -3,17 +3,17 @@ package au.edu.unsw.infs3634.unswlearning;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 //SecondFragment for Quiz page
 public class QuizActivity extends AppCompatActivity {
-
-    BottomNavigationView bottomNav;
 
     //Region maps
     private ImageView asiaMap;
@@ -34,8 +34,6 @@ public class QuizActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quiz);
 
-        //bottomNav = findViewById(R.id.bottomNavigationView);
-
         asiaMap = findViewById(R.id.asiaMap);
         africaMap = findViewById(R.id.africaMap);
         europeMap = findViewById(R.id.europeMap);
@@ -43,30 +41,30 @@ public class QuizActivity extends AppCompatActivity {
         southAmericaMap = findViewById(R.id.southAmericaMap);
         oceaniaMap = findViewById(R.id.oceaniaMap);
 
-        //Set Quiz selected
-        bottomNav.setSelectedItemId(R.id.quiz_page);
+        //Bottom Navigation
+        BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
+        bottomNav.setSelectedItemId(R.id.quiz);
 
         //Perform item selected listener
-        /*bottomNav.setOnNavigationItemSelectedListener( new BottomNavigationView.OnNavigationItemSelectedListener() {
+        bottomNav.setOnNavigationItemSelectedListener( new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public boolean onNavigationItemSelected(MenuItem item) {
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                //Check which item is selected
                 switch(item.getItemId()) {
-                    case R.id.quiz_page:
+                    case R.id.quiz:
                         return true;
-                    case R.id.learn_page:
-                        startActivity(new Intent(getApplicationContext(), LearnActivity.class));
-                        overridePendingTransition(0,0);
+                    case R.id.learn:
+                        startActivity(new Intent(QuizActivity.this, LearnActivity.class));
+                        //overridePendingTransition(0,0);
                         return true;
-                    case R.id.profile_page:
-                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
-                        overridePendingTransition(0,0);
+                    case R.id.profile:
+                        startActivity(new Intent(QuizActivity.this, ProfileActivity.class));
+                        //overridePendingTransition(0,0);
                         return true;
                 }
                 return false;
             }
-            });*/
+            });
 
         //Choose Region to learn
         chooseRegion();
