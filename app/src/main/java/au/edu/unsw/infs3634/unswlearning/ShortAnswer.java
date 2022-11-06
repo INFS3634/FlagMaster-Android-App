@@ -1,9 +1,5 @@
 package au.edu.unsw.infs3634.unswlearning;
 
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

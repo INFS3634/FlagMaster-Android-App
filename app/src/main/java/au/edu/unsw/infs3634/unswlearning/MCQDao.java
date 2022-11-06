@@ -16,9 +16,6 @@ public interface MCQDao {
     @Insert(onConflict = REPLACE)
     void insert(MCQ mcq);
 
-    @Insert(onConflict = REPLACE)
-    void insertQuestionList(ArrayList<MCQ> mcq);
-
     //Delete query
     @Delete
     void delete(MCQ mcq);

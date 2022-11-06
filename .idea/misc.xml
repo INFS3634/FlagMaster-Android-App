@@ -25,11 +25,11 @@
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.5749557495117188" />
         <entry key="app/src/main/res/layout/fragment_quiz.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/mcq_quiz.xml" value="0.31209462483723954" />
+        <entry key="app/src/main/res/layout/mcq_quiz.xml" value="0.38025716145833344" />
         <entry key="app/src/main/res/layout/popup_window.xml" value="0.5684265136718749" />
         <entry key="app/src/main/res/layout/quiz_home_page.xml" value="0.1" />
         <entry key="app/src/main/res/layout/quiz_level_popup.xml" value="0.2869812011718749" />
-        <entry key="app/src/main/res/layout/short_answer_quiz.xml" value="0.15520833333333334" />
+        <entry key="app/src/main/res/layout/short_answer_quiz.xml" value="0.3249367473794402" />
         <entry key="app/src/main/res/layout/user_profile.xml" value="0.25831298828125" />
         <entry key="app/src/main/res/menu/bottom_nav_menu.xml" value="0.22752990722656252" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.1" />

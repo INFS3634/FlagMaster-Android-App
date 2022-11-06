@@ -14,7 +14,7 @@ import java.util.List;
 public interface ShortAnswerDao {
     //Insert query
     @Insert(onConflict = REPLACE)
-    abstract void insert(ShortAnswer shortAnswer);
+    void insert(ShortAnswer shortAnswer);
 
     //Delete query
     @Delete
