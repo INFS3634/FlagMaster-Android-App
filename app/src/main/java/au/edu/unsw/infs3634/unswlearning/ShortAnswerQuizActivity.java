@@ -47,12 +47,6 @@ public class ShortAnswerQuizActivity extends AppCompatActivity {
         userAnswerET = findViewById(R.id.userAnswerET);
         submitAnswerButton = findViewById(R.id.submitAnswerButton);
 
-        try {
-            shortAnswerQuestionList = ShortAnswerDatabase.getShortAnswerQuestion();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
         //Shuffle the question list
         Collections.shuffle(shortAnswerQuestionList);
         showNextQuestion();
@@ -86,10 +80,10 @@ public class ShortAnswerQuizActivity extends AppCompatActivity {
         String userAnswer = userAnswerET.getText().toString();
 
         // Compare userAnswer with the correct answer
-        if (userAnswer == currentQuestion.getUserAnswer()) {
+        /*if (userAnswer == currentQuestion.getUserAnswer()) {
             quizScore++;
             quizScoreTV.setText("Score: " + quizScore);
-        }
+        }*/
 
         showCorrectAnswer();
 

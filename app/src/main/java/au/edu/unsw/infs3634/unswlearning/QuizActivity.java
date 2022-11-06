@@ -1,13 +1,19 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -28,6 +34,12 @@ public class QuizActivity extends AppCompatActivity {
     private String quizLevel;
 
     Intent intent = getIntent();
+
+    //Popup Window
+    private AlertDialog.Builder dialogBuilder;
+    private AlertDialog dialog;
+    private ImageView easyQuiz, hardQuiz;
+    private TextView regionChosenTv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,9 +67,11 @@ public class QuizActivity extends AppCompatActivity {
                         return true;
                     case R.id.learn:
                         startActivity(new Intent(QuizActivity.this, LearnActivity.class));
-                        //overridePendingTransition(0,0);
+                        System.out.println("Learn");
+                        overridePendingTransition(0,0);
                         return true;
                     case R.id.profile:
+                        System.out.println("Profile");
                         startActivity(new Intent(QuizActivity.this, ProfileActivity.class));
                         //overridePendingTransition(0,0);
                         return true;
@@ -68,6 +82,52 @@ public class QuizActivity extends AppCompatActivity {
 
         //Choose Region to learn
         chooseRegion();
+
+    }
+
+    public void createPopupWindow() {
+        dialogBuilder = new AlertDialog.Builder(this);
+        final View popupView = getLayoutInflater().inflate(R.layout.popup_window, null);
+        easyQuiz = popupView.findViewById(R.id.easyQuiz);
+        hardQuiz = popupView.findViewById(R.id.hardQuiz);
+        regionChosenTv = popupView.findViewById(R.id.regionChosen);
+        regionChosenTv.setText(regionChosen);
+
+        dialogBuilder.setView(popupView);
+        dialog = dialogBuilder.create();
+        dialog.show();
+        //Edit dialog
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+
+        lp.copyFrom(dialog.getWindow().getAttributes());
+        lp.width = 800;
+        lp.height = 450;
+        dialog.getWindow().setAttributes(lp);
+        dialog.getWindow().setGravity(Gravity.CENTER_VERTICAL);
+
+        //Navigate to quiz
+        easyQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start your activity
+                System.out.print("easy quiz clicked");
+                Context context = v.getContext();
+                Intent intent = new Intent(context, MCQQuizActivity.class);
+                intent.putExtra(MCQQuizActivity.regionChosen, regionChosen);
+                context.startActivity(intent);
+            }
+        });
+
+
+        hardQuiz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, ShortAnswerQuizActivity.class);
+                intent.putExtra(ShortAnswerQuizActivity.regionChosen, regionChosen);
+                context.startActivity(intent);
+            }
+        });
     }
 
     public void chooseRegion() {
@@ -76,9 +136,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 regionChosen = "Asia";
-                //startActivity(new Intent(QuizActivity.this, Popup.class));
-                Popup popup = new Popup();
-                popup.showPopUpWindow();
+                createPopupWindow();
                 //launchMCQQuizActivity("Asia");
             }
         });
@@ -87,8 +145,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 regionChosen = "Africa";
-                Popup popup = new Popup();
-                popup.showPopUpWindow();
+                createPopupWindow();
                 //launchMCQQuizActivity("Africa");
             }
         });
@@ -97,8 +154,7 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 regionChosen = "Europe";
-                Popup popup = new Popup();
-                popup.showPopUpWindow();
+                createPopupWindow();
                 //launchMCQQuizActivity("Europe");
             }
         });
@@ -107,9 +163,8 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 regionChosen = "North America";
-                Popup popup = new Popup();
-                popup.showPopUpWindow();
-                launchMCQQuizActivity("North America");
+                createPopupWindow();
+                //launchMCQQuizActivity("North America");
             }
         });
         //Choose South America
@@ -117,9 +172,8 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 regionChosen = "South America";
-                Popup popup = new Popup();
-                popup.showPopUpWindow();
-                launchMCQQuizActivity("South America");
+                createPopupWindow();
+                //launchMCQQuizActivity("South America");
             }
         });
         //Choose Oceania
@@ -127,39 +181,22 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 regionChosen = "Oceania";
-                Popup popup = new Popup();
-                popup.showPopUpWindow();
-                chooseQuizLevel(popup);
+                createPopupWindow();
                 //launchMCQQuizActivity("Oceania");
             }
         });
 
-        //Push regionChosen from region map button to MCQQuizActivity
-
     }
 
-    public void chooseQuizLevel(Popup popup) {
-        popup.easyQuiz.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    launchMCQQuizActivity(regionChosen);
-                }
-            });
-
-        popup.mediumQuiz.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    launchShortAnswerActivity(regionChosen);
-                }
-            });
-        }
     public void launchMCQQuizActivity (String regionChosen){
         //refer when switching screen
-        Intent intent = new Intent(QuizActivity.this, MCQQuizActivity.class); //refer to the current activity in main
+        //Intent intent = new Intent(QuizActivity.this, MCQQuizActivity.class); //refer to the current activity in main
         //transport message from MainActivity to DetailActivity
-        intent.putExtra(MCQQuizActivity.regionChosen, regionChosen);
+
         //start new activity
-        startActivity(intent); //call variable intent
+        //startActivity(intent); //call variable intent
+
+
     }
 
     public void launchShortAnswerActivity(String regionChosen){
@@ -169,7 +206,8 @@ public class QuizActivity extends AppCompatActivity {
         intent.putExtra(ShortAnswerQuizActivity.regionChosen, regionChosen);
         //start new activity
         startActivity(intent); //call variable intent
-        }
+    }
+
 
 
 

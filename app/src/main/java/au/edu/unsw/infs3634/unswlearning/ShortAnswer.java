@@ -4,31 +4,73 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ShortAnswer extends Question{
-        
-    private String userAnswer;
-    private ImageView questionImage; //NOT NULL
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity (tableName = "short_answer_question")
+public class ShortAnswer {
+    @PrimaryKey
+    public int id;
+
+    @ColumnInfo
+    public String region;
+
+    @ColumnInfo
+    public String country;
+
+    @ColumnInfo
+    public String textQuestion;
+
+    @ColumnInfo
+    public String answer;
+
 //Constructor
-    public ShortAnswer(int id, String region, String textQuestion, String answer,
-                       String userAnswer, ImageView questionImage) {
-        super(id, region, textQuestion, answer);
-        this.userAnswer = userAnswer;
-        this.questionImage = questionImage;
-    }
-    //Setter methods
-    public void setUserAnswer(String userAnswer) { this.userAnswer = userAnswer; }
-
-    public void setQuestionImage(ImageView questionImage) {
-        this.questionImage = questionImage;
+    ShortAnswer(int id, String region, String country, String textQuestion, String answer) {
+        this.id = id;
+        this.region = region;
+        this.country = country;
+        this.textQuestion = textQuestion;
+        this.answer = answer;
     }
 
-    //Getter methods
-    public String getUserAnswer(){
-        return userAnswer;
+    public int getId() {
+        return id;
     }
 
-    public ImageView getQuestionImage() {
-        return questionImage;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+    public String getTextQuestion() {
+        return textQuestion;
+    }
+
+    public void setTextQuestion(String textQuestion) {
+        this.textQuestion = textQuestion;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
 }

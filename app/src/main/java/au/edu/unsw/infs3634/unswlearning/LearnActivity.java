@@ -35,7 +35,8 @@ public class LearnActivity extends AppCompatActivity {
                     case R.id.learn:
                         return true;
                     case R.id.profile:
-                        startActivity(new Intent(LearnActivity.this, ProfileActivity.class));
+                        startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+                        System.out.println("Heading to Profile Page");
                         overridePendingTransition(0,0);
                         return true;
                 }
