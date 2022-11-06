@@ -16,20 +16,6 @@ public abstract class MCQDatabase extends RoomDatabase {
     //Create database instance
     private static MCQDatabase database;
 
-    public synchronized static MCQDatabase getInstance(Context context) {
-        //Check condition
-        if (database == null) {
-            //When database is null, initialize database
-            database = Room.databaseBuilder(context.getApplicationContext(),
-                            MCQDatabase.class, DATABASE_NAME)
-                    .fallbackToDestructiveMigration()
-                    .allowMainThreadQueries()
-                    .build();
-        }
-        //Return database
-        return database;
-    }
-
     //Create Dao
     public abstract MCQDao mainDao();
 

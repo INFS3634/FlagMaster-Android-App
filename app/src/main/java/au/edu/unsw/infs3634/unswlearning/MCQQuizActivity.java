@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.room.Room;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -22,7 +23,6 @@ import java.util.List;
 public class MCQQuizActivity extends AppCompatActivity{
 
     private TextView quizRegion;
-    private TextView textViewQuestion;
     private TextView textViewQuizScore;
     private TextView textViewQuestionCount;
     private RadioGroup rbGroup;
@@ -36,13 +36,10 @@ public class MCQQuizActivity extends AppCompatActivity{
     private ColorStateList textColorDefaultRb;
 
     //Track questions and answer
-    ArrayList<MultipleChoiceQuestion> questionListByRegion;
-
-    MCQDatabase database = MCQDatabase.getInstance(this);
-    MCQDao mcqDao = database.mainDao();
+    List<MCQ> questionListByRegion;
 
     final int questionCountTotal = 5;
-    private MultipleChoiceQuestion currentQuestion;
+    private MCQ currentQuestion;
     private int questionCount;
     private int quizScore;
     private boolean answered;
@@ -57,7 +54,6 @@ public class MCQQuizActivity extends AppCompatActivity{
 
         //Assign design attributes
         quizRegion = findViewById(R.id.quizRegion);
-        textViewQuestion = findViewById(R.id.textQuestion);
         textViewQuizScore = findViewById(R.id.quizScore);
         textViewQuestionCount = findViewById(R.id.questionCount);
         rbGroup = findViewById(R.id.rbGroup);
@@ -81,8 +77,11 @@ public class MCQQuizActivity extends AppCompatActivity{
             quizRegion.setText(regionChosen);
         }
 
-        //Create database
+        MCQDatabase database = Room.databaseBuilder(getApplicationContext(),
+                MCQDatabase.class, "MCQ_Database").allowMainThreadQueries().build();
         MCQDao mcqDao = database.mainDao();
+
+        //Create database
         mcqDao.insert(new MCQ(1,"South America", "Brazil", "Tanzania","Nigeria","Rwanda","Brazil"));
         mcqDao.insert(new MCQ(2,"South America", "Paraguay", "Suriname","Peru","Chile","Chile"));
         mcqDao.insert(new MCQ(3,"South America", "Argentina", "Uruguay","Escuador","Paraguay","Uruguay"));
@@ -115,7 +114,8 @@ public class MCQQuizActivity extends AppCompatActivity{
         mcqDao.insert(new MCQ(30,"North America", "The Bahamas", "Puerto Ricco","Mexico","Costa Rica","Costa Rica"));
 
         //Get questions by region
-        List<MCQ> questionListByRegion = mcqDao.getQuestionByRegion(regionChosen);
+        questionListByRegion = mcqDao.getQuestionByRegion(regionChosen);
+        System.out.println(questionListByRegion);
 
         //Shuffle the question list
         Collections.shuffle(questionListByRegion);
@@ -153,7 +153,6 @@ public class MCQQuizActivity extends AppCompatActivity{
         //only show next question when having questions left
         if (questionCount < questionCountTotal) {
             currentQuestion = questionListByRegion.get(questionCount);
-            textViewQuestion.setText(currentQuestion.getTextQuestion());
             choiceA.setText(currentQuestion.getChoiceA());
             choiceB.setText(currentQuestion.getChoiceB());
             choiceC.setText(currentQuestion.getChoiceC());

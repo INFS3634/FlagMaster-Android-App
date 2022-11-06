@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="2dp"
         android:layout_marginTop="19dp"
-        android:background="#000000"
+        android:background="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quizRegion" />
 
@@ -93,28 +93,28 @@
 
         <RadioButton
             android:id="@+id/choiceA"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Option 1"
             android:textColor="#fff" />
 
         <RadioButton
             android:id="@+id/choiceC"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Option 3"
             android:textColor="#fff" />
 
         <RadioButton
             android:id="@+id/choiceB"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Option 2"
             android:textColor="#fff" />
 
         <RadioButton
             android:id="@+id/choiceD"
-            android:layout_width="100dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Option 4"
             android:textColor="#fff" />

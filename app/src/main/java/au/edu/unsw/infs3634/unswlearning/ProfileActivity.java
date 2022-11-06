@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -30,6 +31,10 @@ public class ProfileActivity extends AppCompatActivity {
     //Edit profile
     private ImageView editButton;
     private TextView editName;
+    private TextView editUserName;
+    private Button confirmChange;
+    //Create a new user (example)
+    User user = new User("Paul Ramos", "paul_ramos_01", "Spain", 2, 100);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,19 +53,22 @@ public class ProfileActivity extends AppCompatActivity {
         northAmericaBadge = findViewById(R.id.northAmericaBadge);
         southAmericaBadge = findViewById(R.id.southAmericaBadge);
         oceaniaBadge = findViewById(R.id.oceaniaBadge);
+
         //Bottom Navigation View
         bottomNav = findViewById(R.id.bottomNavigationView);
-        editButton = findViewById(R.id.editButton);
 
-        //Create a new user (example)
-        User user = new User("Paul Ramos", "paul_ramos_01", "Spain", 2, 100);
+        //Edit button
+        editButton = findViewById(R.id.editButton);
+        editName = findViewById(R.id.editName);
+        editUserName = findViewById(R.id.editUserName);
+        confirmChange = findViewById(R.id.confirmChange);
 
         //Display user profile
         name.setText(user.getName());
         username.setText(user.getUsername());
         userLocation.setText(user.getLocation());
-        countLevelPassed.setText(user.getCountLevels());
-        countPoints.setText(user.getCountPoints());
+        //countLevelPassed.setText(user.getCountLevels());
+        //countPoints.setText(user.getCountPoints());
 
         //Set up bottom navigation bar
         bottomNav.setSelectedItemId(R.id.profile);
@@ -91,6 +99,7 @@ public class ProfileActivity extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                editButton.setVisibility(View.INVISIBLE);
                 editProfile();
             }
         });
@@ -101,11 +110,23 @@ public class ProfileActivity extends AppCompatActivity {
     public void editProfile() {
         editName.setVisibility(View.VISIBLE);
         name.setVisibility(View.INVISIBLE);
+        editUserName.setVisibility(View.VISIBLE);
+        name.setVisibility(View.INVISIBLE);
+        confirmChange.setVisibility(View.VISIBLE);
+
+        confirmChange.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                user.setName((String) editName.getText());
+                user.setUsername((String) editUserName.getText());
+                confirmChange.setVisibility(View.INVISIBLE);
+                editButton.setVisibility(View.VISIBLE);
+                editName.setVisibility(View.INVISIBLE);
+                name.setVisibility(View.VISIBLE);
+                editUserName.setVisibility(View.INVISIBLE);
+                name.setVisibility(View.VISIBLE);
+            }
+        });
+
     }
 }
-    /*@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        //Inflate the layout for this fragment
-        return inflater.inflate(R.layout.activity_quiz, container, false);
-
-    }*/
