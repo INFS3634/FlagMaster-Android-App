@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -49,4 +50,17 @@ dependencies {
     //Room database
     implementation "androidx.room:room-runtime:2.4.3"
     annotationProcessor "androidx.room:room-compiler:2.4.3"
+
+    //Firebase
+    //Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:31.0.2')
+    //Use Firebase Android BoM to control library versioning
+    //Add the dependency for the Firebase SDK for Google Analytics
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-auth:21.1.0'
+    //Add the dependency for Firebase Authentication
+    implementation 'com.firebaseui:firebase-ui-auth:7.2.0'
+    //Facebook login support
+    implementation 'com.facebook.android:facebook-android-sdk:15.1.0'
+
 }
