@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/quizLevelTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="quizLevel"
+            app:layout_constraintEnd_toEndOf="@+id/quizRegionTV"
+            app:layout_constraintHorizontal_bias="0.485"
+            app:layout_constraintStart_toStartOf="@+id/quizRegionTV"
+            app:layout_constraintTop_toBottomOf="@+id/view3" />
+
+        <Button
+            android:id="@+id/submitAnswerButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="Submit"
+            app:layout_constraintEnd_toEndOf="@+id/userAnswerET"
+            app:layout_constraintStart_toStartOf="@+id/userAnswerET"
+            app:layout_constraintTop_toBottomOf="@+id/userAnswerET" />
+
+        <TextView
+            android:id="@+id/questionTextTV"
+            android:layout_width="127dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="48dp"
+            android:text="Here is the question"
+            app:layout_constraintEnd_toEndOf="@+id/questionCountTV"
+            app:layout_constraintStart_toStartOf="@+id/questionCountTV"
+            app:layout_constraintTop_toBottomOf="@+id/questionCountTV" />
+
+        <ImageView
+            android:id="@+id/questionImageIV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            app:layout_constraintEnd_toEndOf="@+id/questionTextTV"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="@+id/questionTextTV"
+            app:layout_constraintTop_toBottomOf="@+id/questionTextTV"
+            tools:srcCompat="@tools:sample/avatars" />
+
+        <EditText
+            android:id="@+id/userAnswerET"
+            android:layout_width="279dp"
+            android:layout_height="71dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="50dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:text="Insert your answer here"
+            app:layout_constraintBottom_toTopOf="@+id/submitAnswerButton"
+            app:layout_constraintEnd_toEndOf="@+id/questionImageIV"
+            app:layout_constraintHorizontal_bias="0.503"
+            app:layout_constraintStart_toStartOf="@+id/questionImageIV"
+            app:layout_constraintTop_toBottomOf="@+id/questionImageIV" />
+
+        <TextView
+            android:id="@+id/questionCountTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="Question: x/5"
+            app:layout_constraintEnd_toEndOf="@+id/quizLevelTV"
+            app:layout_constraintStart_toStartOf="@+id/quizLevelTV"
+            app:layout_constraintTop_toBottomOf="@+id/quizLevelTV" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="414dp"
+            android:layout_height="80dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.666"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/quizRegionTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="quizRegion"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/quizScoreTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="56dp"
+            android:text="Score: 0"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quizLevelTV" />
+
+        <TextView
+            android:id="@+id/answerFeedbackTV"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="575dp" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

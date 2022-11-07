@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">UNSW Learning</string>
+    <string name="nav_1">Learn</string>
+    <string name="nav_2">Quiz</string>
+    <string name="nav_3">Leaderboard</string>
+    <string name="nav_4">Profile</string>
+    <string name="title_activity_bottom_navigation">BottomNavigationActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
 </resources>

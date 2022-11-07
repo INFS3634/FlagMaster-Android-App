@@ -3,7 +3,6 @@ package au.edu.unsw.infs3634.unswlearning;
 public class User {
     private String name;
     private String username;
-    private String registerDate;
     private String location;
     private int countLevels;
     private int countPoints;
@@ -13,11 +12,10 @@ public class User {
 
     }
 
-    public User(String name, String username, String registerDate, String location, int countLevels,
+    public User(String name, String username, String location, int countLevels,
                 int countPoints) {
         this.name = name;
         this.username = username;
-        this.registerDate = registerDate;
         this.location = location;
         this.countLevels = countLevels;
         this.countPoints = countPoints;
@@ -30,10 +28,6 @@ public class User {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public void setRegisterDate(String registerDate) {
-        this.registerDate = registerDate;
     }
 
     public void setLocation(String location) {
@@ -57,9 +51,6 @@ public class User {
         return username;
     }
 
-    public String getRegisterDate() {
-        return registerDate;
-    }
 
     public String getLocation() {
         return location;
@@ -71,6 +62,14 @@ public class User {
 
     public int getCountPoints() {
         return countPoints;
+    }
+
+    public void addPoints() {
+        this.countPoints += 10;
+    }
+
+    public void addLevelPassed() {
+        this.countLevels += 1;
     }
 }
 
