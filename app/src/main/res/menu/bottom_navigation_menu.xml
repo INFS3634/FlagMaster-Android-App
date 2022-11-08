@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/quiz_page"
+        android:id="@+id/quiz"
         android:enabled="true"
         android:icon="@drawable/quiz_icon"
         android:title="@string/nav_2"
@@ -11,7 +11,7 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/learn_page"
+        android:id="@+id/learn"
         android:enabled="true"
         android:icon="@drawable/explore_icon"
         android:title="@string/nav_1"
@@ -19,15 +19,7 @@
         app:showAsAction="always" />
 
     <item
-        android:id="@+id/leaderboard_page"
-        android:enabled="true"
-        android:icon="@drawable/leaderboard_icon"
-        android:title="@string/nav_3"
-        app:itemIconSize="2dp"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/profile_page"
+        android:id="@+id/profile"
         android:enabled="true"
         android:icon="@drawable/profile_icon"
         android:title="@string/nav_4"

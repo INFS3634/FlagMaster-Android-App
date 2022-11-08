@@ -145,51 +145,24 @@
         android:text="Learning Quiz"
         android:textColor="#ffff"
         android:textSize="20sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     //Create Bottom Navigation View
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
-        android:layout_width="433dp"
-        android:layout_height="54dp"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0"
-        app:menu="@menu/bottom_navigation_menu">
-        //android:background="@android:color"
-        //app:itemTextColor
-
+        app:itemTextColor="@drawable/selector"
+        app:itemIconTint="@drawable/selector"
+        app:menu="@menu/bottom_navigation_menu"
+        >
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
-    //Not overlap the bottom navigation
-
-    <androidx.fragment.app.FragmentContainerView
-        android:id="@+id/fragment_container"
-        android:name="au.edu.unsw.infs3634.unswlearning.QuizActivity"
-        android:layout_width="410dp"
-        android:layout_height="677dp"
-        android:layout_above="@id/bottomNavigationView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="188dp"
-        tools:layout_editor_absoluteY="22dp">
-
-        <View
-            android:layout_width="wrap_content"
-            android:layout_height="2dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="55dp"
-            android:background="#ffffff" />
-
-    </LinearLayout>
 
     <TextView
         android:id="@+id/oceania"

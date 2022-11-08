@@ -1,40 +1,68 @@
 package au.edu.unsw.infs3634.unswlearning;
 
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-public class ShortAnswer extends Question{
+@Entity (tableName = "short_answer_question")
+public class ShortAnswer {
+    @PrimaryKey
+    public int id;
 
-    private String userAnswer;
-    private String questionText;
-    private ImageView questionImage; //NOT NULL
+    @ColumnInfo
+    public String region;
 
-    //Constructor
-    public ShortAnswer(int id, String region, String textQuestion, String answer) {
-        super(id, region, textQuestion, answer);
-        this.userAnswer = userAnswer;
-        this.questionText = questionText;
-        this.questionImage = questionImage;
+    @ColumnInfo
+    public String country;
+
+    @ColumnInfo
+    public String textQuestion;
+
+    @ColumnInfo
+    public String answer;
+
+//Constructor
+    ShortAnswer(int id, String region, String country, String textQuestion, String answer) {
+        this.id = id;
+        this.region = region;
+        this.country = country;
+        this.textQuestion = textQuestion;
+        this.answer = answer;
     }
 
-    public ShortAnswer(int anInt, String rsString1, String string1, String s, String rsString, String string, String userAnswer, String questionText) {
-
+    public int getId() {
+        return id;
     }
 
-    //Setter methods
-    public void setUserAnswer(String userAnswer) { this.userAnswer = userAnswer; }
-
-    public void setQuestionText(String questionText) { this.questionText = questionText; }
-
-    public void setQuestionImage(ImageView questionImage) {
-        this.questionImage = questionImage;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    //Getter methods
-    public String getUserAnswer(){
-        return userAnswer;
+    public String getRegion() {
+        return region;
     }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+    public String getTextQuestion() {
+        return textQuestion;
+    }
+
+    public void setTextQuestion(String textQuestion) {
+        this.textQuestion = textQuestion;
+
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
 
     public String getQuestionText(){
         return questionText;
