@@ -4,50 +4,30 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
-
-public class MainActivity extends AppCompatActivity implements
-        AdapterView.OnItemSelectedListener{
-
-    String[] regions = { "No Filter","Asia", "Africa", "Europe", "Oceania", "South America"};
-
-    private static RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
-    private static RecyclerView recyclerView;
-    private static ArrayList<Country> data;
-    static View.OnClickListener myOnClickListener;
-
-import androidx.fragment.app.Fragment;
-
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+
+/*public class MainActivity extends AppCompatActivity implements
+        AdapterView.OnItemSelectedListener{
+
+    String[] regions = { "No Filter","Asia", "Africa", "Europe", "Oceania", "South America"};
+    */
 
 public class MainActivity extends AppCompatActivity {
     private Button startButton;
@@ -76,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 checkCredentials();
             }
         });
+        /*
 
         //Getting the instance of Spinner and applying OnItemSelectedListener on it
         Spinner spin = (Spinner) findViewById(R.id.spinner);
@@ -92,9 +73,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerVIew);
         recyclerView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
 
         data = new ArrayList<Country>();
         for (int i = 0; i < MyData.nameArray.length; i++) {
@@ -237,7 +215,7 @@ public class MainActivity extends AppCompatActivity {
             String area= data.get(selectedItemPosition).getArea();
             int flag= data.get(selectedItemPosition).getFlag();
 
-            Intent intent=new Intent(MainActivity.this,DetailsActivity.class);
+            Intent intent=new Intent(MainActivity.this, CountryDetailActivity.class);
             intent.putExtra("countryName",countryName);
             intent.putExtra("capitalName",capitalName);
             intent.putExtra("regionName",regionName);
@@ -255,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        */
 
         switchToRegister.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -7,7 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class DetailsActivity extends AppCompatActivity {
+public class CountryDetailActivity extends AppCompatActivity {
+    public static String countryName;
     TextView countryNameTextView,capitalNameTextView,regionNameTextView,populationTextView,areaTextView;
     ImageView flagImageView;
 

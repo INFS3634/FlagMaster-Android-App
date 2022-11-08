@@ -2,11 +2,12 @@ package au.edu.unsw.infs3634.unswlearning;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+
+import au.edu.unsw.infs3634.unswlearning.countryAPI.Country;
 
 public class CountryDatabase {
 

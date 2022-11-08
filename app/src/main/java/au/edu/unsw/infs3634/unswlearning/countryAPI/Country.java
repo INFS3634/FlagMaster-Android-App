@@ -1,14 +1,24 @@
-package au.edu.unsw.infs3634.unswlearning;
+package au.edu.unsw.infs3634.unswlearning.countryAPI;
 
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Country {
+
+
+    @PrimaryKey
+    @NonNull
+    private int id;
+    private String alpha3Code;
     private String name;
     private String region;
     private String capital;
     private float area;
     private int population;
-    private String flagAPI;
 
     //Constructor
     public Country(){
@@ -24,6 +34,14 @@ public class Country {
     }
 
     //Setter methods
+    public String getAlpha3Code() {
+        return alpha3Code;
+    }
+
+    public void setAlpha3Code(String alpha3Code) {
+        this.alpha3Code = alpha3Code;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -44,9 +62,6 @@ public class Country {
         this.population = population;
     }
 
-    public void setFlag(String flagAPI) {
-        this.flagAPI = flagAPI;
-    }
 
     //Getter methods
     public String getName() {
@@ -69,7 +84,12 @@ public class Country {
         return this.population;
     }
 
-    public String getFlagAPI() {
-        return this.flagAPI;
+    public int getId() {
+        return id;
     }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
 }

@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_margin="20dp"
-    tools:context=".DetailsActivity">
+    tools:context=".CountryDetailActivity">
 
     <ImageView
         android:id="@+id/details_activity_imageView"

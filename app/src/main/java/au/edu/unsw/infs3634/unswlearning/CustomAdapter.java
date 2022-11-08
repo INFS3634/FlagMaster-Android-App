@@ -1,26 +1,16 @@
 package au.edu.unsw.infs3634.unswlearning;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import au.edu.unsw.infs3634.unswlearning.countryAPI.Country;
 
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
@@ -36,7 +26,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
         public MyViewHolder(View itemView) {
             super(itemView);
             this.countryName = (TextView) itemView.findViewById(R.id.countryName);
-            this.capital = (TextView) itemView.findViewById(R.id.capital);
+            this.capital = (TextView) itemView.findViewById(R.id.countryCapital);
             this.imageViewFlag = (ImageView) itemView.findViewById(R.id.countryImage);
         }
     }
@@ -49,9 +39,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
     public MyViewHolder onCreateViewHolder(ViewGroup parent,
                                            int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recycler_view_row, parent, false);
+                .inflate(R.layout.country_recycler_view_row, parent, false);
 
-        view.setOnClickListener(MainActivity.myOnClickListener);
+        //view.setOnClickListener(MainActivity.myOnClickListener);
 
         MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
@@ -66,7 +56,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
         countryName.setText(dataSet.get(listPosition).getName());
         capital.setText(dataSet.get(listPosition).getCapital());
-        imageView.setImageResource(dataSet.get(listPosition).getFlag());
+        //imageView.setImageResource(dataSet.get(listPosition).getFlag());
     }
 
     @Override

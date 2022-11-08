@@ -4,11 +4,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
-import static java.util.Arrays.*;
-
-import android.content.Intent;
-import android.graphics.Color;
-import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,22 +15,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-public class ShortAnswerQuizActivity extends AppCompatActivity {
+public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends AppCompatActivity {
     private TextView quizRegionTV;
-    private TextView questionCountTV;
     private TextView quizScoreTV;
     private TextView textQuestionTV;
+    private TextView questionCountTV;
     private ImageView questionImageIV;
     private EditText userAnswerET;
     private Button submitAnswerButton;
     private TextView checkAnswer;
-    private TextView answerFeedbackTV;
 
     private List<ShortAnswer> shortAnswerQuestionListByRegion;
     final int totalQuestionCount = 5;
@@ -60,7 +51,6 @@ public class ShortAnswerQuizActivity extends AppCompatActivity {
         userAnswerET = findViewById(R.id.userAnswerET);
         submitAnswerButton = findViewById(R.id.submitAnswerButton);
         checkAnswer = findViewById(R.id.checkAnswer);
-        answerFeedbackTV = findViewById(R.id.answerFeedbackTV);
 
         //Take the region name from QuizActivity screen
         Intent intent = getIntent();
@@ -75,63 +65,46 @@ public class ShortAnswerQuizActivity extends AppCompatActivity {
 
         //Create ShortAnswer Database
         ShortAnswerDatabase database = Room.databaseBuilder(getApplicationContext(),
-                ShortAnswerDatabase.class, "Short_Answer_Database")
+                        ShortAnswerDatabase.class, "Short_Answer_Database")
                 .allowMainThreadQueries().build();
         ShortAnswerDao shortAnswerDao = database.shortAnswerDao();
 
         //Insert data to database
-        shortAnswerDao.insert(new ShortAnswer(1, "Asia","Iran", "What country is this?", "Iran"));
-        shortAnswerDao.insert(new ShortAnswer(2, "Asia","Japan", "What is the capital of this country?", "Tokyo"));
-        shortAnswerDao.insert(new ShortAnswer(3, "Asia","India", "What country is this?", "India"));
-        shortAnswerDao.insert(new ShortAnswer(4, "Asia","Vietnam", "What is the capital of this country?", "Hanoi"));
-        shortAnswerDao.insert(new ShortAnswer(5, "Asia","Pakistan", "What country is this?", "Pakistan"));
-        shortAnswerDao.insert(new ShortAnswer(6, "Europe","France", "What country is this?", "France"));
-        shortAnswerDao.insert(new ShortAnswer(7, "Europe","Netherlands", "What is the capital of this country?", "Amsterdam"));
-        shortAnswerDao.insert(new ShortAnswer(8, "Europe","Denmark", "What country is this?", "Denmark"));
-        shortAnswerDao.insert(new ShortAnswer(9, "Europe","Greece", "What is the capital of this country?", "Athens"));
-        shortAnswerDao.insert(new ShortAnswer(10, "Europe","Luxembourg", "What country is this?", "Luxembourg"));
-        shortAnswerDao.insert(new ShortAnswer(11, "North America","Mexico", "What country is this?", "Mexico"));
-        shortAnswerDao.insert(new ShortAnswer(12, "North America","Canada", "What is the capital of this country?", "Ottawa"));
-        shortAnswerDao.insert(new ShortAnswer(13, "North America","Cuba", "What country is this?", "Cuba"));
-        shortAnswerDao.insert(new ShortAnswer(14, "North America","Jamaica", "What is the capital of this country?", "Kingston"));
-        shortAnswerDao.insert(new ShortAnswer(15, "North America","The Bahamas", "What country is this?", "The Bahamas"));
-        shortAnswerDao.insert(new ShortAnswer(16, "South America","Colombia", "What country is this?", "Colombia"));
-        shortAnswerDao.insert(new ShortAnswer(17, "South America","Brazil", "What is the capital of this country?", "Brasilia"));
-        shortAnswerDao.insert(new ShortAnswer(18, "South America","Venezuela", "What country is this?", "Venezuela"));
-        shortAnswerDao.insert(new ShortAnswer(19, "South America","Ecuador", "What is the capital of this country?", "Quito"));
-        shortAnswerDao.insert(new ShortAnswer(20, "South America","Argentina", "What country is this?", "Argentina"));
-        shortAnswerDao.insert(new ShortAnswer(21, "Oceania","Fiji", "What country is this?", "Fiji"));
-        shortAnswerDao.insert(new ShortAnswer(22, "Oceania","Fiji", "What is the capital of this country?", "Suva"));
-        shortAnswerDao.insert(new ShortAnswer(23, "Oceania","Solomon Islands", "What country is this?", "Solomon Islands"));
-        shortAnswerDao.insert(new ShortAnswer(24, "Oceania","Marshall Islands", "What country is this?", "Marshall Islands"));
-        shortAnswerDao.insert(new ShortAnswer(25, "Oceania","Vanuatu", "What is the capital of this country?", "Port Vila"));
-        shortAnswerDao.insert(new ShortAnswer(26, "Africa","South Africa", "What country is this?", "South Africa"));
-        shortAnswerDao.insert(new ShortAnswer(27, "Africa","Nigeria", "What is the capital of this country?", "Lagos"));
-        shortAnswerDao.insert(new ShortAnswer(28, "Africa","Zimbabwe", "What country is this?", "Zimbabwe"));
-        shortAnswerDao.insert(new ShortAnswer(29, "Africa","Egypt", "What is the capital of this country?", "Cairo"));
-        shortAnswerDao.insert(new ShortAnswer(30, "Africa","Botswana", "What country is this?", "Botswana"));
+        shortAnswerDao.insert(new ShortAnswer(1, "Asia", "Iran", "What country is this?", "Iran"));
+        shortAnswerDao.insert(new ShortAnswer(2, "Asia", "Japan", "What is the capital of this country?", "Tokyo"));
+        shortAnswerDao.insert(new ShortAnswer(3, "Asia", "India", "What country is this?", "India"));
+        shortAnswerDao.insert(new ShortAnswer(4, "Asia", "Vietnam", "What is the capital of this country?", "Hanoi"));
+        shortAnswerDao.insert(new ShortAnswer(5, "Asia", "Pakistan", "What country is this?", "Pakistan"));
+        shortAnswerDao.insert(new ShortAnswer(6, "Europe", "France", "What country is this?", "France"));
+        shortAnswerDao.insert(new ShortAnswer(7, "Europe", "Netherlands", "What is the capital of this country?", "Amsterdam"));
+        shortAnswerDao.insert(new ShortAnswer(8, "Europe", "Denmark", "What country is this?", "Denmark"));
+        shortAnswerDao.insert(new ShortAnswer(9, "Europe", "Greece", "What is the capital of this country?", "Athens"));
+        shortAnswerDao.insert(new ShortAnswer(10, "Europe", "Luxembourg", "What country is this?", "Luxembourg"));
+        shortAnswerDao.insert(new ShortAnswer(11, "North America", "Mexico", "What country is this?", "Mexico"));
+        shortAnswerDao.insert(new ShortAnswer(12, "North America", "Canada", "What is the capital of this country?", "Ottawa"));
+        shortAnswerDao.insert(new ShortAnswer(13, "North America", "Cuba", "What country is this?", "Cuba"));
+        shortAnswerDao.insert(new ShortAnswer(14, "North America", "Jamaica", "What is the capital of this country?", "Kingston"));
+        shortAnswerDao.insert(new ShortAnswer(15, "North America", "The Bahamas", "What country is this?", "The Bahamas"));
+        shortAnswerDao.insert(new ShortAnswer(16, "South America", "Colombia", "What country is this?", "Colombia"));
+        shortAnswerDao.insert(new ShortAnswer(17, "South America", "Brazil", "What is the capital of this country?", "Brasilia"));
+        shortAnswerDao.insert(new ShortAnswer(18, "South America", "Venezuela", "What country is this?", "Venezuela"));
+        shortAnswerDao.insert(new ShortAnswer(19, "South America", "Ecuador", "What is the capital of this country?", "Quito"));
+        shortAnswerDao.insert(new ShortAnswer(20, "South America", "Argentina", "What country is this?", "Argentina"));
+        shortAnswerDao.insert(new ShortAnswer(21, "Oceania", "Fiji", "What country is this?", "Fiji"));
+        shortAnswerDao.insert(new ShortAnswer(22, "Oceania", "Fiji", "What is the capital of this country?", "Suva"));
+        shortAnswerDao.insert(new ShortAnswer(23, "Oceania", "Solomon Islands", "What country is this?", "Solomon Islands"));
+        shortAnswerDao.insert(new ShortAnswer(24, "Oceania", "Marshall Islands", "What country is this?", "Marshall Islands"));
+        shortAnswerDao.insert(new ShortAnswer(25, "Oceania", "Vanuatu", "What is the capital of this country?", "Port Vila"));
+        shortAnswerDao.insert(new ShortAnswer(26, "Africa", "South Africa", "What country is this?", "South Africa"));
+        shortAnswerDao.insert(new ShortAnswer(27, "Africa", "Nigeria", "What is the capital of this country?", "Lagos"));
+        shortAnswerDao.insert(new ShortAnswer(28, "Africa", "Zimbabwe", "What country is this?", "Zimbabwe"));
+        shortAnswerDao.insert(new ShortAnswer(29, "Africa", "Egypt", "What is the capital of this country?", "Cairo"));
+        shortAnswerDao.insert(new ShortAnswer(30, "Africa", "Botswana", "What country is this?", "Botswana"));
 
         //Get questions by region
         shortAnswerQuestionListByRegion = shortAnswerDao.getQuestionByRegion(regionChosen);
         //Shuffle the question list
         Collections.shuffle(shortAnswerQuestionListByRegion);
-
-            String message = intent.getStringExtra(regionChosen);
-            //Update text with message
-            quizRegionTV.setText(regionChosen);
-        }
-
-        shortAnswerQuestionList = new ArrayList<>();
-
-        // Add all questions and answers to the quiz
-        try {
-            shortAnswerQuestionList = ShortAnswerDatabase.getShortAnswerQuestionByRegion(regionChosen);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        //Shuffle the questions
-        Collections.shuffle(shortAnswerQuestionList);
         showNextQuestion();
 
         String userAnswer = userAnswerET.getText().toString();
@@ -168,8 +141,7 @@ public class ShortAnswerQuizActivity extends AppCompatActivity {
             questionCountTV.setText("Question: " + questionCount + "/" + totalQuestionCount);
             answered = false;
             submitAnswerButton.setText("SUBMIT");
-        }
-        else {
+        } else {
             finishQuiz();
         }
 
@@ -182,24 +154,18 @@ public class ShortAnswerQuizActivity extends AppCompatActivity {
 
         //Compare userAnswer with the correct answer
         if (userAnswer == currentQuestion.getAnswer()) {
-        // check if the answer is correct
-        if (userAnswer.equalsIgnoreCase(currentQuestion.getAnswer())) {
-            quizScore++;
-            quizScoreTV.setText("Score: " + quizScore);
-            checkAnswer.setVisibility(View.VISIBLE);
-            checkAnswer.setText("Nicely done!");
-        } else {
-            checkAnswer.setText("Correct answer is: " + currentQuestion.getAnswer());
-            checkAnswer.setTextColor(Color.RED);
-            checkAnswer.setVisibility(View.VISIBLE);
+            // check if the answer is correct
+            if (userAnswer.equalsIgnoreCase(currentQuestion.getAnswer())) {
+                quizScore++;
+                quizScoreTV.setText("Score: " + quizScore);
+                checkAnswer.setVisibility(View.VISIBLE);
+                checkAnswer.setText("Nicely done!");
+            } else {
+                checkAnswer.setText("Correct answer is: " + currentQuestion.getAnswer());
+                checkAnswer.setTextColor(Color.RED);
+                checkAnswer.setVisibility(View.VISIBLE);
+            }
         }
-    }
-
-    private void showCorrectAnswer() {
-        String correctAnswer = currentQuestion.getAnswer();
-        answerFeedbackTV.setText("The correct answer is " + correctAnswer);
-        answerFeedbackTV.setTextColor(Color.RED);
-
         //Handle submit button
         if (questionCount < questionCount) {
             submitAnswerButton.setText("Next");
@@ -208,13 +174,13 @@ public class ShortAnswerQuizActivity extends AppCompatActivity {
         }
     }
 
-    private void finishQuiz() {
-        //If user gets 5/5 correct answers, add 10 points to Total Points
-        if (quizScore == questionCount) {
-            User currentUser = new User();
-            currentUser.addPoints();
-            currentUser.addLevelPassed();
+        private void finishQuiz () {
+            //If user gets 5/5 correct answers, add 10 points to Total Points
+            if (quizScore == questionCount) {
+                User currentUser = new User();
+                currentUser.addPoints();
+                currentUser.addLevelPassed();
+            }
+            finish();
         }
-        finish();
     }
-}
