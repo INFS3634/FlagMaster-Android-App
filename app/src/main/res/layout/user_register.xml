@@ -9,7 +9,7 @@
     android:background="#0C3B2E">
 
     <TextView
-        android:id="@+id/register"
+        android:id="@+id/registerTv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="144dp"
@@ -35,9 +35,9 @@
         android:paddingBottom="10dp"
         android:textColor="#fff"
         android:textColorHint="#99FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/register"
-        app:layout_constraintStart_toStartOf="@+id/register"
-        app:layout_constraintTop_toBottomOf="@+id/register" />
+        app:layout_constraintEnd_toEndOf="@+id/registerTv"
+        app:layout_constraintStart_toStartOf="@+id/registerTv"
+        app:layout_constraintTop_toBottomOf="@+id/registerTv" />
 
     <EditText
         android:id="@+id/inputEmail"
@@ -54,9 +54,9 @@
         android:paddingBottom="10dp"
         android:textColor="#fff"
         android:textColorHint="#99FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/register"
+        app:layout_constraintEnd_toEndOf="@+id/registerTv"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/register"
+        app:layout_constraintStart_toStartOf="@+id/registerTv"
         app:layout_constraintTop_toBottomOf="@+id/inputUsername" />
 
     <EditText
@@ -74,9 +74,9 @@
         android:paddingBottom="10dp"
         android:textColor="#fff"
         android:textColorHint="#99FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/register"
+        app:layout_constraintEnd_toEndOf="@+id/registerTv"
         app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="@+id/register"
+        app:layout_constraintStart_toStartOf="@+id/registerTv"
         app:layout_constraintTop_toBottomOf="@+id/inputName" />
 
     <EditText
@@ -106,9 +106,9 @@
         android:layout_marginTop="32dp"
         android:text="Register"
         android:textColor="#000000"
-        app:layout_constraintEnd_toEndOf="@+id/register"
+        app:layout_constraintEnd_toEndOf="@+id/registerTv"
         app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toStartOf="@+id/register"
+        app:layout_constraintStart_toStartOf="@+id/registerTv"
         app:layout_constraintTop_toBottomOf="@+id/inputPassword" />
 
     <TextView
@@ -120,11 +120,11 @@
         android:text="Email has been registered"
         android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register"
+        app:layout_constraintTop_toBottomOf="@+id/registerTv"
         tools:textColor="#F44336" />
 
     <TextView
-        android:id="@+id/signInButton"
+        android:id="@+id/switchToLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="268dp"

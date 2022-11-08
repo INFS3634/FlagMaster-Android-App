@@ -8,7 +8,7 @@ import androidx.room.RoomDatabase;
 import java.util.ArrayList;
 
 //Add database entities
-@Database(entities = {MCQ.class}, version = 1)
+@Database(entities = {MCQ.class}, version = 1, exportSchema = false)
 public abstract class MCQDatabase extends RoomDatabase {
 
     //Define database name

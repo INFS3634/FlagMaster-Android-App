@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-@Database(entities = {ShortAnswer.class}, version = 1)
+@Database(entities = {ShortAnswer.class}, version = 1, exportSchema = false)
 public abstract class ShortAnswerDatabase extends RoomDatabase {
 
     //Create Dao

@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class RegisterActivity extends AppCompatActivity {
     private EditText inputName, inputUsername, inputEmail, inputPassword;
     Button registerButton;
+    private TextView switchToLogin;
     private TextView errorMessage;
     //Firebase
     private FirebaseAuth mAuth;
@@ -37,6 +38,7 @@ public class RegisterActivity extends AppCompatActivity {
         inputPassword = findViewById(R.id.inputPassword);
         registerButton = findViewById(R.id.registerButton);
         errorMessage = findViewById(R.id.errorMessage);
+        switchToLogin = findViewById(R.id.switchToLogin);
 
         //Firebase
         mAuth = FirebaseAuth.getInstance();
@@ -47,6 +49,15 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkCredentials();
+            }
+        });
+
+        switchToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegisterActivity.this, MainActivity.class); //refer to the current activity in main
+                //switch to Register screen
+                startActivity(intent);
             }
         });
     }
@@ -78,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+                        mLoadingBar.dismiss();
                         Toast.makeText(RegisterActivity.this, "Your account has been created successfully!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(RegisterActivity.this, QuizActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
