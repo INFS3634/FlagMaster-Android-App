@@ -1,25 +1,32 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class User {
-    private String name;
-    private String username;
-    private String location;
-    private int countLevels;
-    private int countPoints;
+    public String name;
+    public String username;
+    public int count_level;
+    public int count_point;
 
     //Constructor
     public User() {
 
     }
 
-    public User(String name, String username, String location, int countLevels,
-                int countPoints) {
+    public User(String name, String username) {
+        this.name = name;
+        this.username = name;
+    }
+
+    public User(String name, String username, int countLevels, int countPoints) {
         this.name = name;
         this.username = username;
-        this.location = location;
-        this.countLevels = countLevels;
-        this.countPoints = countPoints;
+        this.count_level = countLevels;
+        this.count_point = countPoints;
     }
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    //DatabaseReference usersRef = ref.child("users");
 
     //Setter methods
     public void setName(String name) {
@@ -30,16 +37,12 @@ public class User {
         this.username = username;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
     public void setCountLevels(int countLevels) {
-        this.countLevels = countLevels;
+        this.count_level = countLevels;
     }
 
-    public void setCountPoints(int countPoints) {
-        this.countPoints = countPoints;
+    public void setCountPoint(int countPoints) {
+        this.count_point = countPoints;
     }
 
     //Getter methods
@@ -51,25 +54,31 @@ public class User {
         return username;
     }
 
-
-    public String getLocation() {
-        return location;
+    public int getCountLevel() {
+        return count_level;
     }
 
-    public int getCountLevels() {
-        return countLevels;
-    }
-
-    public int getCountPoints() {
-        return countPoints;
+    public int getCountPoint() {
+        return count_point;
     }
 
     public void addPoints() {
-        this.countPoints += 10;
+        this.count_point += 10;
     }
 
     public void addLevelPassed() {
-        this.countLevels += 1;
+        this.count_level += 1;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "name='" + name + '\'' +
+                ", username='" + username + '\'' +
+                ", count_level=" + count_level +
+                ", count_point=" + count_point +
+                ", database=" + database +
+                '}';
     }
 }
 

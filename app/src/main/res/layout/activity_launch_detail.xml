@@ -1,46 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="#0C3B2E">
+
+    <TextView
+        android:id="@+id/areaTextView"
+        android:layout_width="193dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="108dp"
+        android:background="@drawable/inputbackground2"
+        android:gravity="center"
+        android:text="Area"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="184dp"
+        android:text="Area"
+        android:textColor="#CCFFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/populationTextView" />
+
+    <TextView
+        android:id="@+id/dCountryName6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="156dp"
+        android:text="Population"
+        android:textColor="#CCFFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/capitalNameTextView" />
+
+    <TextView
+        android:id="@+id/populationTextView"
+        android:layout_width="193dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="108dp"
+        android:background="@drawable/inputbackground2"
+        android:gravity="center"
+        android:text="Population"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dCountryName6" />
+
+    <TextView
+        android:id="@+id/capitalNameTextView"
+        android:layout_width="193dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="108dp"
+        android:background="@drawable/inputbackground2"
+        android:gravity="center"
+        android:text="Capital"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dCountryName5" />
+
+    <TextView
+        android:id="@+id/dCountryName5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="172dp"
+        android:text="Capital"
+        android:textColor="#CCFFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/regionNameTextView" />
 
     <ImageView
-        android:id="@+id/launch_activity_imageView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:id="@+id/flagImageView"
+        android:layout_width="206dp"
+        android:layout_height="136dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/countryNameTextView"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/launch_activity_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Name:" />
-
-    <TextView
-        android:id="@+id/launch_activity_region"
+        android:id="@+id/countryNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Region" />
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="176dp"
+        android:text="Name"
+        android:textColor="#fff"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/launch_activity_capital"
+        android:id="@+id/dCountryName3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Capital" />
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="172dp"
+        android:text="Region"
+        android:textColor="#CCFFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/flagImageView" />
 
     <TextView
-        android:id="@+id/launch_activity_area"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Area" />
+        android:id="@+id/regionNameTextView"
+        android:layout_width="193dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="108dp"
+        android:background="@drawable/inputbackground2"
+        android:gravity="center"
+        android:text="Region"
+        android:textColor="#000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dCountryName3" />
 
     <TextView
-        android:id="@+id/population"
+        android:id="@+id/linkWiki"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Population" />
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="45dp"
+        android:text="Explore more from Wikipedia"
+        android:textColor="#FFD53B"
+        android:textSize="18sp"
+        android:linksClickable="true"
+        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        app:layout_constraintTop_toBottomOf="@+id/areaTextView" />
 
-</LinearLayout>
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="50dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="615dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/external_link" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

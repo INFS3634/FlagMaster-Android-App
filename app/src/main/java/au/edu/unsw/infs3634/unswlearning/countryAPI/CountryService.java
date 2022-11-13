@@ -1,15 +1,20 @@
 package au.edu.unsw.infs3634.unswlearning.countryAPI;
 
+import java.util.ArrayList;
+
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface CountryService {
-    //Get information by id
-    @GET("v2/all?fields=name,alpha3Code,capital,population,area,region")
-    Call<CountryLoreResponse> getCountry();
+    //Get all country
+    @GET("v2/all?fields=name,alpha3Code,capital,population,area,region,flag")
+    //Call<CountryLoreResponse> getCountries();
+    Call<ArrayList<Country>> getAllCountries();
 
+    //Get country by name
+    @GET("v2/{name}?fields=name,alpha3Code,capital,population,area,region,flag")
+    Call<ArrayList<Country>> getCountry(@Query("name") String name);
 
-
-    //https://restcountries.com/v3.1/name/japan?fields=name,cca3,capital,population,area,region,languages
-    //https://restcountries.com/v2/all?fields=name,alpha3Code,capital,population,area,region
 }

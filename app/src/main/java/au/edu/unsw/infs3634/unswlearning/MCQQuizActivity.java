@@ -52,7 +52,7 @@ public class MCQQuizActivity extends AppCompatActivity{
         //Assign design attributes
         quizRegion = findViewById(R.id.quizRegion);
         textViewQuizScore = findViewById(R.id.quizScore);
-        textViewQuestionCount = findViewById(R.id.quizLevel);
+        textViewQuestionCount = findViewById(R.id.questionCount);
         rbGroup = findViewById(R.id.rbGroup);
         choiceA = findViewById(R.id.choiceA);
         choiceB = findViewById(R.id.choiceB);
@@ -191,13 +191,13 @@ public class MCQQuizActivity extends AppCompatActivity{
         String option3 = choiceC.getText().toString();
         String option4 = choiceC.getText().toString();*/
 
-        if (correctAnswer == currentQuestion.getChoiceA()) {
+        if (correctAnswer.equals(currentQuestion.getChoiceA())) {
             choiceA.setTextColor(Color.GREEN);
-        } else if (correctAnswer == currentQuestion.getChoiceB()) {
+        } else if (correctAnswer.equals(currentQuestion.getChoiceB())) {
             choiceB.setTextColor(Color.GREEN);
-        } else if (correctAnswer == currentQuestion.getChoiceC()) {
+        } else if (correctAnswer.equals(currentQuestion.getChoiceC())) {
             choiceC.setTextColor(Color.GREEN);
-        } else if (correctAnswer == currentQuestion.getChoiceD()){
+        } else if (correctAnswer.equals(currentQuestion.getChoiceD())){
             choiceD.setTextColor(Color.GREEN);
         }
 

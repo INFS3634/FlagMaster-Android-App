@@ -1,5 +1,6 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,44 +12,52 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 import au.edu.unsw.infs3634.unswlearning.countryAPI.Country;
 
-public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHolder> implements Filterable { //@1:09:00
+public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHolder> implements Filterable {
 
-    private ArrayList<Country> mCountry, mCountryFiltered;
-    private RecyclerViewInterface recyclerViewInterface;
+    private Context mContext;
+    private ArrayList<Country> mCountryList, mCountryFiltered;
+    //private RecyclerViewInterface recyclerViewInterface;
     public static final int SORT_METHOD_NAME = 1;
     public static final int SORT_METHOD_REGION = 2;
 
 
     //CountryAdapter constructor method
-    public CountryAdapter(ArrayList<Country> country, RecyclerViewInterface rvInterface) {
-        mCountry = country;
-        mCountryFiltered = country;
-        recyclerViewInterface = rvInterface;
+    public CountryAdapter(Context mContext, ArrayList<Country> country) {
+        this.mCountryList = country;
+        this.mCountryFiltered = country;
+        this.mContext = mContext;
     }
 
     @NonNull
     @Override
-    public CountryAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.country_recycler_view_row,
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
+        View view = layoutInflater.inflate(R.layout.country_recycler_view_row,
                 parent,false);
-        return new MyViewHolder(view, recyclerViewInterface);
+        return new MyViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CountryAdapter.MyViewHolder holder, int position) {
         //Assign value to each row in RecyclerView based on position of RecyclerView item
         Country country = mCountryFiltered.get(position); // change
-        //holder.setTag(country.getFlag());
         holder.countryName.setText(country.getName());
         holder.countryCapital.setText(country.getCapital());
         holder.countryRegion.setText(country.getRegion());
-        holder.itemView.setTag(country.getId());
+        holder.itemView.setTag(country.getName());
+
+        //Add Glide library to display country flag images
+        Glide.with(holder.itemView)
+                .load("https://countryflagsapi.com/png/" + country.getName() + "/")
+                .into(holder.flag);
     }
 
     @Override
@@ -68,7 +77,7 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
                 //Check user query
                 if (query.isEmpty()) {
                     //if empty, show us exact same list as before
-                    mCountryFiltered = mCountry;
+                    mCountryFiltered = mCountryList;
                 } else {
                     //Create a new ArrayList to add filtered countries
                     ArrayList<Country> filteredList = new ArrayList<>();
@@ -96,24 +105,24 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
         //Handle view items from country_recycler_view_row.xml layout
-        ImageView countryImage;
+        ImageView flag;
         TextView countryName, countryCapital, countryRegion;
 
-        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
+        public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            countryImage = itemView.findViewById(R.id.countryImage);
+            flag = itemView.findViewById(R.id.countryImage);
             countryName = itemView.findViewById(R.id.countryName);
             countryCapital = itemView.findViewById(R.id.countryCapital);
             countryRegion = itemView.findViewById(R.id.countryRegion);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
+            /*itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (recyclerViewInterface != null) {
                         recyclerViewInterface.onItemClick((String) itemView.getTag());
                     }
                 }
-            });
+            });*/
         }
     }
 
@@ -139,8 +148,8 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
 
     //Add the supplied data to the adapter
     public void setData(ArrayList<Country> data) {
-        mCountry.clear();
-        mCountry.addAll(data);
+        mCountryList.clear();
+        mCountryList.addAll(data);
         notifyDataSetChanged();
     }
 }

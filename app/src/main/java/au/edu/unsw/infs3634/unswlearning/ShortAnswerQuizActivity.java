@@ -114,7 +114,7 @@ public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends Ap
             @Override
             public void onClick(View view) {
                 if (!answered) {
-                    if (userAnswer.matches("")) {
+                    if (userAnswer.isEmpty()) {
                         Toast.makeText(ShortAnswerQuizActivity.this, "Please enter your answer", Toast.LENGTH_SHORT).show();
                     } else {
                         checkAnswer();
@@ -138,7 +138,7 @@ public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends Ap
             // questionImageIV.setImage(currentQuestion.getQuestionImage());
 
             questionCount++;
-            questionCountTV.setText("Question: " + questionCount + "/" + totalQuestionCount);
+            //questionCountTV.setText("Question: " + questionCount + "/" + totalQuestionCount);
             answered = false;
             submitAnswerButton.setText("SUBMIT");
         } else {

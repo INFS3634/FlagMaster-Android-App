@@ -33,8 +33,9 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView editName;
     private TextView editUserName;
     private Button confirmChange;
+    private ImageView settingButton;
     //Create a new user (example)
-    User user = new User("Paul Ramos", "paul_ramos_01", "Spain", 2, 100);
+    User user = new User("Paul Ramos", "paul_ramos_01", 2, 100);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,19 +57,22 @@ public class ProfileActivity extends AppCompatActivity {
 
         //Bottom Navigation View
         bottomNav = findViewById(R.id.bottomNavigationView);
+        //Setting
+        settingButton = findViewById(R.id.settingButton);
 
         //Edit button
-        editButton = findViewById(R.id.editButton);
+        /*editButton = findViewById(R.id.editButton);
         editName = findViewById(R.id.editName);
         editUserName = findViewById(R.id.editUserName);
-        confirmChange = findViewById(R.id.confirmChange);
+        confirmChange = findViewById(R.id.confirmChange);*/
 
         //Display user profile
         name.setText(user.getName());
         username.setText(user.getUsername());
-        userLocation.setText(user.getLocation());
         //countLevelPassed.setText(user.getCountLevels());
         //countPoints.setText(user.getCountPoints());
+
+
 
         //Set up bottom navigation bar
         bottomNav.setSelectedItemId(R.id.profile);
@@ -96,15 +100,29 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
         //Edit profile
-        editButton.setOnClickListener(new View.OnClickListener() {
+        /*editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 editButton.setVisibility(View.INVISIBLE);
                 editProfile();
             }
+        });*/
+
+        //Setting
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launchSetting();
+            }
         });
         //Set up badges
 
+    }
+
+    public void launchSetting() {
+        Intent intent = new Intent(ProfileActivity.this, SettingActivity.class);
+        //switch to Setting screen
+        startActivity(intent);
     }
 
     public void editProfile() {

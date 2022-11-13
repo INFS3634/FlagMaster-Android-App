@@ -16,7 +16,7 @@
         android:text="New to FlagMaster?"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginButton"
-        tools:textColor="#fff" />
+        tools:textColor="#ffffff" />
 
     <TextView
         android:id="@+id/switchToRegister"
@@ -24,12 +24,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="248dp"
         android:layout_marginTop="29dp"
+        android:clickable="true"
+        android:onClick="onClick"
         android:text="Register here"
         android:textSize="14sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginButton"
-        tools:textColor="#fff" />
+        tools:textColor="#ffffff" />
 
     <Button
         android:id="@+id/startButton"
@@ -67,10 +69,10 @@
 
     <EditText
         android:id="@+id/loginPassword"
-        android:layout_width="278dp"
+        android:layout_width="320dp"
         android:layout_height="48dp"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/inputbackground"
         android:drawableLeft="@android:drawable/ic_lock_idle_lock"
         android:ems="10"
@@ -86,10 +88,11 @@
 
     <EditText
         android:id="@+id/loginEmail"
-        android:layout_width="277dp"
+        android:layout_width="320dp"
         android:layout_height="48dp"
-        android:layout_marginStart="67dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="51dp"
         android:background="@drawable/inputbackground"
         android:drawableLeft="@android:drawable/sym_action_email"
         android:ems="10"
@@ -100,6 +103,8 @@
         android:paddingBottom="10dp"
         android:textColor="#fff"
         android:textColorHint="#99FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.166"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 

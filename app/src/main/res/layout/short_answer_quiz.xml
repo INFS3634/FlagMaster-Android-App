@@ -23,13 +23,13 @@
             android:id="@+id/submitAnswerButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="156dp"
             android:text="SUBMIT"
             android:textColor="#000000"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkAnswer" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
         <TextView
             android:id="@+id/questionLevel"
@@ -144,14 +144,14 @@
             android:id="@+id/checkAnswer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="58dp"
+            android:layout_marginStart="52dp"
             android:layout_marginTop="20dp"
             android:text="Correct Answer"
             android:textColor="#fff"
             android:textSize="18sp"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+            app:layout_constraintTop_toBottomOf="@+id/submitAnswerButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

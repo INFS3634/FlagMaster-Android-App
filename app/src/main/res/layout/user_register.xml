@@ -22,9 +22,11 @@
 
     <EditText
         android:id="@+id/inputName"
-        android:layout_width="277dp"
+        android:layout_width="320dp"
         android:layout_height="48dp"
-        android:layout_marginTop="47dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="51dp"
         android:background="@drawable/inputbackground"
         android:drawableLeft="@drawable/fui_ic_anonymous_white_24dp"
         android:ems="10"
@@ -35,15 +37,16 @@
         android:paddingBottom="10dp"
         android:textColor="#fff"
         android:textColorHint="#99FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/registerTv"
-        app:layout_constraintStart_toStartOf="@+id/registerTv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerTv" />
 
     <EditText
         android:id="@+id/inputEmail"
-        android:layout_width="277dp"
+        android:layout_width="320dp"
         android:layout_height="48dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/inputbackground"
         android:drawableLeft="@android:drawable/sym_action_email"
         android:ems="10"
@@ -55,15 +58,15 @@
         android:textColor="#fff"
         android:textColorHint="#99FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/registerTv"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="@+id/registerTv"
         app:layout_constraintTop_toBottomOf="@+id/inputUsername" />
 
     <EditText
         android:id="@+id/inputUsername"
-        android:layout_width="277dp"
+        android:layout_width="320dp"
         android:layout_height="48dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/inputbackground"
         android:drawableLeft="@drawable/fui_ic_anonymous_white_24dp"
         android:ems="10"
@@ -75,15 +78,15 @@
         android:textColor="#fff"
         android:textColorHint="#99FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/registerTv"
-        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintHorizontal_bias="0.514"
         app:layout_constraintStart_toStartOf="@+id/registerTv"
         app:layout_constraintTop_toBottomOf="@+id/inputName" />
 
     <EditText
         android:id="@+id/inputPassword"
-        android:layout_width="278dp"
+        android:layout_width="320dp"
         android:layout_height="48dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/inputbackground"
         android:drawableLeft="@android:drawable/ic_lock_idle_lock"
         android:ems="10"

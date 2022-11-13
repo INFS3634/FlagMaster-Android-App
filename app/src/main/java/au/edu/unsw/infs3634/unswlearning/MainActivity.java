@@ -1,5 +1,7 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import static android.content.ContentValues.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,6 +12,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -22,6 +25,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 /*public class MainActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener{
@@ -36,12 +40,14 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressDialog mLoadingBar;
     private TextView switchToRegister;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+        setupFirebaseAuth();
+
         startButton = findViewById(R.id.startButton);
         loginEmail = findViewById(R.id.loginEmail);
         loginPassword = findViewById(R.id.loginPassword);
@@ -56,184 +62,6 @@ public class MainActivity extends AppCompatActivity {
                 checkCredentials();
             }
         });
-        /*
-
-        //Getting the instance of Spinner and applying OnItemSelectedListener on it
-        Spinner spin = (Spinner) findViewById(R.id.spinner);
-        spin.setOnItemSelectedListener(this);
-
-        //Creating the ArrayAdapter instance having the country list
-        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,regions);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Setting the ArrayAdapter data on the Spinner
-        spin.setAdapter(aa);
-
-        myOnClickListener = new MyOnClickListener(MainActivity.this);
-
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerVIew);
-        recyclerView.setHasFixedSize(true);
-
-
-        data = new ArrayList<Country>();
-        for (int i = 0; i < MyData.nameArray.length; i++) {
-            data.add(new Country(
-                    MyData.nameArray[i],
-                    MyData.regionArray[i],
-                    MyData.capitalArray[i],
-                    MyData.areaArray[i],
-                    MyData.populationArray[i],
-                    MyData.drawableArray[i]
-            ));
-        }
-
-        adapter = new CustomAdapter(data);
-        recyclerView.setAdapter(adapter);
-    }
-
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-        data.clear();
-        adapter.notifyDataSetChanged();
-        if(regions[position].equals("No Filter")){
-            for (int i = 0; i < MyData.nameArray.length; i++) {
-                data.add(new Country(
-                        MyData.nameArray[i],
-                        MyData.regionArray[i],
-                        MyData.capitalArray[i],
-                        MyData.areaArray[i],
-                        MyData.populationArray[i],
-                        MyData.drawableArray[i]
-                ));
-            }
-            adapter.notifyDataSetChanged();
-        }
-
-        if(regions[position].equals("Asia")){
-            for (int i = 0; i < MyData.nameArray.length; i++) {
-                if(MyData.regionArray[i].equals("Asia")) {
-                    data.add(new Country(
-                            MyData.nameArray[i],
-                            MyData.regionArray[i],
-                            MyData.capitalArray[i],
-                            MyData.areaArray[i],
-                            MyData.populationArray[i],
-                            MyData.drawableArray[i]
-                    ));
-                }
-            }
-            adapter.notifyDataSetChanged();
-        }
-
-        if(regions[position].equals("Africa")){
-            for (int i = 0; i < MyData.nameArray.length; i++) {
-                if(MyData.regionArray[i].equals("Africa")) {
-                    data.add(new Country(
-                            MyData.nameArray[i],
-                            MyData.regionArray[i],
-                            MyData.capitalArray[i],
-                            MyData.areaArray[i],
-                            MyData.populationArray[i],
-                            MyData.drawableArray[i]
-                    ));
-                }
-            }
-            adapter.notifyDataSetChanged();
-        }
-
-        if(regions[position].equals("Europe")){
-            for (int i = 0; i < MyData.nameArray.length; i++) {
-                if(MyData.regionArray[i].equals("Europe")) {
-                    data.add(new Country(
-                            MyData.nameArray[i],
-                            MyData.regionArray[i],
-                            MyData.capitalArray[i],
-                            MyData.areaArray[i],
-                            MyData.populationArray[i],
-                            MyData.drawableArray[i]
-                    ));
-                }
-            }
-            adapter.notifyDataSetChanged();
-        }
-
-        if(regions[position].equals("Oceania")){
-            for (int i = 0; i < MyData.nameArray.length; i++) {
-                if(MyData.regionArray[i].equals("Oceania")) {
-                    data.add(new Country(
-                            MyData.nameArray[i],
-                            MyData.regionArray[i],
-                            MyData.capitalArray[i],
-                            MyData.areaArray[i],
-                            MyData.populationArray[i],
-                            MyData.drawableArray[i]
-                    ));
-                }
-            }
-            adapter.notifyDataSetChanged();
-        }
-
-        if(regions[position].equals("South America")){
-            for (int i = 0; i < MyData.nameArray.length; i++) {
-                if(MyData.regionArray[i].equals("South America")) {
-                    data.add(new Country(
-                            MyData.nameArray[i],
-                            MyData.regionArray[i],
-                            MyData.capitalArray[i],
-                            MyData.areaArray[i],
-                            MyData.populationArray[i],
-                            MyData.drawableArray[i]
-                    ));
-                }
-            }
-            adapter.notifyDataSetChanged();
-        }
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
-
-
-    private class MyOnClickListener implements View.OnClickListener {
-
-        private final Context context;
-
-        private MyOnClickListener(Context context) {
-            this.context = context;
-        }
-
-        @Override
-        public void onClick(View v) {
-            int selectedItemPosition = recyclerView.getChildPosition(v);
-            RecyclerView.ViewHolder viewHolder
-                    = recyclerView.findViewHolderForPosition(selectedItemPosition);
-            String countryName= data.get(selectedItemPosition).getName();
-            String capitalName= data.get(selectedItemPosition).getCapital();
-            String regionName= data.get(selectedItemPosition).getRegion();
-            String population= data.get(selectedItemPosition).getPopulation();
-            String area= data.get(selectedItemPosition).getArea();
-            int flag= data.get(selectedItemPosition).getFlag();
-
-            Intent intent=new Intent(MainActivity.this, CountryDetailActivity.class);
-            intent.putExtra("countryName",countryName);
-            intent.putExtra("capitalName",capitalName);
-            intent.putExtra("regionName",regionName);
-            intent.putExtra("population",population);
-            intent.putExtra("area",area);
-            intent.putExtra("flag",String.valueOf(flag));
-            startActivity(intent);
-        Button startButton = findViewById(R.id.startButton);
-
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("Clicked");
-                launchQuizActivity();
-
-            }
-        });
-        */
 
         switchToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -244,6 +72,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void setupFirebaseAuth() {
+        Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
+
+        mAuth = FirebaseAuth.getInstance();
+
+        mAuthListener = (FirebaseAuth.AuthStateListener) (firebaseAuth) -> {
+            FirebaseUser user = firebaseAuth.getCurrentUser();
+
+            if (user != null) {
+                //User is signed in
+                Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
+            }
+            else {
+                //User is signed out
+                Log.d(TAG, "onAuthStateChanged:signed_out");
+            }
+        };
+    }
+
 
     private void checkCredentials() {
         String email = loginEmail.getText().toString();

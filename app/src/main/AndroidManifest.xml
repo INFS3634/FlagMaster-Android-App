@@ -26,7 +26,14 @@
 
         <activity android:name=".MCQQuizActivity"
             android:exported = "true" />
+
         <activity android:name=".ShortAnswerQuizActivity"
+            android:exported = "true" />
+
+        <activity android:name=".RegisterActivity"
+            android:exported = "true" />
+
+        <activity android:name=".CountryDetailActivity"
             android:exported = "true" />
 
         <activity

@@ -31,9 +31,9 @@ public class LearnActivity extends AppCompatActivity implements RecyclerViewInte
     BottomNavigationView bottomNav;
     private static final String TAG = "LearnActivity";
     //Recycler View
-    private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private CountryAdapter adapter;
+    RecyclerView recyclerView;
+    ArrayList<Country> countryList = new ArrayList<>();
+    CountryAdapter adapter;
 
 
     @Override
@@ -42,13 +42,8 @@ public class LearnActivity extends AppCompatActivity implements RecyclerViewInte
         setContentView(R.layout.activity_learn);
         //Get the handle to RecyclerView
         recyclerView = findViewById(R.id.rvList);
-
-        //Instantiate a linear recycler view layout manager
-        layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
-        //Create an adapter instance with an empty ArrayList of Country objects
-        adapter = new CountryAdapter(new ArrayList<Country>(), this);
+        //Create adapter
+        adapter = new CountryAdapter(this, countryList);
 
         //Implement Retrofit to make API call
         Retrofit retrofit = new Retrofit.Builder()
@@ -58,26 +53,28 @@ public class LearnActivity extends AppCompatActivity implements RecyclerViewInte
 
         //Create object for the service interface
         CountryService service = retrofit.create(CountryService.class);
-        Call<CountryLoreResponse> responseCall = service.getCountry();
-        responseCall.enqueue(new Callback<CountryLoreResponse>() {
+        Call<ArrayList<Country>> responseCall = service.getAllCountries();
+        responseCall.enqueue(new Callback<ArrayList<Country>>() {
             @Override
-            public void onResponse(Call<CountryLoreResponse> call, Response<CountryLoreResponse> response) {
+            public void onResponse(Call<ArrayList<Country>> call, Response<ArrayList<Country>> response) {
                 //Check if it is successful or failed
                 Log.d(TAG, "API success!");
-                List<Country> countryList = response.body().getData();
 
-                //Supply the retrieved data from API to the adapter to be displayed
-                adapter.setData((ArrayList) countryList);
-                adapter.sort(CountryAdapter.SORT_METHOD_NAME);
+                List<Country> countries = response.body();
+
+                for (Country country: countries) {
+                    countryList.add(country);
+                }
+
+                //Display data into RecyclerView
+                PutDataIntoRecyclerView(countryList);
             }
 
             @Override
-            public void onFailure(Call<CountryLoreResponse> call, Throwable t) {
-                System.out.println("API Call Failed!");
+            public void onFailure(Call<ArrayList<Country>> call, Throwable t) {
+
             }
         });
-        //Connect the adapter to the RecyclerView
-        recyclerView.setAdapter(adapter);
 
         //Bottom Navigation
         bottomNav = findViewById(R.id.bottomNavigationView);
@@ -107,6 +104,15 @@ public class LearnActivity extends AppCompatActivity implements RecyclerViewInte
         });
     }
 
+    private void PutDataIntoRecyclerView(ArrayList<Country> countryList) {
+        //Create an adapter instance with an empty ArrayList of Country objects
+        //Instantiate a linear recycler view layout manager
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        //default display by name
+        adapter.sort(CountryAdapter.SORT_METHOD_NAME);
+    }
+
     @Override
     public void onItemClick(String name) {
         launchCountryDetailActivity(name);
@@ -115,7 +121,7 @@ public class LearnActivity extends AppCompatActivity implements RecyclerViewInte
     //Launch country detail page when user taps into items
     private void launchCountryDetailActivity(String name) {
         Intent intent = new Intent(LearnActivity.this, CountryDetailActivity.class);
-        intent.putExtra(CountryDetailActivity.countryName, name);
+        intent.putExtra(CountryDetailActivity.INTENT_MESSAGE, name);
         startActivity(intent);
     }
 

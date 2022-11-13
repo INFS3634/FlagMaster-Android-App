@@ -6,19 +6,41 @@ import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class Country {
-
-
-    @PrimaryKey
-    @NonNull
+    @SerializedName("id")
+    @Expose
     private int id;
+    @SerializedName("alpha3C")
+    @Expose
     private String alpha3Code;
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("region")
+    @Expose
     private String region;
+    @SerializedName("capital")
+    @Expose
     private String capital;
+    @SerializedName("area")
+    @Expose
     private float area;
+    @SerializedName("population")
+    @Expose
     private int population;
+    private String flag;
+
+    public String getFlag() {
+        return flag;
+    }
+
+    public void setFlag(String flag) {
+        flag = 
+        this.flag = flag;
+    }
 
     //Constructor
     public Country(){
@@ -34,8 +56,8 @@ public class Country {
     }
 
     //Setter methods
-    public String getAlpha3Code() {
-        return alpha3Code;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setAlpha3Code(String alpha3Code) {
@@ -64,6 +86,14 @@ public class Country {
 
 
     //Getter methods
+    public int getId() {
+        return id;
+    }
+
+    public String getAlpha3Code() {
+        return alpha3Code;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -84,12 +114,6 @@ public class Country {
         return this.population;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 
 }
