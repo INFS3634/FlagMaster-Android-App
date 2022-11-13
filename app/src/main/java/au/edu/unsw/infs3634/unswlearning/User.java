@@ -4,27 +4,23 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class User {
+    public String user_id;
     public String name;
     public String username;
-    public int count_level;
-    public int count_point;
+    private String email;
 
     //Constructor
     public User() {
 
     }
 
-    public User(String name, String username) {
-        this.name = name;
-        this.username = name;
-    }
-
-    public User(String name, String username, int countLevels, int countPoints) {
+    public User(String user_id, String name, String username, String email) {
+        this.user_id = user_id;
         this.name = name;
         this.username = username;
-        this.count_level = countLevels;
-        this.count_point = countPoints;
+        this.email = email;
     }
+
     FirebaseDatabase database = FirebaseDatabase.getInstance();
     //DatabaseReference usersRef = ref.child("users");
 
@@ -37,13 +33,6 @@ public class User {
         this.username = username;
     }
 
-    public void setCountLevels(int countLevels) {
-        this.count_level = countLevels;
-    }
-
-    public void setCountPoint(int countPoints) {
-        this.count_point = countPoints;
-    }
 
     //Getter methods
     public String getName() {
@@ -54,30 +43,30 @@ public class User {
         return username;
     }
 
-    public int getCountLevel() {
-        return count_level;
+
+    public String getEmail() {
+        return email;
     }
 
-    public int getCountPoint() {
-        return count_point;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void addPoints() {
-        this.count_point += 10;
+    public String getUserID() {
+        return user_id;
     }
 
-    public void addLevelPassed() {
-        this.count_level += 1;
+    public void setUserID(String userID) {
+        this.user_id = userID;
     }
 
     @Override
     public String toString() {
         return "User{" +
-                "name='" + name + '\'' +
+                "user_id='" + user_id + '\'' +
+                ", name='" + name + '\'' +
                 ", username='" + username + '\'' +
-                ", count_level=" + count_level +
-                ", count_point=" + count_point +
-                ", database=" + database +
+                ", email='" + email + '\'' +
                 '}';
     }
 }

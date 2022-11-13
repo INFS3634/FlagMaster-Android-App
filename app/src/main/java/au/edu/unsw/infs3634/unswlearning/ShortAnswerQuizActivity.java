@@ -178,8 +178,8 @@ public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends Ap
             //If user gets 5/5 correct answers, add 10 points to Total Points
             if (quizScore == questionCount) {
                 User currentUser = new User();
-                currentUser.addPoints();
-                currentUser.addLevelPassed();
+                /*currentUser.addPoints();
+                currentUser.addLevelPassed();*/
             }
             finish();
         }

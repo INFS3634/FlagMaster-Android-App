@@ -35,7 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button confirmChange;
     private ImageView settingButton;
     //Create a new user (example)
-    User user = new User("Paul Ramos", "paul_ramos_01", 2, 100);
+    User user = new User("Paul Ramos", "paul_ramos_01", "hi", "test");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

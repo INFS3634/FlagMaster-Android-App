@@ -8,4 +8,8 @@
     <string name="title_quiz">Quiz</string>
     <string name="title_learn">Learn</string>
     <string name="title_profile">Profile</string>
+
+    //Firebase Database field
+    <string name="dbname_users">users</string>
+    <string name="dbname_user_account_setting">user_account_setting</string>
 </resources>
