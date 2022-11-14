@@ -40,7 +40,20 @@ public class FirebaseMethods {
         }
     }
 
-    public boolean checkIfUsernameExists(String username, DataSnapshot datasnapshot) {
+    public void updateUsername(String username) {
+        Log.d(TAG, "updateUsername: updating username to: " + username);
+        databaseReference.child(mContext.getString(R.string.dbname_users))
+                .child(user_id)
+                .child(mContext.getString(R.string.field_username))
+                .setValue(username);
+
+        databaseReference.child(mContext.getString(R.string.dbname_user_account_setting))
+                .child(user_id)
+                .child(mContext.getString(R.string.field_username))
+                .setValue(username);
+    }
+
+    /*public boolean checkIfUsernameExists(String username, DataSnapshot datasnapshot) {
         Log.d(TAG, "checkIfUsernameExists: checking if " + username + " already exists.");
 
         User user = new User();
@@ -58,7 +71,7 @@ public class FirebaseMethods {
             }
         }
         return false;
-    }
+    }*/
 
     //Register a new email and password to Firebase Authentication
     public void registerNewUser(final String email, String password, final String username) {
@@ -89,7 +102,7 @@ public class FirebaseMethods {
 
     }
 
-    public void addNewUser(String name, String username, String email) {
+    public void addNewUser(String name, String username, String email, String password) {
         User user = new User(user_id, name, username, email);
 
         //Insert a new users node to the database
@@ -98,7 +111,7 @@ public class FirebaseMethods {
                 .setValue(user);
 
         //Insert a new user_account_settings to the database
-        UserAccountSettings settings = new UserAccountSettings(username, name, 0, 0, "avatar");
+        UserAccountSettings settings = new UserAccountSettings(username, name, 0, 0, "avatar", password);
         databaseReference.child(mContext.getString(R.string.dbname_user_account_setting))
                 .child(user_id)
                 .setValue(settings);
@@ -152,35 +165,33 @@ public class FirebaseMethods {
                 } catch (NullPointerException e) {
                     Log.e(TAG, "getUserAccountSettings: NullPointerException: " + e.getMessage());
                 }
-                if (ds.getKey().equals(mContext.getString(R.string.dbname_users))) {
-                    Log.d(TAG, "getUserAccountSettings: datasnapshot: " + ds);
-
-                    user.setUsername(
-                            ds.child(user_id)
-                                    .getValue(User.class)
-                                    .getUsername()
-                    );
-                    user.setEmail(
-                            ds.child(user_id)
-                                    .getValue(User.class)
-                                    .getEmail()
-                    );
-                    user.setName(
-                            ds.child(user_id)
-                                    .getValue(User.class)
-                                    .getName()
-                    );
-                    user.setUserID(
-                            ds.child(user_id)
-                                    .getValue(User.class)
-                                    .getUserID()
-                    );
-                    Log.d(TAG, "getUserAccountSettings: retrieved user info: " + user.toString());
-
-                }
-
             }
+            //if the node is users
+            if (ds.getKey().equals(mContext.getString(R.string.dbname_users))) {
+                Log.d(TAG, "getUserAccountSettings: datasnapshot: " + ds);
 
+                user.setUsername(
+                        ds.child(user_id)
+                                .getValue(User.class)
+                                .getUsername()
+                );
+                user.setEmail(
+                        ds.child(user_id)
+                                .getValue(User.class)
+                                .getEmail()
+                );
+                user.setName(
+                        ds.child(user_id)
+                                .getValue(User.class)
+                                .getName()
+                );
+                user.setUserID(
+                        ds.child(user_id)
+                                .getValue(User.class)
+                                .getUserID()
+                );
+                Log.d(TAG, "getUserAccountSettings: retrieved user info: " + user.toString());
+            }
         }
         return new UserSettings(user, settings);
     }

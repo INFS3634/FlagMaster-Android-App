@@ -6,18 +6,20 @@ public class UserAccountSettings {
     private int count_level;
     private int count_point;
     private String avatar;
+    private String password;
 
     //Constructor
     public UserAccountSettings() {
 
     }
 
-    public UserAccountSettings(String username, String name, int count_level, int count_point, String avatar) {
+    public UserAccountSettings(String username, String name, int count_level, int count_point, String avatar, String password) {
         this.username = username;
         this.name = name;
         this.count_level = count_level;
         this.count_point = count_point;
         this.avatar = avatar;
+        this.password = password;
     }
 
     public String getUsername() {
@@ -58,5 +60,13 @@ public class UserAccountSettings {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

@@ -136,28 +136,6 @@ public class ProfileActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    /*public void editProfile() {
-        editName.setVisibility(View.VISIBLE);
-        name.setVisibility(View.INVISIBLE);
-        editUserName.setVisibility(View.VISIBLE);
-        name.setVisibility(View.INVISIBLE);
-        confirmChange.setVisibility(View.VISIBLE);
-
-        confirmChange.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                user.setName((String) editName.getText());
-                user.setUsername((String) editUserName.getText());
-                confirmChange.setVisibility(View.INVISIBLE);
-                editButton.setVisibility(View.VISIBLE);
-                editName.setVisibility(View.INVISIBLE);
-                name.setVisibility(View.VISIBLE);
-                editUserName.setVisibility(View.INVISIBLE);
-                name.setVisibility(View.VISIBLE);
-            }
-        });
-
-    }*/
     //Set up Firebase Auth
     private void setupFirebaseAuth() {
         Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");

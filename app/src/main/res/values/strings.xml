@@ -12,4 +12,5 @@
     //Firebase Database field
     <string name="dbname_users">users</string>
     <string name="dbname_user_account_setting">user_account_setting</string>
+    <string name="field_username">username</string>
 </resources>

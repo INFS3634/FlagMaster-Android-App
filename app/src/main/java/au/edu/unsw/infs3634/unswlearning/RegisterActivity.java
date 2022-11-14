@@ -27,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -118,6 +119,47 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    /*
+    ----------------------------Firebase---------------------------------------------
+     */
+    /**
+     * Check if @param username already exists in the database
+     * @param username
+     */
+    private void checkIfUsernameExists(final String username) {
+        Log.d(TAG, "checkIfUsernameExists: checking if " + username + " already exists");
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        //Use Query database to check username
+        Query query = reference
+                .child(getString(R.string.dbname_users))
+                .orderByChild(getString(R.string.field_username))
+                .equalTo(username);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                //If username already exists
+                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
+                    if (singleSnapshot.exists()) {
+                        Log.d(TAG, "checkIfUsernameExists: FOUND A MATCH: " + singleSnapshot.getValue(User.class).getUsername());
+                        //Auto append random character in the end
+                        append = databaseReference.push().getKey().substring(3, 10);
+                        Log.d(TAG, "onDataChange: username already exists. Appending random string to name: " + append);
+                    }
+                }
+                String mUsername = "";
+                mUsername = username + append;
+                //Add new user to the database
+                firebaseMethods.addNewUser(name, mUsername, email, password);
+                Toast.makeText(mContext, "Register successful", Toast.LENGTH_SHORT).show();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
     private void setupFirebaseAuth() {
         Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
 
@@ -137,19 +179,7 @@ public class RegisterActivity extends AppCompatActivity {
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            //When data is changed in the database
-                            //1st check: Make sure username is already in use
-                            if(firebaseMethods.checkIfUsernameExists(username, dataSnapshot)) {
-                                //If username already in use, auto add random character in the end
-                                append = databaseReference.push().getKey().substring(3,10);
-                                Log.d(TAG, "onDataChange: username already exists. Appending random string to name: " + append);
-                            }
-                            username = username + append;
-                            //Add new user to the database
-                            firebaseMethods.addNewUser(name, username, email);
-                            Toast.makeText(mContext, "Register successful", Toast.LENGTH_SHORT).show();
-                            //Add new user_account_setting to the database
-
+                            checkIfUsernameExists(username);
                         }
 
                         @Override
