@@ -133,16 +133,16 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                //Case 1: User did not change their username
+                //Case 1: User changed their username --> require to check unique username
                 //Compare username in EditTextView and username loaded from database
                 if(!mUserSettings.getUser().getUsername().equals(username)) {
                     checkIfUsernameExists(username);
-
                 }
-                //Case 2: User changed their username --> require to check unique username
-                else {
-
+                //Case 2: User changed their display name
+                else if (!mUserSettings.getUser().getName().equals(displayName)){
+                    mFirebaseMethods.updateDisplayName(displayName);
                 }
+                //Case 3: User changed Firebase Authenticated Email
 
             }
 
@@ -170,7 +170,7 @@ public class SettingActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!snapshot.exists()) {
-                    //add the username
+                    //Update username
                     mFirebaseMethods.updateUsername(username);
                     Toast.makeText(getApplicationContext(), "Saved new username", Toast.LENGTH_SHORT).show();
                 }
@@ -201,7 +201,6 @@ public class SettingActivity extends AppCompatActivity {
         currentPassword.setText(settings.getPassword());
 
     }
-
 
     @Override
     public void onStart() {

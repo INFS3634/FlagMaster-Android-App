@@ -53,6 +53,19 @@ public class FirebaseMethods {
                 .setValue(username);
     }
 
+    public void updateDisplayName(String name) {
+        Log.d(TAG, "updateDisplayName: updating name to: " + name);
+        databaseReference.child(mContext.getString(R.string.dbname_users))
+                .child(user_id)
+                .child(mContext.getString(R.string.field_name))
+                .setValue(name);
+
+        databaseReference.child(mContext.getString(R.string.dbname_user_account_setting))
+                .child(user_id)
+                .child(mContext.getString(R.string.field_name))
+                .setValue(name);
+    }
+
     /*public boolean checkIfUsernameExists(String username, DataSnapshot datasnapshot) {
         Log.d(TAG, "checkIfUsernameExists: checking if " + username + " already exists.");
 
