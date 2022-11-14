@@ -46,7 +46,7 @@ public class FirebaseMethods {
         User user = new User();
 
         //Loop through datasnapshot to check if username exists
-        for (DataSnapshot ds: datasnapshot.child(user_id).getChildren()) {
+        for (DataSnapshot ds : datasnapshot.child(user_id).getChildren()) {
             Log.d(TAG, "checkIfUsernameExists: datasnapshot: " + ds);
 
             //Retrieve username from database
@@ -89,7 +89,7 @@ public class FirebaseMethods {
 
     }
 
-    public void addNewUser(String name, String username, String email){
+    public void addNewUser(String name, String username, String email) {
         User user = new User(user_id, name, username, email);
 
         //Insert a new users node to the database
@@ -103,4 +103,87 @@ public class FirebaseMethods {
                 .child(user_id)
                 .setValue(settings);
     }
+
+    //Retrieve account settings for user
+    public UserSettings getUserSettings(DataSnapshot dataSnapshot) {
+        Log.d(TAG, "Get user account settings: retrieving user account settings from firebase");
+
+        UserAccountSettings settings = new UserAccountSettings();
+        User user = new User();
+
+        for (DataSnapshot ds : dataSnapshot.getChildren()) {
+            //if the node is user_account_setting
+            if (ds.getKey().equals(mContext.getString(R.string.dbname_user_account_setting))) {
+                Log.d(TAG, "getUserAccountSettings: datasnapshot: " + ds);
+
+                try {
+                    //name is in both
+                    settings.setName(
+                            ds.child(user_id)
+                                    .getValue(UserAccountSettings.class)
+                                    .getName()
+                    );
+                    settings.setUsername(
+                            ds.child(user_id)
+                                    .getValue(UserAccountSettings.class)
+                                    .getUsername()
+                    );
+                    settings.setUsername(
+                            ds.child(user_id)
+                                    .getValue(UserAccountSettings.class)
+                                    .getUsername()
+                    );
+                    settings.setCount_level(
+                            ds.child(user_id)
+                                    .getValue(UserAccountSettings.class)
+                                    .getCount_level()
+                    );
+                    settings.setCount_point(
+                            ds.child(user_id)
+                                    .getValue(UserAccountSettings.class)
+                                    .getCount_point()
+                    );
+                    settings.setAvatar(
+                            ds.child(user_id)
+                                    .getValue(UserAccountSettings.class)
+                                    .getAvatar()
+                    );
+                    Log.d(TAG, "getUserAccountSettings: retrieved user_account_setting info: " + settings.toString());
+                } catch (NullPointerException e) {
+                    Log.e(TAG, "getUserAccountSettings: NullPointerException: " + e.getMessage());
+                }
+                if (ds.getKey().equals(mContext.getString(R.string.dbname_users))) {
+                    Log.d(TAG, "getUserAccountSettings: datasnapshot: " + ds);
+
+                    user.setUsername(
+                            ds.child(user_id)
+                                    .getValue(User.class)
+                                    .getUsername()
+                    );
+                    user.setEmail(
+                            ds.child(user_id)
+                                    .getValue(User.class)
+                                    .getEmail()
+                    );
+                    user.setName(
+                            ds.child(user_id)
+                                    .getValue(User.class)
+                                    .getName()
+                    );
+                    user.setUserID(
+                            ds.child(user_id)
+                                    .getValue(User.class)
+                                    .getUserID()
+                    );
+                    Log.d(TAG, "getUserAccountSettings: retrieved user info: " + user.toString());
+
+                }
+
+            }
+
+        }
+        return new UserSettings(user, settings);
+    }
+
+
 }

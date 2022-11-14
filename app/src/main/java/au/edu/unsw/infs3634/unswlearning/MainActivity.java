@@ -20,12 +20,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /*public class MainActivity extends AppCompatActivity implements
         AdapterView.OnItemSelectedListener{
@@ -34,19 +40,26 @@ import com.google.firebase.auth.FirebaseUser;
     */
 
 public class MainActivity extends AppCompatActivity {
+    private Context mContext;
     private Button startButton;
     private EditText loginEmail, loginPassword;
     private Button loginButton;
     private FirebaseAuth mAuth;
     private ProgressDialog mLoadingBar;
     private TextView switchToRegister;
+
+    //Firebase
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference databaseReference;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseMethods firebaseMethods;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setupFirebaseAuth();
+        mContext = this;
 
         startButton = findViewById(R.id.startButton);
         loginEmail = findViewById(R.id.loginEmail);
@@ -75,25 +88,55 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Set up Firebase Auth
     private void setupFirebaseAuth() {
         Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
 
         mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = mFirebaseDatabase.getReference();
 
-        mAuthListener = (FirebaseAuth.AuthStateListener) (firebaseAuth) -> {
-            FirebaseUser user = firebaseAuth.getCurrentUser();
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
 
-            if (user != null) {
-                //User is signed in
-                Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
-            }
-            else {
-                //User is signed out
-                Log.d(TAG, "onAuthStateChanged:signed_out");
+                //Check if user is logged in
+                checkCurrentUser(user);
+
+                if (user != null) {
+                    //User is signed in
+                    Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
+                }
+                else {
+                    //User is signed out
+                    Log.d(TAG, "onAuthStateChanged:signed_out");
+                }
             }
         };
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+        checkCurrentUser(mAuth.getCurrentUser());
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
 
+    private void checkCurrentUser(FirebaseUser user) {
+        Log.d(TAG, "checkCurrentUser: checking if user is logged in.");
+
+        if (user == null) {
+            Intent intent = new Intent(MainActivity.this, QuizActivity.class); //refer to the current activity in main
+            startActivity(intent);
+        }
+    }
 
     private void checkCredentials() {
         String email = loginEmail.getText().toString();
@@ -129,10 +172,4 @@ public class MainActivity extends AppCompatActivity {
         input.requestFocus();
     }
 
-    public void launchQuizActivity() {
-        Intent intent = new Intent(MainActivity.this, QuizActivity.class); //refer to the current activity in main
-        //start new activity
-        System.out.println("Built!");
-        startActivity(intent);
-    }
 }

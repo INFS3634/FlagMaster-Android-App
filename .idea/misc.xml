@@ -16,14 +16,14 @@
         <entry key="app/src/main/res/drawable/nav_bar_color.xml" value="0.18" />
         <entry key="app/src/main/res/drawable/selector.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/square_box.xml" value="0.144" />
-        <entry key="app/src/main/res/layout/account_setting.xml" value="0.32433666284533513" />
+        <entry key="app/src/main/res/layout/account_setting.xml" value="0.25837291772814763" />
         <entry key="app/src/main/res/layout/activity_bottom_navigation.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_launch_detail.xml" value="0.15716857910156246" />
         <entry key="app/src/main/res/layout/activity_learn.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.2871154785156251" />
         <entry key="app/src/main/res/layout/activity_main2.xml" value="0.12795308430989583" />
-        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.2995297695728061" />
-        <entry key="app/src/main/res/layout/activity_quiz.xml" value="0.3066864013671875" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.17419865385014982" />
+        <entry key="app/src/main/res/layout/activity_quiz.xml" value="0.170361328125" />
         <entry key="app/src/main/res/layout/country_recycler_view_row.xml" value="0.5507522583007813" />
         <entry key="app/src/main/res/layout/easy_quiz.xml" value="0.27006822481777715" />
         <entry key="app/src/main/res/layout/fragment_dashboard.xml" value="0.3098958333333333" />
@@ -31,12 +31,12 @@
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.5749557495117188" />
         <entry key="app/src/main/res/layout/fragment_quiz.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/mcq_quiz.xml" value="0.38025716145833344" />
+        <entry key="app/src/main/res/layout/mcq_quiz.xml" value="0.17796834309895843" />
         <entry key="app/src/main/res/layout/popup_window.xml" value="0.5684265136718749" />
         <entry key="app/src/main/res/layout/quiz_home_page.xml" value="0.1" />
         <entry key="app/src/main/res/layout/quiz_level_popup.xml" value="0.2869812011718749" />
         <entry key="app/src/main/res/layout/recycler_view_row.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/short_answer_quiz.xml" value="0.3249367473794402" />
+        <entry key="app/src/main/res/layout/short_answer_quiz.xml" value="0.22159354669584647" />
         <entry key="app/src/main/res/layout/user_login.xml" value="0.2517166137695313" />
         <entry key="app/src/main/res/layout/user_profile.xml" value="0.25831298828125" />
         <entry key="app/src/main/res/layout/user_register.xml" value="0.2463979085286458" />

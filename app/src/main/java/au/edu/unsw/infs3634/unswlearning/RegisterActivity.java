@@ -56,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity {
         setContentView(R.layout.user_register);
 
         //Firebase
+        mContext = getApplicationContext();
         firebaseMethods = new FirebaseMethods(mContext);
         setupFirebaseAuth();
 
