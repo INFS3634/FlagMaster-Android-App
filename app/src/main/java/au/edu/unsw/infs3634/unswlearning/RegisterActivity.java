@@ -16,11 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,8 +24,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
     private Context mContext;
@@ -54,7 +47,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_register);
+        setContentView(R.layout.activity_register);
 
         //Firebase
         mContext = RegisterActivity.this;
@@ -173,7 +166,7 @@ public class RegisterActivity extends AppCompatActivity {
                 firebaseMethods.addNewUser(name, mUsername, email, password);
                 Toast.makeText(mContext, "Register successful", Toast.LENGTH_SHORT).show();
 
-                mAuth.signOut();
+                //mAuth.signOut();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

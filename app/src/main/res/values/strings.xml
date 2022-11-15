@@ -15,6 +15,24 @@
     <string name="field_username">username</string>
     <string name="field_name">name</string>
     <string name="database_url">infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app/</string>
-
+    <string name="about">FlagMaster aims to provide users with a clear and accessible learning platform
+        to learn about different flags and have a diverse understanding of countries’ geography.
+        The application focuses on bringing an interactive, engaging, and personalized way for users
+        to learn flags in the form of gamification, rather than the traditional flag dictionary
+        showing just the listed content. </string>
+    <string name="important">Important: You need an internet connection to use FlagMaster.</string>
+    <string name="instruction1">
+Click the Quiz button in the navigation bar \n
+        --> Choose a continent you wish to be quizzed \n
+        --> Choose the type of quiz you wish to complete.</string>
+    <string name="instruction2">
+Click the Learn button in the navigation bar \n
+        --> Click the icon on the top right corner of the screen to sort countries by name or region \n
+        --> Choose a country you want to get more information.</string>
+    <string name="instruction3">
+Click the Profile button in the navigation bar \n
+        --> Click the Settings button on the top right corner \n
+        --> Edit your details \n
+        --> Save changes.</string>
 
 </resources>

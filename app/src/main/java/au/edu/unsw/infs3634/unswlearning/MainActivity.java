@@ -33,12 +33,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-/*public class MainActivity extends AppCompatActivity implements
-        AdapterView.OnItemSelectedListener{
-
-    String[] regions = { "No Filter","Asia", "Africa", "Europe", "Oceania", "South America"};
-    */
-
 public class MainActivity extends AppCompatActivity {
     private Context mContext;
     private Button startButton;
@@ -102,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
 
                 //Check if user is logged in
-                checkCurrentUser(user);
+                //checkCurrentUser(user);
                 if (user != null) {
                     //User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
@@ -118,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-        checkCurrentUser(mAuth.getCurrentUser());
+        //checkCurrentUser(mAuth.getCurrentUser());
     }
     @Override
     public void onStop() {
@@ -128,14 +122,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void checkCurrentUser(FirebaseUser user) {
+    /*private void checkCurrentUser(FirebaseUser user) {
         Log.d(TAG, "checkCurrentUser: checking if user is logged in.");
 
         if (user == null) {
             Intent intent = new Intent(MainActivity.this, QuizActivity.class); //refer to the current activity in main
             startActivity(intent);
         }
-    }
+    }*/
 
     private void checkCredentials() {
         String email = loginEmail.getText().toString();
@@ -158,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         mLoadingBar.dismiss();
                         Intent intent = new Intent(MainActivity.this, QuizActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                     }
                 }

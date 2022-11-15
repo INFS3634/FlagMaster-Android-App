@@ -201,10 +201,6 @@ public class MCQQuizActivity extends AppCompatActivity{
         choiceD.setTextColor(Color.RED);
 
         String correctAnswer = currentQuestion.getAnswer();
-        /*String option1 = choiceA.getText().toString();
-        String option2 = choiceB.getText().toString();
-        String option3 = choiceC.getText().toString();
-        String option4 = choiceC.getText().toString();*/
 
         if (correctAnswer.equals(currentQuestion.getChoiceA())) {
             choiceA.setTextColor(Color.GREEN);

@@ -3,6 +3,7 @@ package au.edu.unsw.infs3634.unswlearning;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ public class SettingActivity extends AppCompatActivity {
     private Button saveChange;
     private TextView changePhoto;
     private ImageView currentPhoto;
+    private TextView helpButton;
 
     //Firebase
     private Context mContext;
@@ -47,7 +49,7 @@ public class SettingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.account_setting);
+        setContentView(R.layout.activity_setting);
 
         currentName = findViewById(R.id.currentName);
         currentUsername = findViewById(R.id.currentUsername);
@@ -56,6 +58,7 @@ public class SettingActivity extends AppCompatActivity {
         saveChange = findViewById(R.id.saveChange);
         changePhoto = findViewById(R.id.changePhoto);
         currentPhoto = findViewById(R.id.currentPhoto);
+        helpButton = findViewById(R.id.helpButton);
 
         //Firebase
         mContext = getApplicationContext();
@@ -76,6 +79,17 @@ public class SettingActivity extends AppCompatActivity {
             }
         });
 
+        /**
+         * Navigate to Help page
+         */
+        helpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, HelpActivity.class); //refer to the current activity in main
+                //switch to Register screen
+                startActivity(intent);
+            }
+        });
     }
 
     //Set up Firebase Auth
