@@ -1,9 +1,12 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +17,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
+
+import com.bumptech.glide.Glide;
 
 import java.util.Collections;
 import java.util.List;
@@ -28,13 +33,13 @@ public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends Ap
     private Button submitAnswerButton;
     private TextView checkAnswer;
 
+    //Track questions and answer
     private List<ShortAnswer> shortAnswerQuestionListByRegion;
     final int totalQuestionCount = 5;
     private int questionCount;
     private ShortAnswer currentQuestion;
     private boolean answered;
     private int quizScore;
-    private int curQuestion = 0;
 
     public static String regionChosen;
 
@@ -46,6 +51,7 @@ public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends Ap
         // Assign attributes
         quizRegionTV = findViewById(R.id.quizRegionTV);
         quizScoreTV = findViewById(R.id.quizScoreTV);
+        questionCountTV = findViewById(R.id.questionCountTV);
         textQuestionTV = findViewById(R.id.textQuestionTV);
         questionImageIV = findViewById(R.id.questionImageIV);
         userAnswerET = findViewById(R.id.userAnswerET);
@@ -107,40 +113,47 @@ public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends Ap
         Collections.shuffle(shortAnswerQuestionListByRegion);
         showNextQuestion();
 
-        String userAnswer = userAnswerET.getText().toString();
-
         // Handle submit button
         submitAnswerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!answered) {
-                    if (userAnswer.isEmpty()) {
-                        Toast.makeText(ShortAnswerQuizActivity.this, "Please enter your answer", Toast.LENGTH_SHORT).show();
+                String userAnswer = userAnswerET.getText().toString();
+                if (!answered) { //true - always allow empty userAnswerET
+                    if (userAnswer.isEmpty()) { //true
+                        Toast.makeText(ShortAnswerQuizActivity  .this, "Please enter your answer", Toast.LENGTH_SHORT).show();
                     } else {
                         checkAnswer();
                     }
                 } else {
                     showNextQuestion();
+                    }
                 }
-            }
         });
     }
 
-    private void showNextQuestion() {
-        // clear user answer to default
-        userAnswerET.setText(null);
 
+    private void showNextQuestion() {
+        // clear userAnswer EditText
+        userAnswerET.getText().clear();
+        userAnswerET.setEnabled(true);
+
+        //Only show next question up to 5 questions
         if (questionCount < totalQuestionCount) {
             currentQuestion = shortAnswerQuestionListByRegion.get(questionCount);
             textQuestionTV.setText(currentQuestion.getTextQuestion());
 
-            // Set image to question image
-            // questionImageIV.setImage(currentQuestion.getQuestionImage());
-
             questionCount++;
-            //questionCountTV.setText("Question: " + questionCount + "/" + totalQuestionCount);
+            questionCountTV.setText("Question: " + questionCount + "/" + totalQuestionCount);
+            //Add Glide library to display country flag images
+            Glide.with(getApplicationContext())
+                    .load("https://countryflagsapi.com/png/" + currentQuestion.getCountry() + "/")
+                    .fitCenter()
+                    .into(questionImageIV);
+            Log.d(TAG, "showImageQuestion url: " + currentQuestion.getAnswer());
+
             answered = false;
             submitAnswerButton.setText("SUBMIT");
+            checkAnswer.setVisibility(View.INVISIBLE);
         } else {
             finishQuiz();
         }
@@ -151,36 +164,39 @@ public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends Ap
         answered = true;
 
         String userAnswer = userAnswerET.getText().toString();
+        //Avoid user from changing their answer after submitting
+        userAnswerET.setEnabled(false);
 
         //Compare userAnswer with the correct answer
-        if (userAnswer == currentQuestion.getAnswer()) {
-            // check if the answer is correct
-            if (userAnswer.equalsIgnoreCase(currentQuestion.getAnswer())) {
-                quizScore++;
-                quizScoreTV.setText("Score: " + quizScore);
-                checkAnswer.setVisibility(View.VISIBLE);
-                checkAnswer.setText("Nicely done!");
-            } else {
-                checkAnswer.setText("Correct answer is: " + currentQuestion.getAnswer());
-                checkAnswer.setTextColor(Color.RED);
-                checkAnswer.setVisibility(View.VISIBLE);
+        if (userAnswer.equalsIgnoreCase(currentQuestion.getAnswer())) {
+            quizScore++;
+            quizScoreTV.setText("Score: " + quizScore);
+            checkAnswer.setText("Nicely done!");
+        } else {
+            checkAnswer.setText("Correct answer is: " + currentQuestion.getAnswer());
+            checkAnswer.setTextColor(Color.RED);
             }
-        }
+        checkAnswer.setVisibility(View.VISIBLE);
+
         //Handle submit button
-        if (questionCount < questionCount) {
+        if (questionCount < totalQuestionCount) {
             submitAnswerButton.setText("Next");
         } else {
             submitAnswerButton.setText("FINISH");
         }
     }
 
-        private void finishQuiz () {
-            //If user gets 5/5 correct answers, add 10 points to Total Points
-            if (quizScore == questionCount) {
-                User currentUser = new User();
+    private void finishQuiz () {
+        //If user gets 5/5 correct answers, add 10 points to Total Points
+        if (quizScore == questionCount) {
                 /*currentUser.addPoints();
                 currentUser.addLevelPassed();*/
-            }
-            finish();
         }
+        finish();
     }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
+}

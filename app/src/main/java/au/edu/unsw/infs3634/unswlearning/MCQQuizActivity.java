@@ -1,11 +1,15 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -13,6 +17,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
+
+import com.bumptech.glide.Glide;
 
 import java.util.Collections;
 import java.util.List;
@@ -22,6 +28,7 @@ public class MCQQuizActivity extends AppCompatActivity{
     private TextView quizRegion;
     private TextView textViewQuizScore;
     private TextView textViewQuestionCount;
+    private ImageView questionImage;
     private RadioGroup rbGroup;
     private RadioButton choiceA;
     private RadioButton choiceB;
@@ -49,7 +56,7 @@ public class MCQQuizActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mcq_quiz);
 
-        //Assign design attributes
+        //Assign attributes
         quizRegion = findViewById(R.id.quizRegion);
         textViewQuizScore = findViewById(R.id.quizScore);
         textViewQuestionCount = findViewById(R.id.questionCount);
@@ -58,6 +65,7 @@ public class MCQQuizActivity extends AppCompatActivity{
         choiceB = findViewById(R.id.choiceB);
         choiceC = findViewById(R.id.choiceC);
         choiceD = findViewById(R.id.choiceD);
+        questionImage = findViewById(R.id.questionImage);
         submitButton = findViewById(R.id.submitButton);
 
         //Color
@@ -120,7 +128,7 @@ public class MCQQuizActivity extends AppCompatActivity{
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //If the answer is not answered yet, check the answer
+                //If the answer is answered, check the answer
                 if (!answered) {
                     if (choiceA.isChecked() || choiceB.isChecked() || choiceC.isChecked() ||
                             choiceD.isChecked()) {
@@ -156,6 +164,13 @@ public class MCQQuizActivity extends AppCompatActivity{
 
             questionCount++;
             textViewQuestionCount.setText("Question: " + questionCount + "/" + questionCountTotal);
+            //Add Glide library to display country flag images
+            Glide.with(getApplicationContext())
+                    .load("https://countryflagsapi.com/png/" + currentQuestion.getAnswer() + "/")
+                    .fitCenter()
+                    .into(questionImage);
+            Log.d(TAG, "showImageQuestion url: " + currentQuestion.getAnswer());
+
             answered = false;
             submitButton.setText("SUBMIT");
         } else {
@@ -170,7 +185,7 @@ public class MCQQuizActivity extends AppCompatActivity{
         String userChoice = rbSelected.getText().toString();
 
         //Compare userChoice with the correct answer
-        if (userChoice == currentQuestion.getAnswer()) {
+        if (userChoice.equalsIgnoreCase(currentQuestion.getAnswer())) {
             quizScore++;
             textViewQuizScore.setText("Score: " + quizScore);
         }
