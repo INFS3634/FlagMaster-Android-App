@@ -64,7 +64,7 @@ public class SettingActivity extends AppCompatActivity {
         //Set up Firebase Auth
         setupFirebaseAuth();
         //Pre-load current information to EditTextView
-
+        //displayUserProfile(mUserSettings);
         //When user clicks on any of the EditTextView, saveChange button will appear
 
         //Save changes
@@ -84,7 +84,7 @@ public class SettingActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = mFirebaseDatabase.getReference();
+        databaseReference = mFirebaseDatabase.getReference(String.valueOf(R.string.database_url));
         user_id = mAuth.getCurrentUser().getUid();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -191,6 +191,8 @@ public class SettingActivity extends AppCompatActivity {
 
 
     private void displayUserProfile(UserSettings userSettings) {
+        Log.d(TAG, "displayUserProfile with data retrieving from firebase database: " + userSettings.toString());
+
         //User user = userSettings.getUser();
         UserAccountSettings settings = userSettings.getSettings();
 

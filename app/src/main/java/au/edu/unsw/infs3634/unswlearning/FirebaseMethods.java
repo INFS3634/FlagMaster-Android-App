@@ -27,17 +27,56 @@ public class FirebaseMethods {
 
     private String user_id;
     private Context mContext;
-    private ProgressDialog mLoadingBar;
 
     public FirebaseMethods(Context context) {
         mAuth = FirebaseAuth.getInstance();
         mContext = context;
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
         databaseReference = mFirebaseDatabase.getReference();
 
         if (mAuth.getCurrentUser() != null) {
             user_id = mAuth.getCurrentUser().getUid();
         }
+    }
+
+    /**
+     * Register a new email and password to Firebase Authentication
+     * @param email
+     * @param password
+     * @param username
+     */
+    public void registerNewUser(final String email, String password, final String username) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+                        if (task.isSuccessful()) {
+                            Toast.makeText(mContext, "Your account has been created successfully!", Toast.LENGTH_SHORT).show();
+                            //Verify username
+                            user_id = mAuth.getCurrentUser().getUid();
+                        } else {
+                            Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
+
+    public void addNewUser(String name, String username, String email, String password) {
+        User user = new User(user_id, name, username, email);
+
+        //Insert a new users node to the database
+        databaseReference.child(mContext.getString(R.string.dbname_users))
+                .child(user_id)
+                .setValue(user);
+
+        //Insert a new user_account_settings to the database
+        UserAccountSettings settings = new UserAccountSettings(username, name, 0, 0, "avatar", password);
+        databaseReference.child(mContext.getString(R.string.dbname_user_account_setting))
+                .child(user_id)
+                .setValue(settings);
+        Log.d(TAG, "addNewUser successful");
     }
 
     public void updateUsername(String username) {
@@ -86,49 +125,9 @@ public class FirebaseMethods {
         return false;
     }*/
 
-    //Register a new email and password to Firebase Authentication
-    public void registerNewUser(final String email, String password, final String username) {
-        //Loading bar
-        mLoadingBar.setTitle("Registration");
-        mLoadingBar.setMessage("Please wait while we are setting you up");
-        mLoadingBar.setCanceledOnTouchOutside(false);
-        mLoadingBar.show();
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            mLoadingBar.dismiss();
-                            Toast.makeText(mContext, "Your account has been created successfully!", Toast.LENGTH_SHORT).show();
-                            //Verify username
-                            user_id = mAuth.getCurrentUser().getUid();
-                            Intent intent = new Intent(mContext, QuizActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                            //mContext.startActivity();
-                        } else {
-                            Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
 
-                    ;
-                });
 
-    }
 
-    public void addNewUser(String name, String username, String email, String password) {
-        User user = new User(user_id, name, username, email);
-
-        //Insert a new users node to the database
-        databaseReference.child(mContext.getString(R.string.dbname_users))
-                .child(user_id)
-                .setValue(user);
-
-        //Insert a new user_account_settings to the database
-        UserAccountSettings settings = new UserAccountSettings(username, name, 0, 0, "avatar", password);
-        databaseReference.child(mContext.getString(R.string.dbname_user_account_setting))
-                .child(user_id)
-                .setValue(settings);
-    }
 
     //Retrieve account settings for user
     public UserSettings getUserSettings(DataSnapshot dataSnapshot) {

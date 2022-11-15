@@ -14,7 +14,7 @@ public interface CountryService {
     Call<ArrayList<Country>> getAllCountries();
 
     //Get country by name
-    @GET("v2/{name}?fields=name,alpha3Code,capital,population,area,region,flag")
-    Call<ArrayList<Country>> getCountry(@Query("name") String name);
+    @GET("v2/name/{name}?fields=name,alpha3Code,capital,population,area,region,flag")
+    Call<ArrayList<Country>> getCountry(@Path("name") String name);
 
 }

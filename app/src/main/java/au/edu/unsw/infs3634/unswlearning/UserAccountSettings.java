@@ -69,4 +69,16 @@ public class UserAccountSettings {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "UserAccountSettings{" +
+                "username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", count_level=" + count_level +
+                ", count_point=" + count_point +
+                ", avatar='" + avatar + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
                 //Check if user is logged in
                 checkCurrentUser(user);
-
                 if (user != null) {
                     //User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());

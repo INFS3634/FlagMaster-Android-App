@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import au.edu.unsw.infs3634.unswlearning.countryAPI.Country;
 import au.edu.unsw.infs3634.unswlearning.countryAPI.CountryService;
@@ -28,18 +29,19 @@ public class CountryDetailActivity extends AppCompatActivity {
     public static final String INTENT_MESSAGE = "intent_message";
     TextView countryNameTextView, capitalNameTextView, regionNameTextView, populationTextView, areaTextView, linkWiki;
     ImageView flagImageView;
+    private ArrayList<Country> countryList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch_detail);
 
-        countryNameTextView=findViewById(R.id.details_activity_name);
-        capitalNameTextView=findViewById(R.id.details_activity_capital);
-        regionNameTextView=findViewById(R.id.details_activity_region);
-        populationTextView = findViewById(R.id.details_activity_population);
-        areaTextView=findViewById(R.id.details_activity_area);
-        flagImageView=findViewById(R.id.details_activity_imageView);
+        countryNameTextView=findViewById(R.id.countryNameTextView);
+        capitalNameTextView=findViewById(R.id.capitalNameTextView);
+        regionNameTextView=findViewById(R.id.regionNameTextView);
+        populationTextView = findViewById(R.id.populationTextView);
+        areaTextView=findViewById(R.id.areaTextView);
+        flagImageView=findViewById(R.id.flagImageView);
         linkWiki = findViewById(R.id.linkWiki);
 
         //Get the intent that started this activity and extract the string
@@ -53,7 +55,7 @@ public class CountryDetailActivity extends AppCompatActivity {
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-// Create object to make API call
+            // Create object to make API call
             CountryService service = retrofit.create(CountryService.class);
             Call<ArrayList<Country>> responseCall = service.getCountry(message);
             responseCall.enqueue(new Callback<ArrayList<Country>>() {
@@ -61,12 +63,18 @@ public class CountryDetailActivity extends AppCompatActivity {
                 public void onResponse(Call<ArrayList<Country>> call, Response<ArrayList<Country>> response) {
                     Log.d(TAG, "API Call Successful!" + " URL=" + call.request().url().toString());
                     //Take the first result found
-                    Country country = response.body().get(0);
+                    List<Country> countries = response.body();
+
+                    for (Country country: countries) {
+                        countryList.add(country);
+                    }
+                    Country country = countryList.get(0);
+
                     if (country != null) {
                         countryNameTextView.setText(country.getName());
                         capitalNameTextView.setText(country.getCapital());
                         regionNameTextView.setText(country.getRegion());
-                        populationTextView.setText(country.getPopulation());
+                        populationTextView.setText(String.valueOf(country.getPopulation()));
                         areaTextView.setText(String.valueOf(country.getArea()));
 
                         //Add Glide library to display country flag images

@@ -38,21 +38,7 @@ public class Country {
     }
 
     public void setFlag(String flag) {
-        flag = 
         this.flag = flag;
-    }
-
-    //Constructor
-    public Country(){
-
-    }
-
-    public Country(String name, String region, String capital, float area, int population) {
-        this.name = name;
-        this.region = region;
-        this.capital = capital;
-        this.area = area;
-        this.population = population;
     }
 
     //Setter methods

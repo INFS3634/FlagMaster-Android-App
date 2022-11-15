@@ -22,27 +22,24 @@ import au.edu.unsw.infs3634.unswlearning.countryAPI.Country;
 
 public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHolder> implements Filterable {
 
-    private Context mContext;
-    private ArrayList<Country> mCountryList, mCountryFiltered;
-    //private RecyclerViewInterface recyclerViewInterface;
+    private ArrayList<Country> mCountries, mCountryFiltered;
+    private RecyclerViewInterface recyclerViewInterface;
     public static final int SORT_METHOD_NAME = 1;
     public static final int SORT_METHOD_REGION = 2;
 
 
     //CountryAdapter constructor method
-    public CountryAdapter(Context mContext, ArrayList<Country> country) {
-        this.mCountryList = country;
-        this.mCountryFiltered = country;
-        this.mContext = mContext;
+    public CountryAdapter(ArrayList<Country> countries, RecyclerViewInterface rvInterface) {
+        this.mCountries = countries;
+        this.mCountryFiltered = countries;
+        recyclerViewInterface = rvInterface;
     }
 
     @NonNull
     @Override
-    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(mContext);
-        View view = layoutInflater.inflate(R.layout.country_recycler_view_row,
-                parent,false);
-        return new MyViewHolder(view);
+    public CountryAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.country_recycler_view_row, parent, false);
+        return new MyViewHolder(view, recyclerViewInterface);
     }
 
     @Override
@@ -52,12 +49,12 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
         holder.countryName.setText(country.getName());
         holder.countryCapital.setText(country.getCapital());
         holder.countryRegion.setText(country.getRegion());
-        holder.itemView.setTag(country.getName());
-
         //Add Glide library to display country flag images
         Glide.with(holder.itemView)
                 .load("https://countryflagsapi.com/png/" + country.getName() + "/")
+                .fitCenter()
                 .into(holder.flag);
+        holder.itemView.setTag(country.getName());
     }
 
     @Override
@@ -77,13 +74,13 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
                 //Check user query
                 if (query.isEmpty()) {
                     //if empty, show us exact same list as before
-                    mCountryFiltered = mCountryList;
+                    mCountryFiltered = mCountries;
                 } else {
                     //Create a new ArrayList to add filtered countries
                     ArrayList<Country> filteredList = new ArrayList<>();
-                    for (Country country : mCountryFiltered) {
-                        //Filter by region
-                        if (country.getRegion().toLowerCase().contains(query.toLowerCase())) {
+                    for (Country country : mCountries) {
+                        //Filter by name
+                        if (country.getName().toLowerCase().contains(query.toLowerCase())) {
                             filteredList.add(country);
                         }
                     }
@@ -108,21 +105,21 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
         ImageView flag;
         TextView countryName, countryCapital, countryRegion;
 
-        public MyViewHolder(@NonNull View itemView) {
+        public MyViewHolder(@NonNull View itemView, RecyclerViewInterface recyclerViewInterface) {
             super(itemView);
             flag = itemView.findViewById(R.id.countryImage);
             countryName = itemView.findViewById(R.id.countryName);
             countryCapital = itemView.findViewById(R.id.countryCapital);
             countryRegion = itemView.findViewById(R.id.countryRegion);
 
-            /*itemView.setOnClickListener(new View.OnClickListener() {
+            itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (recyclerViewInterface != null) {
                         recyclerViewInterface.onItemClick((String) itemView.getTag());
                     }
                 }
-            });*/
+            });
         }
     }
 
@@ -132,11 +129,11 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
             Collections.sort(mCountryFiltered, new Comparator<Country>() {
                 @Override
                 public int compare(Country country, Country t1) {
-                    if(sortMethod ==SORT_METHOD_NAME) {
-                        return country.getName().compareTo(t1.getName());
+                    if(sortMethod == SORT_METHOD_NAME) {
+                        return country.getName().toLowerCase().compareTo(t1.getName().toLowerCase());
                     }
                     else if (sortMethod == SORT_METHOD_REGION) {
-                        return country.getRegion().compareTo(t1.getRegion());
+                        return country.getRegion().toLowerCase().compareTo(t1.getRegion().toLowerCase());
                     }
                     //By default sort by country name
                     return country.getName().compareTo(t1.getName());
@@ -148,8 +145,8 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
 
     //Add the supplied data to the adapter
     public void setData(ArrayList<Country> data) {
-        mCountryList.clear();
-        mCountryList.addAll(data);
+        mCountries.clear();
+        mCountries.addAll(data);
         notifyDataSetChanged();
     }
 }

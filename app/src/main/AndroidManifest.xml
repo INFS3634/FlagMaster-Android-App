@@ -36,6 +36,9 @@
         <activity android:name=".CountryDetailActivity"
             android:exported = "true" />
 
+        <activity android:name=".SettingActivity"
+            android:exported = "true" />
+
         <activity
             android:name=".QuizActivity"
             android:exported="false">

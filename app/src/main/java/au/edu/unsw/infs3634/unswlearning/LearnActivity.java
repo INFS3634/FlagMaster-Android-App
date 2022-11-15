@@ -30,10 +30,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class LearnActivity extends AppCompatActivity implements RecyclerViewInterface {
     BottomNavigationView bottomNav;
     private static final String TAG = "LearnActivity";
-    //Recycler View
-    RecyclerView recyclerView;
+    private RecyclerView recyclerView;
     ArrayList<Country> countryList = new ArrayList<>();
-    CountryAdapter adapter;
+    private CountryAdapter adapter;
+    private RecyclerView.LayoutManager layoutManager;
 
 
     @Override
@@ -42,8 +42,13 @@ public class LearnActivity extends AppCompatActivity implements RecyclerViewInte
         setContentView(R.layout.activity_learn);
         //Get the handle to RecyclerView
         recyclerView = findViewById(R.id.rvList);
-        //Create adapter
-        adapter = new CountryAdapter(this, countryList);
+
+        //Instantiate a linear recycler view layout manager
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        //Create an Adapter instance with an empty Arraylist of Country objects
+        adapter = new CountryAdapter(countryList, this);
 
         //Implement Retrofit to make API call
         Retrofit retrofit = new Retrofit.Builder()
@@ -58,7 +63,7 @@ public class LearnActivity extends AppCompatActivity implements RecyclerViewInte
             @Override
             public void onResponse(Call<ArrayList<Country>> call, Response<ArrayList<Country>> response) {
                 //Check if it is successful or failed
-                Log.d(TAG, "API success!");
+                Log.d(TAG, "API call successful!");
 
                 List<Country> countries = response.body();
 
@@ -76,7 +81,12 @@ public class LearnActivity extends AppCompatActivity implements RecyclerViewInte
             }
         });
 
-        //Bottom Navigation
+        recyclerView.setAdapter(adapter);
+
+        /**
+         * Set up Bottom Navigation View
+         */
+
         bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setSelectedItemId(R.id.learn);
 
@@ -119,9 +129,9 @@ public class LearnActivity extends AppCompatActivity implements RecyclerViewInte
     }
 
     //Launch country detail page when user taps into items
-    private void launchCountryDetailActivity(String name) {
+    private void launchCountryDetailActivity(String msg) {
         Intent intent = new Intent(LearnActivity.this, CountryDetailActivity.class);
-        intent.putExtra(CountryDetailActivity.INTENT_MESSAGE, name);
+        intent.putExtra(CountryDetailActivity.INTENT_MESSAGE, msg);
         startActivity(intent);
     }
 

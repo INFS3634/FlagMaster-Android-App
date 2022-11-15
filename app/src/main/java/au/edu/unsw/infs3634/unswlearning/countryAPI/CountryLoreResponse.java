@@ -3,6 +3,7 @@ package au.edu.unsw.infs3634.unswlearning.countryAPI;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import au.edu.unsw.infs3634.unswlearning.countryAPI.Country;
@@ -12,16 +13,17 @@ public class CountryLoreResponse {
 
     @SerializedName("data")
     @Expose
-    private List<Country> data = null;
+    private ArrayList<Country> data = null;
     @SerializedName("info")
     @Expose
     private Info info;
 
-    public List<Country> getData() {
+    public ArrayList<Country> getData() {
         return data;
     }
 
-    public void setData(List<Country> data) {
+    public void setData(ArrayList<Country> data) {
+
         this.data = data;
     }
 

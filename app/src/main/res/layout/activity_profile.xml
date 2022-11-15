@@ -36,7 +36,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/mProfilePhoto"
         android:layout_width="135dp"
         android:layout_height="118dp"
         android:layout_marginStart="40dp"
@@ -46,60 +46,41 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/mUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="22dp"
         android:layout_marginTop="4dp"
         android:text="paul_ramos01"
         android:textColor="#fff"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintStart_toEndOf="@+id/mProfilePhoto"
+        app:layout_constraintTop_toBottomOf="@+id/mName" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/mName"
         android:layout_width="108dp"
         android:layout_height="23dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
         android:text="Paul Ramos"
         android:textColor="#fff"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="195dp" />
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="22dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="20dp"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/username"
-        app:srcCompat="@drawable/pin_icon" />
-
-    <TextView
-        android:id="@+id/userLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="14dp"
-        android:text="Spain"
-        android:textColor="#fff"
-        app:layout_constraintStart_toEndOf="@+id/imageView5"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintStart_toEndOf="@+id/mProfilePhoto"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="52dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="17dp"
         android:text="Achievements"
         android:textColor="#ffff"
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+        app:layout_constraintTop_toBottomOf="@+id/mProfilePhoto" />
 
     <ImageView
         android:id="@+id/squareBox"
@@ -325,45 +306,6 @@
         android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/squareBox"
         app:layout_constraintTop_toTopOf="@+id/squareBox" />
-
-    <EditText
-        android:id="@+id/editName"
-        android:layout_width="108dp"
-        android:layout_height="26dp"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="name"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="195dp" />
-
-    <EditText
-        android:id="@+id/editUserName"
-        android:layout_width="106dp"
-        android:layout_height="23dp"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:visibility="invisible"
-        app:layout_constraintTop_toBottomOf="@+id/textView"
-        tools:layout_editor_absoluteX="195dp" />
-
-    <Button
-        android:id="@+id/confirmChange"
-        android:layout_width="84dp"
-        android:layout_height="38dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="112dp"
-        android:text="Confirm"
-        android:textColor="#000000"
-        android:textSize="10sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userLocation" />
 
     <ImageView
         android:id="@+id/settingButton"

@@ -8,13 +8,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,6 +27,7 @@ public class ProfileActivity extends AppCompatActivity {
     BottomNavigationView bottomNav;
 
     private TextView mName, mUsername, mCountLevel, mCountPoint;
+    private ImageView mProfilePhoto;
     private ImageView africaBadge;
     private ImageView asiaBadge;
     private ImageView europeBadge;
@@ -37,10 +36,6 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageView oceaniaBadge;
 
     //Edit profile
-    private ImageView editButton;
-    private TextView editName;
-    private TextView editUserName;
-    private Button confirmChange;
     private ImageView settingButton;
 
     //Firebase
@@ -60,10 +55,11 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         //Interface attributes
-        mName = findViewById(R.id.name);
-        mUsername = findViewById(R.id.username);
+        mName = findViewById(R.id.mName);
+        mUsername = findViewById(R.id.mUsername);
         mCountLevel = findViewById(R.id.countLevelPassed);
         mCountPoint = findViewById(R.id.countTotalPoints);
+        mProfilePhoto = findViewById(R.id.mProfilePhoto);
 
         africaBadge = findViewById(R.id.africaBadge);
         asiaBadge = findViewById(R.id.asiaBadge);
@@ -83,7 +79,9 @@ public class ProfileActivity extends AppCompatActivity {
         //Setup FirebaseAuth
         setupFirebaseAuth();
 
-        //Set up bottom navigation bar
+        /**
+         * Set up Bottom Navigation View
+         */
         bottomNav.setSelectedItemId(R.id.profile);
 
         //Perform item selected listener
@@ -108,41 +106,29 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-        //Setting
+        /**
+         * Setting screen
+         */
         settingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 launchSetting();
             }
         });
-        //Set up badges
-
     }
+/*
+------------------------------Firebase------------------------
+ */
 
-    private void displayUserProfile(UserSettings userSettings) {
-        //User user = userSettings.getUser();
-        UserAccountSettings settings = userSettings.getSettings();
-
-        mName.setText(settings.getName());
-        mUsername.setText(settings.getUsername());
-        mCountLevel.setText(String.valueOf(settings.getCount_level()));
-        mCountPoint.setText(String.valueOf(settings.getCount_point()));
-
-    }
-
-    public void launchSetting() {
-        Intent intent = new Intent(ProfileActivity.this, SettingActivity.class);
-        //switch to Setting screen
-        startActivity(intent);
-    }
-
-    //Set up Firebase Auth
+    /**
+     * Set up Firebase Auth
+     */
     private void setupFirebaseAuth() {
         Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
 
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = mFirebaseDatabase.getReference();
+        databaseReference = mFirebaseDatabase.getReference(String.valueOf(R.string.database_url));
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -166,17 +152,34 @@ public class ProfileActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Retrieve user data from database
                 displayUserProfile(mFirebaseMethods.getUserSettings(dataSnapshot));
-
-                //Retrieve user profile
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                System.out.println("databaseReference failed!");
             }
         });
     }
+
+    private void displayUserProfile(UserSettings userSettings) {
+        //User user = userSettings.getUser();
+        Log.d(TAG, "displayUserProfile: retrieve data from firebase authentication");
+        UserAccountSettings settings = userSettings.getSettings();
+
+        mName.setText(settings.getName());
+        mUsername.setText(settings.getUsername());
+        mCountLevel.setText(String.valueOf(settings.getCount_level()));
+        mCountPoint.setText(String.valueOf(settings.getCount_point()));
+
+    }
+
+    public void launchSetting() {
+        Intent intent = new Intent(ProfileActivity.this, SettingActivity.class);
+        //switch to Setting screen
+        startActivity(intent);
+    }
+
+
 
 
     @Override

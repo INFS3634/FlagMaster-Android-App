@@ -14,4 +14,7 @@
     <string name="dbname_user_account_setting">user_account_setting</string>
     <string name="field_username">username</string>
     <string name="field_name">name</string>
+    <string name="database_url">infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app/</string>
+
+
 </resources>
