@@ -11,7 +11,7 @@
         android:id="@+id/countryImage"
         android:layout_width="78dp"
         android:layout_height="72dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -19,20 +19,20 @@
 
     <TextView
         android:id="@+id/countryName"
-        android:layout_width="184dp"
-        android:layout_height="24dp"
-        android:layout_marginStart="112dp"
+        android:layout_width="175dp"
+        android:layout_height="26dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/countryImage"
         app:layout_constraintTop_toTopOf="@+id/countryImage" />
 
     <TextView
         android:id="@+id/countryCapital"
-        android:layout_width="184dp"
-        android:layout_height="23dp"
-        android:layout_marginStart="112dp"
+        android:layout_width="175dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="52dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/countryImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

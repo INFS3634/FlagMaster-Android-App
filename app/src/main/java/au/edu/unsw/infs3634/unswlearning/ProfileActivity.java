@@ -47,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseMethods mFirebaseMethods;
 
     //Create a new user (example)
-    User user = new User("Paul Ramos", "paul_ramos_01", "hi", "test");
+    //User user = new User("Paul Ramos", "paul_ramos_01", "hi", "test");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

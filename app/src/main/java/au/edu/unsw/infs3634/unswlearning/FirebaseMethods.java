@@ -25,7 +25,7 @@ public class FirebaseMethods {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference databaseReference;
 
-    private String user_id;
+    private String userID;
     private Context mContext;
 
     public FirebaseMethods(Context context) {
@@ -35,7 +35,7 @@ public class FirebaseMethods {
         databaseReference = mFirebaseDatabase.getReference();
 
         if (mAuth.getCurrentUser() != null) {
-            user_id = mAuth.getCurrentUser().getUid();
+            userID = mAuth.getCurrentUser().getUid();
         }
     }
 
@@ -43,9 +43,8 @@ public class FirebaseMethods {
      * Register a new email and password to Firebase Authentication
      * @param email
      * @param password
-     * @param username
      */
-    public void registerNewUser(final String email, String password, final String username) {
+    public void registerNewUser(final String email, String password) {
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -54,7 +53,7 @@ public class FirebaseMethods {
                         if (task.isSuccessful()) {
                             Toast.makeText(mContext, "Your account has been created successfully!", Toast.LENGTH_SHORT).show();
                             //Verify username
-                            user_id = mAuth.getCurrentUser().getUid();
+                            userID = mAuth.getCurrentUser().getUid();
                         } else {
                             Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
                         }
@@ -64,30 +63,31 @@ public class FirebaseMethods {
     }
 
     public void addNewUser(String name, String username, String email, String password) {
-        User user = new User(user_id, name, username, email);
+        User user = new User(userID, name, username, email);
 
         //Insert a new users node to the database
-        databaseReference.child(mContext.getString(R.string.dbname_users))
-                .child(user_id)
+        databaseReference.child("users")
+                .child(userID)
                 .setValue(user);
 
         //Insert a new user_account_settings to the database
         UserAccountSettings settings = new UserAccountSettings(username, name, 0, 0, "avatar", password);
         databaseReference.child(mContext.getString(R.string.dbname_user_account_setting))
-                .child(user_id)
+                .child(userID)
                 .setValue(settings);
         Log.d(TAG, "addNewUser successful");
+
     }
 
     public void updateUsername(String username) {
         Log.d(TAG, "updateUsername: updating username to: " + username);
         databaseReference.child(mContext.getString(R.string.dbname_users))
-                .child(user_id)
+                .child(userID)
                 .child(mContext.getString(R.string.field_username))
                 .setValue(username);
 
         databaseReference.child(mContext.getString(R.string.dbname_user_account_setting))
-                .child(user_id)
+                .child(userID)
                 .child(mContext.getString(R.string.field_username))
                 .setValue(username);
     }
@@ -95,27 +95,28 @@ public class FirebaseMethods {
     public void updateDisplayName(String name) {
         Log.d(TAG, "updateDisplayName: updating name to: " + name);
         databaseReference.child(mContext.getString(R.string.dbname_users))
-                .child(user_id)
+                .child(userID)
                 .child(mContext.getString(R.string.field_name))
                 .setValue(name);
 
         databaseReference.child(mContext.getString(R.string.dbname_user_account_setting))
-                .child(user_id)
+                .child(userID)
                 .child(mContext.getString(R.string.field_name))
                 .setValue(name);
     }
 
-    /*public boolean checkIfUsernameExists(String username, DataSnapshot datasnapshot) {
+    public boolean checkIfUsernameExists(String username, DataSnapshot datasnapshot) {
         Log.d(TAG, "checkIfUsernameExists: checking if " + username + " already exists.");
 
         User user = new User();
 
         //Loop through datasnapshot to check if username exists
-        for (DataSnapshot ds : datasnapshot.child(user_id).getChildren()) {
+        for (DataSnapshot ds : datasnapshot.child(userID).getChildren()) {
             Log.d(TAG, "checkIfUsernameExists: datasnapshot: " + ds);
 
             //Retrieve username from database
             user.setUsername(ds.getValue(User.class).getUsername());
+            Log.d(TAG, "checkIfUsernameExists: username: " + user.getUsername());
 
             if (user.getUsername().equals(username)) {
                 Log.d(TAG, "checkIfUsernameExist: FOUND A MATCH: " + user.getUsername());
@@ -123,11 +124,7 @@ public class FirebaseMethods {
             }
         }
         return false;
-    }*/
-
-
-
-
+    }
 
     //Retrieve account settings for user
     public UserSettings getUserSettings(DataSnapshot dataSnapshot) {
@@ -144,32 +141,32 @@ public class FirebaseMethods {
                 try {
                     //name is in both
                     settings.setName(
-                            ds.child(user_id)
+                            ds.child(userID)
                                     .getValue(UserAccountSettings.class)
                                     .getName()
                     );
                     settings.setUsername(
-                            ds.child(user_id)
+                            ds.child(userID)
                                     .getValue(UserAccountSettings.class)
                                     .getUsername()
                     );
                     settings.setUsername(
-                            ds.child(user_id)
+                            ds.child(userID)
                                     .getValue(UserAccountSettings.class)
                                     .getUsername()
                     );
                     settings.setCount_level(
-                            ds.child(user_id)
+                            ds.child(userID)
                                     .getValue(UserAccountSettings.class)
                                     .getCount_level()
                     );
                     settings.setCount_point(
-                            ds.child(user_id)
+                            ds.child(userID)
                                     .getValue(UserAccountSettings.class)
                                     .getCount_point()
                     );
                     settings.setAvatar(
-                            ds.child(user_id)
+                            ds.child(userID)
                                     .getValue(UserAccountSettings.class)
                                     .getAvatar()
                     );
@@ -183,22 +180,22 @@ public class FirebaseMethods {
                 Log.d(TAG, "getUserAccountSettings: datasnapshot: " + ds);
 
                 user.setUsername(
-                        ds.child(user_id)
+                        ds.child(userID)
                                 .getValue(User.class)
                                 .getUsername()
                 );
                 user.setEmail(
-                        ds.child(user_id)
+                        ds.child(userID)
                                 .getValue(User.class)
                                 .getEmail()
                 );
                 user.setName(
-                        ds.child(user_id)
+                        ds.child(userID)
                                 .getValue(User.class)
                                 .getName()
                 );
                 user.setUserID(
-                        ds.child(user_id)
+                        ds.child(userID)
                                 .getValue(User.class)
                                 .getUserID()
                 );

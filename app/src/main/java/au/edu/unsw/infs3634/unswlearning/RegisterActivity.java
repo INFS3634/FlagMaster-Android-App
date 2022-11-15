@@ -16,6 +16,9 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -37,11 +40,14 @@ public class RegisterActivity extends AppCompatActivity {
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseMethods firebaseMethods;
-    private FirebaseAuth.AuthStateListener mAuthListener;
+    //private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference databaseReference;
 
     private String append = "";
+    private static final String USER = "user";
+    private User user;
+    private String userID;
 
 
     @Override
@@ -52,11 +58,13 @@ public class RegisterActivity extends AppCompatActivity {
         //Firebase
         mContext = RegisterActivity.this;
         firebaseMethods = new FirebaseMethods(mContext);
+        Log.d(TAG, "onCreate:started");
 
         /**
          * Initialize RegisterActivity widget
          */
-        Log.d(TAG, "initWidgets: intializating widgets");
+
+        Log.d(TAG, "initWidgets: initializating widgets");
         inputName = findViewById(R.id.inputName);
         inputUsername = findViewById(R.id.inputUsername);
         inputEmail = findViewById(R.id.inputEmail);
@@ -66,7 +74,9 @@ public class RegisterActivity extends AppCompatActivity {
         mLoadingBar = new ProgressDialog(RegisterActivity.this);
 
         //Set up FirebaseAuth
-        setupFirebaseAuth();
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
+        databaseReference = mFirebaseDatabase.getReference("USER");
+        mAuth = FirebaseAuth.getInstance();
 
         /**
          * Init register button
@@ -79,9 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
                 username = inputUsername.getText().toString();
                 email = inputEmail.getText().toString();
                 password = inputPassword.getText().toString();
-                //Print out
-                System.out.print(name);
-                System.out.print(username);
+
 
                 if(checkCredentials(name, username, email, password)) {
                     mLoadingBar.setTitle("Registration");
@@ -90,12 +98,9 @@ public class RegisterActivity extends AppCompatActivity {
                     mLoadingBar.show();
 
                     mLoadingBar.dismiss();
-                    firebaseMethods.registerNewUser(email, password, username);
+                    user = new User(name, username, email, password);
+                    registerNewUser(email, password);
                     Log.d(TAG, "checkCredentials: added a new user to database");
-
-                    Intent intent = new Intent(RegisterActivity.this, QuizActivity.class);
-                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
                 }
             }
         });
@@ -110,6 +115,38 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void registerNewUser(String email, String password) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        Log.d(TAG, "createUserWithEmail:onComplete:" + task.isSuccessful());
+                        if (task.isSuccessful()) {
+                            Toast.makeText(mContext, "Your account has been created successfully!", Toast.LENGTH_SHORT).show();
+                            //Verify username
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            //userID = user.getUid();
+                            updateUI(user);
+                        } else {
+                            Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
+
+    private void updateUI(FirebaseUser currentUser) {
+        String keyId = databaseReference.push().getKey();
+       /* databaseReference.child("user")
+                .child(userID)
+                .setValue(user);*/
+        databaseReference.child(keyId).setValue(user);
+        Intent intent = new Intent(RegisterActivity.this, QuizActivity.class);
+        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
+
     private boolean checkCredentials(String name, String username, String email, String password) {
         Log.d(TAG, "checkCredentials");
 
@@ -137,7 +174,7 @@ public class RegisterActivity extends AppCompatActivity {
      * Check if username exists
      * @param username
      */
-    private void checkIfUsernameExists(final String username) {
+    /*private void checkIfUsernameExists(final String username) {
         Log.d(TAG, "checkIfUsernameExists: checking if " + username + " already exists");
 
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
@@ -164,7 +201,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                 //Add new user to the database
                 firebaseMethods.addNewUser(name, mUsername, email, password);
-                Toast.makeText(mContext, "Register successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "addNewUser successful", Toast.LENGTH_SHORT).show();
 
                 //mAuth.signOut();
             }
@@ -173,16 +210,14 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
     /**
      * Set up FirebaseAuth
      */
-    private void setupFirebaseAuth() {
+    /*private void setupFirebaseAuth() {
         Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
 
-        mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
-        databaseReference = mFirebaseDatabase.getReference();
+
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -195,16 +230,27 @@ public class RegisterActivity extends AppCompatActivity {
                     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            checkIfUsernameExists(username);
+                            //1st check: Make sure username is not already in use
+                            if(firebaseMethods.checkIfUsernameExists(username, dataSnapshot)) {
+                                //If exists, append random characters
+                                append = databaseReference.push().getKey().substring(3,7);
+                                Log.d(TAG, "onDataChange: username already exists. Appending random string to username: " + append);
+                            }
+                    String mUsername = username + append;
+                     //checkIfUsernameExists(username);
+                    // add new user to the database
+                    firebaseMethods.addNewUser(name, mUsername, email, password);
+                    Toast.makeText(mContext, "addNewUser successful", Toast.LENGTH_SHORT).show();
+
+                            //mAuth.signOut();
                         }
 
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                             //When there is an error changing the database
-
                         }
                     });
-                    finish();
+                    //finish();
                 }
                 else {
                     //User is signed out
@@ -212,12 +258,23 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         };
+    }*/
+
+    /*@Override
+    public void onStart(){
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if(mAuthListener!= null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }*/
 
-
-
-    private void showError(EditText input, String s) {
+   private void showError(EditText input, String s) {
         input.setError(s);
         input.requestFocus();
     }
