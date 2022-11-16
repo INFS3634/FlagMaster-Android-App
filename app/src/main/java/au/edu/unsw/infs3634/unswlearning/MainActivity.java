@@ -21,8 +21,12 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     private Context mContext;
@@ -32,12 +36,15 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog mLoadingBar;
     private TextView switchToRegister;
     private Button continueAsGuest;
+    private String password;
+    public static String currentUserEmail;
 
     //Firebase
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference databaseReference;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseMethods firebaseMethods;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 checkCredentials();
+                //isUser();
             }
         });
 
@@ -89,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
 
         mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = mFirebaseDatabase.getReference();
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
+        databaseReference = mFirebaseDatabase.getReference("USER");
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -124,6 +132,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Check if username and password entered has been registered
+     */
     /*private void checkCurrentUser(FirebaseUser user) {
         Log.d(TAG, "checkCurrentUser: checking if user is logged in.");
 
@@ -134,32 +145,29 @@ public class MainActivity extends AppCompatActivity {
     }*/
 
     private void checkCredentials() {
-        String email = loginEmail.getText().toString();
-        String password = loginPassword.getText().toString();
+        currentUserEmail = loginEmail.getText().toString();
+        password = loginPassword.getText().toString();
 
+        mLoadingBar.setTitle("Login");
+        mLoadingBar.setMessage("Please wait while we are logging you in");
+        mLoadingBar.setCanceledOnTouchOutside(false);
+        mLoadingBar.show();
 
-        if (email.isEmpty() || !email.contains("@")) {
-            showError(loginEmail, "Invalid email");
-        } else if (password.isEmpty() || password.length() < 7) {
-            showError(loginPassword, "Password must be at least 7 characters long");
-        } else {
-            mLoadingBar.setTitle("Login");
-            mLoadingBar.setMessage("Please wait while we are logging you in");
-            mLoadingBar.setCanceledOnTouchOutside(false);
-            mLoadingBar.show();
-
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        mLoadingBar.dismiss();
-                        Intent intent = new Intent(MainActivity.this, QuizActivity.class);
-                        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
+        mAuth.signInWithEmailAndPassword(currentUserEmail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    mLoadingBar.dismiss();
+                    //retrieveDataFromDB();
+                    Intent intent = new Intent(MainActivity.this, QuizActivity.class);
+                    //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(intent);
+                } else {
+                    mLoadingBar.dismiss();
+                    loginPassword.setError("Wrong password or email");
                 }
-            });
-        }
+            }
+        });
     }
 
     private void showError(EditText input, String s) {

@@ -16,7 +16,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,8 +42,8 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference databaseReference;
-    private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseMethods mFirebaseMethods;
+    //private FirebaseAuth.AuthStateListener mAuthListener;
+    //private FirebaseMethods mFirebaseMethods;
 
     //Create a new user (example)
     //User user = new User("Paul Ramos", "paul_ramos_01", "hi", "test");
@@ -57,8 +56,8 @@ public class ProfileActivity extends AppCompatActivity {
         //Interface attributes
         mName = findViewById(R.id.mName);
         mUsername = findViewById(R.id.mUsername);
-        mCountLevel = findViewById(R.id.countLevelPassed);
-        mCountPoint = findViewById(R.id.countTotalPoints);
+        mCountLevel = findViewById(R.id.mCountLevel);
+        mCountPoint = findViewById(R.id.mCountPoint);
         mProfilePhoto = findViewById(R.id.mProfilePhoto);
 
         africaBadge = findViewById(R.id.africaBadge);
@@ -74,10 +73,39 @@ public class ProfileActivity extends AppCompatActivity {
         settingButton = findViewById(R.id.settingButton);
         //Firebase
         mContext = getApplicationContext();
-        mFirebaseMethods = new FirebaseMethods(mContext);
+        //mFirebaseMethods = new FirebaseMethods(mContext);
 
         //Setup FirebaseAuth
-        setupFirebaseAuth();
+        Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
+
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
+        databaseReference = mFirebaseDatabase.getReference("USER");
+
+        databaseReference.child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Retrieve user data from database
+                //User result = (User) dataSnapshot.getValue();
+                User result = dataSnapshot.getValue(User.class);
+
+                if (result != null) {
+                    Log.d(TAG, "retrieveDataFromDB");
+                    mName.setText(result.getName());
+                    mUsername.setText(result.getUsername());
+                    mCountLevel.setText(String.valueOf(result.getCountLevel()));
+                    mCountPoint.setText(String.valueOf(result.getCountPoint()));
+
+                    //retrieveDataFromDB();
+                    //displayUserProfile(mFirebaseMethods.getUserSettings(dataSnapshot));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("databaseReference failed!");
+            }
+        });
 
         /**
          * Set up Bottom Navigation View
@@ -116,6 +144,60 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void launchSetting() {
+        Intent intent = new Intent(ProfileActivity.this, SettingActivity.class);
+        //switch to Setting screen
+        startActivity(intent);
+    }
+
+    private void retrieveDataFromDB() {
+        //String userID = mAuth.getCurrentUser().getUid();
+        //Log.d(TAG, "checkIfUserIDExists: checking if " + userID + " exists in the database");
+
+       /* //Use Query database to check username
+        Query checkUserEmail = databaseReference
+                .child("user")
+                .orderByChild("email")
+                .equalTo(MainActivity.currentUserEmail);
+*/
+        //Search for email in the database
+        //Query checkUser = databaseReference.orderByChild(userID).equalTo(userEnteredPassword);
+        /*databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()) {
+                    Log.d(TAG, "retrieveDataFromDB");
+                    User currentUser = snapshot.getValue(User.class);
+
+                    mName.setText(currentUser.getName());
+                    mUsername.setText(currentUser.getUsername());
+                    mCountLevel.setText(String.valueOf(currentUser.getCountLevel()));
+                    mCountPoint.setText(String.valueOf(currentUser.getCountPoint()));*/
+                    /*
+                    String passwordFromDB = snapshot.child(userID).child("password").getValue(String.class);
+                    String usernameFromDB = snapshot.child(userID).child("username").getValue(String.class);
+                    String nameFromDB = snapshot.child(userID).child("name").getValue(String.class);
+                    String emailFromDB = snapshot.child(userID).child("email").getValue(String.class);*/
+
+                    /*//Pass user data into Profile page
+                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
+                    intent.putExtra("name", nameFromDB);
+                    intent.putExtra("username", usernameFromDB);
+                    startActivity(intent);
+                    */
+            /*        Log.d(TAG, "retrieveDataFromDB:  " + currentUser.toString());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+
+    }
 /*
 ------------------------------Firebase------------------------
  */
@@ -123,14 +205,14 @@ public class ProfileActivity extends AppCompatActivity {
     /**
      * Set up Firebase Auth
      */
-    private void setupFirebaseAuth() {
+    /*private void setupFirebaseAuth() {
         Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
 
         mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = mFirebaseDatabase.getReference(String.valueOf(R.string.database_url));
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
+        databaseReference = mFirebaseDatabase.getReference("USER");*/
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
+        /*mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -144,14 +226,14 @@ public class ProfileActivity extends AppCompatActivity {
                     Log.d(TAG, "onAuthStateChanged:signed_out");
                 }
             }
-        };
+        };*/
 
         //Get the data snapshot to read data
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        /*databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Retrieve user data from database
-                displayUserProfile(mFirebaseMethods.getUserSettings(dataSnapshot));
+                //displayUserProfile(mFirebaseMethods.getUserSettings(dataSnapshot));
             }
 
             @Override
@@ -159,30 +241,26 @@ public class ProfileActivity extends AppCompatActivity {
                 System.out.println("databaseReference failed!");
             }
         });
-    }
+    }*/
 
-    private void displayUserProfile(UserSettings userSettings) {
+
+  /*  private void displayUserProfile(UserSettings userSettings) {
         //User user = userSettings.getUser();
         Log.d(TAG, "displayUserProfile: retrieve data from firebase authentication");
-        UserAccountSettings settings = userSettings.getSettings();
+        //UserAccountSettings settings = userSettings.getSettings();
 
-        mName.setText(settings.getName());
+        *//*mName.setText(settings.getName());
         mUsername.setText(settings.getUsername());
         mCountLevel.setText(String.valueOf(settings.getCount_level()));
-        mCountPoint.setText(String.valueOf(settings.getCount_point()));
+        mCountPoint.setText(String.valueOf(settings.getCount_point()));*//*
 
-    }
-
-    public void launchSetting() {
-        Intent intent = new Intent(ProfileActivity.this, SettingActivity.class);
-        //switch to Setting screen
-        startActivity(intent);
-    }
+    }*/
 
 
 
 
-    @Override
+
+    /*@Override
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
@@ -193,5 +271,5 @@ public class ProfileActivity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
-    }
+    }*/
 }

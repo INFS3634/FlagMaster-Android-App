@@ -64,7 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
          * Initialize RegisterActivity widget
          */
 
-        Log.d(TAG, "initWidgets: initializating widgets");
+        Log.d(TAG, "initWidgets: initializing widgets");
         inputName = findViewById(R.id.inputName);
         inputUsername = findViewById(R.id.inputUsername);
         inputEmail = findViewById(R.id.inputEmail);
@@ -74,9 +74,11 @@ public class RegisterActivity extends AppCompatActivity {
         mLoadingBar = new ProgressDialog(RegisterActivity.this);
 
         //Set up FirebaseAuth
-        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
-        databaseReference = mFirebaseDatabase.getReference("USER");
         mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
+        //databaseReference = mFirebaseDatabase.getReference("USER");
+        databaseReference = mFirebaseDatabase.getReference("USER");
+
 
         /**
          * Init register button
@@ -98,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity {
                     mLoadingBar.show();
 
                     mLoadingBar.dismiss();
-                    user = new User(name, username, email, password);
+                    user = new User(name, username, email, password, 0, 0);
                     registerNewUser(email, password);
                     Log.d(TAG, "checkCredentials: added a new user to database");
                 }
@@ -126,22 +128,18 @@ public class RegisterActivity extends AppCompatActivity {
                             Toast.makeText(mContext, "Your account has been created successfully!", Toast.LENGTH_SHORT).show();
                             //Verify username
                             FirebaseUser user = mAuth.getCurrentUser();
-                            //userID = user.getUid();
                             updateUI(user);
                         } else {
                             Toast.makeText(mContext, task.getException().toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
-
     }
 
     private void updateUI(FirebaseUser currentUser) {
-        String keyId = databaseReference.push().getKey();
-       /* databaseReference.child("user")
-                .child(userID)
-                .setValue(user);*/
-        databaseReference.child(keyId).setValue(user);
+        //String keyId = databaseReference.push().getKey();
+        //userID = mAuth.getCurrentUser().getUid();
+        databaseReference.child(FirebaseAuth.getInstance().getUid()).setValue(user);
         Intent intent = new Intent(RegisterActivity.this, QuizActivity.class);
         //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);

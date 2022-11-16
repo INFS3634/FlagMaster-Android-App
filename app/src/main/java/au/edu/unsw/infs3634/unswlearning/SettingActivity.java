@@ -38,9 +38,7 @@ public class SettingActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference databaseReference;
-    private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseMethods mFirebaseMethods;
-    private String user_id;
 
     //Variables
     private UserSettings mUserSettings;
@@ -61,12 +59,38 @@ public class SettingActivity extends AppCompatActivity {
         helpButton = findViewById(R.id.helpButton);
 
         //Firebase
-        mContext = getApplicationContext();
-        mFirebaseMethods = new FirebaseMethods(mContext);
+        /*mContext = getApplicationContext();
+        mFirebaseMethods = new FirebaseMethods(mContext);*/
 
         //Set up Firebase Auth
-        setupFirebaseAuth();
+        Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
+
+        mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
+        databaseReference = mFirebaseDatabase.getReference("USER");
+
         //Pre-load current information to EditTextView
+        databaseReference.child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Retrieve user data from database
+                //User result = (User) dataSnapshot.getValue();
+                User result = dataSnapshot.getValue(User.class);
+
+                if (result != null) {
+                    Log.d(TAG, "retrieveDataFromDB");
+                    currentName.setText(result.getName());
+                    currentUsername.setText(result.getUsername());
+                    currentPassword.setText(result.getPassword());
+                    currentEmail.setText(result.getEmail());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("databaseReference failed!");
+            }
+        });
         //displayUserProfile(mUserSettings);
         //When user clicks on any of the EditTextView, saveChange button will appear
 
@@ -93,7 +117,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     //Set up Firebase Auth
-    private void setupFirebaseAuth() {
+    /*private void setupFirebaseAuth() {
         Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
 
         mAuth = FirebaseAuth.getInstance();
@@ -129,7 +153,7 @@ public class SettingActivity extends AppCompatActivity {
 
             }
         });
-    }
+    }*/
 
     /**
      * Retrieve data from EditTextzview and submit it to the database
@@ -218,7 +242,7 @@ public class SettingActivity extends AppCompatActivity {
 
     }
 
-    @Override
+   /* @Override
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
@@ -229,5 +253,5 @@ public class SettingActivity extends AppCompatActivity {
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
         }
-    }
+    }*/
 }

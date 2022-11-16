@@ -59,10 +59,9 @@ public class FirebaseMethods {
                         }
                     }
                 });
-
     }
 
-    public void addNewUser(String name, String username, String email, String password) {
+    /*public void addNewUser(String name, String username, String email, String password) {
         User user = new User(userID, name, username, email);
 
         //Insert a new users node to the database
@@ -77,7 +76,7 @@ public class FirebaseMethods {
                 .setValue(settings);
         Log.d(TAG, "addNewUser successful");
 
-    }
+    }*/
 
     public void updateUsername(String username) {
         Log.d(TAG, "updateUsername: updating username to: " + username);

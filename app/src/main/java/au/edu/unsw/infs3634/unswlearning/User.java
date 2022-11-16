@@ -8,6 +8,8 @@ public class User {
     public String username;
     private String email;
     private String password;
+    private int countPoint;
+    private int countLevel;
 
     public String getUser_id() {
         return user_id;
@@ -30,11 +32,13 @@ public class User {
 
     }
 
-    public User(String name, String username, String email, String password) {
+    public User(String name, String username, String email, String password, int countLevel, int countPoint) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.countLevel = countLevel;
+        this.countPoint = countPoint;
     }
 
     FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -49,6 +53,21 @@ public class User {
         this.username = username;
     }
 
+    public int getCountPoint() {
+        return countPoint;
+    }
+
+    public void setCountPoint(int countPoint) {
+        this.countPoint = countPoint;
+    }
+
+    public int getCountLevel() {
+        return countLevel;
+    }
+
+    public void setCountLevel(int countLevel) {
+        this.countLevel = countLevel;
+    }
 
     //Getter methods
     public String getName() {
