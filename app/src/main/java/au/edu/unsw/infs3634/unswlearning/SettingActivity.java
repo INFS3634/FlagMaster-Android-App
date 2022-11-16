@@ -227,31 +227,4 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-
-    private void displayUserProfile(UserSettings userSettings) {
-        Log.d(TAG, "displayUserProfile with data retrieving from firebase database: " + userSettings.toString());
-
-        //User user = userSettings.getUser();
-        UserAccountSettings settings = userSettings.getSettings();
-
-        mUserSettings = userSettings;
-        currentName.setText(settings.getName());
-        currentUsername.setText(settings.getUsername());
-        currentEmail.setText(userSettings.getUser().getEmail());
-        currentPassword.setText(settings.getPassword());
-
     }
-
-   /* @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }*/
-}

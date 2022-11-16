@@ -1,14 +1,16 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 //SecondFragment for Quiz page
 public class QuizActivity extends AppCompatActivity {
@@ -31,7 +39,7 @@ public class QuizActivity extends AppCompatActivity {
 
     //Selection of Quiz
     private String regionChosen;
-    private String quizLevel;
+    //private String quizLevel;
 
     Intent intent = getIntent();
 
@@ -39,7 +47,10 @@ public class QuizActivity extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private ImageView easyQuiz, hardQuiz;
-    private TextView regionChosenTv;
+    private TextView regionChosenTv, countPoint, countStar;
+    //Firebase Database
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +63,35 @@ public class QuizActivity extends AppCompatActivity {
         northAmericaMap = findViewById(R.id.northAmericaMap);
         southAmericaMap = findViewById(R.id.southAmericaMap);
         oceaniaMap = findViewById(R.id.oceaniaMap);
+        countPoint = findViewById(R.id.countPoint);
+        countStar = findViewById(R.id.countStar);
 
+        //Set up Firebase Database
+        //mAuth = FirebaseAuth.getInstance();
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
+        //databaseReference = mFirebaseDatabase.getReference("USER");
+        databaseReference = mFirebaseDatabase.getReference("USER");
+
+        //Display user data
+        databaseReference.child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Retrieve user data from database
+                //User result = (User) dataSnapshot.getValue();
+                User result = dataSnapshot.getValue(User.class);
+
+                if (result != null) {
+                    Log.d(TAG, "retrieveDataFromDB");
+                    countStar.setText(String.valueOf(result.getCountLevel()));
+                    countPoint.setText(String.valueOf(result.getCountPoint()));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("databaseReference failed!");
+            }
+        });
         //Bottom Navigation
         BottomNavigationView bottomNav = findViewById(R.id.bottomNavigationView);
         bottomNav.setSelectedItemId(R.id.quiz);

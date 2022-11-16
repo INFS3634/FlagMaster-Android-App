@@ -55,12 +55,11 @@
         app:layout_constraintTop_toBottomOf="@+id/asiaMap" />
 
     <TextView
-        android:id="@+id/countQuiz"
+        android:id="@+id/countStar"
         android:layout_width="40dp"
         android:layout_height="25dp"
         android:layout_marginStart="60dp"
         android:layout_marginTop="22dp"
-        android:text="Quiz"
         android:textColor="#ffba00"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -203,7 +202,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
         android:layout_marginEnd="60dp"
-        android:text="Point"
         android:textColor="#ffba00"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
