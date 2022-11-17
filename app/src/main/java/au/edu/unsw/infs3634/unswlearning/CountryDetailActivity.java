@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -34,7 +33,7 @@ public class CountryDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_launch_detail);
+        setContentView(R.layout.activity_country_detail);
 
         countryNameTextView=findViewById(R.id.countryNameTextView);
         capitalNameTextView=findViewById(R.id.capitalNameTextView);

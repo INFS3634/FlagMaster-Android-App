@@ -20,9 +20,10 @@
     <TextView
         android:id="@+id/countryName"
         android:layout_width="175dp"
-        android:layout_height="26dp"
+        android:layout_height="34dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#fff"
         app:layout_constraintStart_toEndOf="@+id/countryImage"
         app:layout_constraintTop_toTopOf="@+id/countryImage" />
 
@@ -31,17 +32,20 @@
         android:layout_width="175dp"
         android:layout_height="24dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="60dp"
+        android:textColor="#fff"
         app:layout_constraintStart_toEndOf="@+id/countryImage"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/countryRegion"
         android:layout_width="71dp"
-        android:layout_height="27dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="28dp"
+        android:textColor="#fff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.459" />
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

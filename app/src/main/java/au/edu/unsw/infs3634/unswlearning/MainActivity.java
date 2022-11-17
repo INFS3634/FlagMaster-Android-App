@@ -3,30 +3,30 @@ package au.edu.unsw.infs3634.unswlearning;
 import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     private Context mContext;
@@ -36,8 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private ProgressDialog mLoadingBar;
     private TextView switchToRegister;
     private Button continueAsGuest;
-    private String password;
-    public static String currentUserEmail;
+    private String email,password;
 
     //Firebase
     private FirebaseDatabase mFirebaseDatabase;
@@ -50,10 +49,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTitle(R.string.app_name);
+
+        //Set up Firebase Authentication
         setupFirebaseAuth();
         mContext = this;
 
-        continueAsGuest = findViewById(R.id.continueAsGuest);
         loginEmail = findViewById(R.id.loginEmail);
         loginPassword = findViewById(R.id.loginPassword);
         loginButton = findViewById(R.id.loginButton);
@@ -66,8 +67,14 @@ public class MainActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                checkCredentials();
-                //isUser();
+                email = loginEmail.getText().toString();
+                password = loginPassword.getText().toString();
+                if(email.isEmpty() || password.isEmpty()) {
+                    Toast.makeText(mContext, "Please enter your email and password to sign in", Toast.LENGTH_SHORT).show();
+                } else {
+                    checkCredentials();
+                }
+
             }
         });
 
@@ -76,17 +83,6 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, RegisterActivity.class); //refer to the current activity in main
                 //switch to Register screen
-                startActivity(intent);
-            }
-        });
-
-        /**
-         * Continue as guest
-         */
-        continueAsGuest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, QuizActivity.class); //refer to the current activity in main
                 startActivity(intent);
             }
         });
@@ -122,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
-        //checkCurrentUser(mAuth.getCurrentUser());
     }
     @Override
     public void onStop() {
@@ -133,27 +128,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * Check if username and password entered has been registered
+     * Check credentials
      */
-    /*private void checkCurrentUser(FirebaseUser user) {
-        Log.d(TAG, "checkCurrentUser: checking if user is logged in.");
-
-        if (user == null) {
-            Intent intent = new Intent(MainActivity.this, QuizActivity.class); //refer to the current activity in main
-            startActivity(intent);
-        }
-    }*/
-
     private void checkCredentials() {
-        currentUserEmail = loginEmail.getText().toString();
-        password = loginPassword.getText().toString();
 
         mLoadingBar.setTitle("Login");
         mLoadingBar.setMessage("Please wait while we are logging you in");
         mLoadingBar.setCanceledOnTouchOutside(false);
         mLoadingBar.show();
 
-        mAuth.signInWithEmailAndPassword(currentUserEmail, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -164,7 +148,9 @@ public class MainActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else {
                     mLoadingBar.dismiss();
-                    loginPassword.setError("Wrong password or email");
+                    //loginPassword.setError("Wrong password or email");
+                    Toast.makeText(mContext, "Wrong password or email. Please try again", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });

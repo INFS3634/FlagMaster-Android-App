@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 public class SettingActivity extends AppCompatActivity {
 
     private EditText currentName, currentUsername, currentEmail, currentPassword;
+    private String newName, newUsername;
     private Button saveChange;
     private TextView changePhoto;
     private ImageView currentPhoto;
@@ -91,7 +92,6 @@ public class SettingActivity extends AppCompatActivity {
                 System.out.println("databaseReference failed!");
             }
         });
-        //displayUserProfile(mUserSettings);
         //When user clicks on any of the EditTextView, saveChange button will appear
 
         //Save changes
@@ -116,64 +116,40 @@ public class SettingActivity extends AppCompatActivity {
         });
     }
 
-    //Set up Firebase Auth
-    /*private void setupFirebaseAuth() {
-        Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
-
-        mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = mFirebaseDatabase.getReference(String.valueOf(R.string.database_url));
-        user_id = mAuth.getCurrentUser().getUid();
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user != null) {
-                    //User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
-                }
-                else {
-                    //User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-            }
-        };
-
-        //Retrieve current user data from database
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                displayUserProfile(mFirebaseMethods.getUserSettings(dataSnapshot));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }*/
-
     /**
      * Retrieve data from EditTextzview and submit it to the database
      * Before doing so, check to make sure username is unique
      */
 
     private void saveProfileSettings() {
-        final String displayName = currentName.getText().toString();
-        final String username = currentUsername.getText().toString();
-        final String email = currentEmail.getText().toString();
-        final String password = currentPassword.getText().toString();
+        newName = currentName.getText().toString();
+        newUsername = currentUsername.getText().toString();
+        /*final String newEmail = currentEmail.getText().toString();
+        final String newPassword = currentPassword.getText().toString();*/
 
-        //Listen for changes once
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(FirebaseAuth.getInstance().getUid()).child("name").setValue(newName);
+        checkIfUsernameExists(newUsername);
+        //Update new user information to database
+        /*databaseReference.child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //Retrieve user data from database
+                //User result = (User) dataSnapshot.getValue();
+                databaseReference.child(FirebaseAuth.getInstance().getUid()).child("name").setValue(newName);
+                checkIfUsernameExists(newUsername);
+                //databaseReference.child(FirebaseAuth.getInstance().getUid()).child("username").setValue(newUsername);
+            }
 
-                //Case 1: User changed their username --> require to check unique username
-                //Compare username in EditTextView and username loaded from database
-                if(!mUserSettings.getUser().getUsername().equals(username)) {
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                System.out.println("databaseReference failed!");
+            }
+        });*/
+
+
+        //Case 1: User changed their username --> require to check unique username
+        //Compare username in EditTextView and username loaded from database
+                /*if(!mUserSettings.getUser().getUsername().equals(username)) {
                     checkIfUsernameExists(username);
                 }
                 //Case 2: User changed their display name
@@ -182,41 +158,33 @@ public class SettingActivity extends AppCompatActivity {
                 }
                 //Case 3: User changed Firebase Authenticated Email
 
-            }
+            }*/
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
+        /**
+         * Check if @param username already exists in the database
+         * @param username
+         */
     }
-
-    /**
-     * Check if @param username already exists in the database
-     * @param username
-     */
     private void checkIfUsernameExists(String username) {
         Log.d(TAG, "checkIfUsernameExists: checking if " + username + " already exists");
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference messageRef = mFirebaseDatabase.getReference();
         //Use Query database
-        Query query = reference
-                .child(getString(R.string.dbname_users))
-                .orderByChild(getString(R.string.field_username))
+        Query query = messageRef
+                .child("USER")
+                .orderByChild("username")
                 .equalTo(username);
+
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!snapshot.exists()) {
                     //Update username
-                    mFirebaseMethods.updateUsername(username);
-                    Toast.makeText(getApplicationContext(), "Saved new username", Toast.LENGTH_SHORT).show();
-                }
-                for(DataSnapshot singleSnapshot: snapshot.getChildren()) {
-                    if (singleSnapshot.exists()) {
-                        Log.d(TAG, "checkIfUsernameExists: FOUND A MATCH: " + singleSnapshot.getValue(User.class).getUsername());
-                        Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
-                    }
+                    databaseReference.child(FirebaseAuth.getInstance().getUid()).child("username").setValue(newUsername);
+                    //Toast.makeText(getApplicationContext(), "Saved new username", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
                 }
             }
 

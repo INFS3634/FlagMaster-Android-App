@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">UNSW Learning</string>
+    <string name="app_name">FlagMaster</string>
     <string name="nav_1">Learn</string>
     <string name="nav_2">Quiz</string>
     <string name="nav_3">Leaderboard</string>

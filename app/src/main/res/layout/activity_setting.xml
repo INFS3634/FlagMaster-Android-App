@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="#0C3B2E">
+    android:background="#0C3B2E"
+    android:clickable="true"
+    android:focusableInTouchMode="true">
 
     <ImageView
         android:id="@+id/currentPhoto"
@@ -214,13 +216,13 @@
     <Button
         android:id="@+id/saveChange"
         android:layout_width="69dp"
-        android:layout_height="43dp"
+        android:layout_height="48dp"
         android:layout_marginTop="49dp"
         android:layout_marginEnd="48dp"
         android:text="Save"
         android:textColor="#000"
         android:textSize="12sp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

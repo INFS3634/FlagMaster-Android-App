@@ -12,6 +12,7 @@
         android:id="@+id/bottomNavigationView"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:background="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -112,10 +113,10 @@
         android:layout_width="88dp"
         android:layout_height="80dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="112dp"
         android:src="@drawable/square_box"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/squareBox"
         app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
     <TextView

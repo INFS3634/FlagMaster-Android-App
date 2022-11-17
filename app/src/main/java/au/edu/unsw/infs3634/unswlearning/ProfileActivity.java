@@ -228,7 +228,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         };*/
 
-        //Get the data snapshot to read data
+    //Get the data snapshot to read data
         /*databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

@@ -13,7 +13,7 @@ public class Country {
     @SerializedName("id")
     @Expose
     private int id;
-    @SerializedName("alpha3C")
+    @SerializedName("alpha3Code")
     @Expose
     private String alpha3Code;
     @SerializedName("name")
@@ -31,6 +31,8 @@ public class Country {
     @SerializedName("population")
     @Expose
     private int population;
+    @SerializedName("flag")
+    @Expose
     private String flag;
 
     public String getFlag() {

@@ -168,6 +168,8 @@ public class MCQQuizActivity extends AppCompatActivity{
 
             questionCount++;
             textViewQuestionCount.setText("Question: " + questionCount + "/" + questionCountTotal);
+            String countryAnswer = currentQuestion.getAnswer();
+
             //Add Glide library to display country flag images
             Glide.with(getApplicationContext())
                     .load("https://countryflagsapi.com/png/" + currentQuestion.getAnswer() + "/")

@@ -33,17 +33,6 @@
         app:layout_constraintTop_toBottomOf="@+id/loginButton"
         tools:textColor="#ffffff" />
 
-    <Button
-        android:id="@+id/continueAsGuest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="560dp"
-        android:text="Continue as Guest"
-        android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
         android:id="@+id/errorMessage"
         android:layout_width="wrap_content"
