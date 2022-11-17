@@ -137,8 +137,8 @@ public class QuizActivity extends AppCompatActivity {
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
 
         lp.copyFrom(dialog.getWindow().getAttributes());
-        lp.width = 800;
-        lp.height = 450;
+        lp.width = 880;
+        lp.height = 600;
         dialog.getWindow().setAttributes(lp);
         dialog.getWindow().setGravity(Gravity.CENTER_VERTICAL);
 

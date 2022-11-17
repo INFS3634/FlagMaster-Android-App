@@ -19,6 +19,9 @@ import androidx.room.Room;
 
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Collections;
 import java.util.List;
@@ -40,13 +43,16 @@ public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends Ap
     private ShortAnswer currentQuestion;
     private boolean answered;
     private int quizScore;
-
     public static String regionChosen;
+
+    //Firebase Database
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.short_answer_quiz);
+        setContentView(R.layout.activity_short_answer_quiz);
 
         // Assign attributes
         quizRegionTV = findViewById(R.id.quizRegionTV);
@@ -172,6 +178,7 @@ public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends Ap
             quizScore++;
             quizScoreTV.setText("Score: " + quizScore);
             checkAnswer.setText("Nicely done!");
+            checkAnswer.setTextColor(Color.GREEN);
         } else {
             checkAnswer.setText("Correct answer is: " + currentQuestion.getAnswer());
             checkAnswer.setTextColor(Color.RED);
@@ -187,12 +194,37 @@ public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends Ap
     }
 
     private void finishQuiz () {
-        //If user gets 5/5 correct answers, add 10 points to Total Points
-        if (quizScore == questionCount) {
-                /*currentUser.addPoints();
-                currentUser.addLevelPassed();*/
+        //If user gets 5/5 correct answers, add 2 star
+        if (quizScore == totalQuestionCount) {
+            updateStar();
         }
-        finish();
+        updatePoint();
+        backToQuizActivity();
+    }
+
+    private void updateStar() {
+        //Set up Firebase Database
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
+        databaseReference = mFirebaseDatabase.getReference("USER");
+        //Add 1 star to currentStar
+        int currentStar = Integer.valueOf(QuizActivity.countStar.getText().toString());
+        currentStar += 2;
+        //Update new countStar to database
+        databaseReference.child(FirebaseAuth.getInstance().getUid()).child("countLevel").setValue(currentStar);
+    }
+
+    private void updatePoint() {
+        //For every correct answer, add 10 points
+        //Add 1 star to currentStar
+        int currentPoint = Integer.valueOf(QuizActivity.countPoint.getText().toString());
+        currentPoint += quizScore * 10;
+        //Update new countStar to database
+        databaseReference.child(FirebaseAuth.getInstance().getUid()).child("countPoint").setValue(currentPoint);
+    }
+
+    private void backToQuizActivity() {
+        Intent backToQuizIntent = new Intent(ShortAnswerQuizActivity.this, QuizActivity.class);
+        startActivity(backToQuizIntent);
     }
 
     @Override

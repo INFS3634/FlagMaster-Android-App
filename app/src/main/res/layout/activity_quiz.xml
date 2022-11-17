@@ -13,21 +13,21 @@
 
     <ImageView
         android:id="@+id/starIcon"
-        android:layout_width="45dp"
+        android:layout_width="30dp"
         android:layout_height="25dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="19dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/star" />
 
     <ImageView
         android:id="@+id/pointIcon"
-        android:layout_width="45dp"
+        android:layout_width="30dp"
         android:layout_height="25dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="5dp"
-        app:layout_constraintEnd_toEndOf="@+id/countPoint"
+        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/lightning_icon" />
 
@@ -68,8 +68,8 @@
         android:id="@+id/countStar"
         android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="22dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="20dp"
         android:textColor="#ffba00"
         android:textSize="16sp"
         app:layout_constraintStart_toEndOf="@+id/starIcon"
@@ -211,11 +211,10 @@
         android:id="@+id/countPoint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="22dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginTop="20dp"
         android:textColor="#ffba00"
         android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pointIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
 
