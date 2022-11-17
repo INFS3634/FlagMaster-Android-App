@@ -1,11 +1,14 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,7 +37,9 @@ public class CountryDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_country_detail);
+        setTitle("Country Dictionary");
 
+        //Assign attributes
         countryNameTextView=findViewById(R.id.countryNameTextView);
         capitalNameTextView=findViewById(R.id.capitalNameTextView);
         regionNameTextView=findViewById(R.id.regionNameTextView);
@@ -43,18 +48,27 @@ public class CountryDetailActivity extends AppCompatActivity {
         flagImageView=findViewById(R.id.flagImageView);
         linkWiki = findViewById(R.id.linkWiki);
 
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
+
         //Get the intent that started this activity and extract the string
         Intent intent = getIntent();
         if (intent.hasExtra(INTENT_MESSAGE)) {
             String message = intent.getStringExtra(INTENT_MESSAGE);
             Log.d(TAG, "Intent Message = " + message);
-            // Implement Retrofit to make API call
+
+            /**
+             * Use Country API to show country information
+             */
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://restcountries.com/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();
 
-            // Create object to make API call
             CountryService service = retrofit.create(CountryService.class);
             Call<ArrayList<Country>> responseCall = service.getCountry(message);
             responseCall.enqueue(new Callback<ArrayList<Country>>() {
@@ -100,4 +114,14 @@ public class CountryDetailActivity extends AppCompatActivity {
             });
         }
     }
+    // this event will enable the back
+    // function to the button on press
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        Intent myIntent = new Intent(getApplicationContext(), LearnActivity.class);
+        startActivityForResult(myIntent, 0);
+        return true;
+    }
+
+
 }

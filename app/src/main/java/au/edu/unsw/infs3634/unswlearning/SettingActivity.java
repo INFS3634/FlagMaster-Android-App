@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,7 +32,7 @@ public class SettingActivity extends AppCompatActivity {
     private EditText currentName, currentUsername, currentEmail, currentPassword;
     private String newName, newUsername;
     private Button saveChange;
-    private TextView changePhoto;
+    private TextView changePhoto, signOutButton;
     private ImageView currentPhoto;
     private TextView helpButton;
 
@@ -39,10 +41,7 @@ public class SettingActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference databaseReference;
-    private FirebaseMethods mFirebaseMethods;
 
-    //Variables
-    private UserSettings mUserSettings;
 
 
     @Override
@@ -58,10 +57,14 @@ public class SettingActivity extends AppCompatActivity {
         changePhoto = findViewById(R.id.changePhoto);
         currentPhoto = findViewById(R.id.currentPhoto);
         helpButton = findViewById(R.id.helpButton);
+        signOutButton = findViewById(R.id.signOutButton);
 
-        //Firebase
-        /*mContext = getApplicationContext();
-        mFirebaseMethods = new FirebaseMethods(mContext);*/
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
 
         //Set up Firebase Auth
         Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
@@ -69,6 +72,17 @@ public class SettingActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
         databaseReference = mFirebaseDatabase.getReference("USER");
+
+        /**
+         * Sign out, back to Sign in page
+         */
+        signOutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SettingActivity.this, MainActivity.class); //refer to the current activity in main
+                startActivity(intent);
+            }
+        });
 
         //Pre-load current information to EditTextView
         databaseReference.child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -100,6 +114,7 @@ public class SettingActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d(TAG, "onClick: attempting to save changes");
                 saveProfileSettings();
+                backToProfile();
             }
         });
 
@@ -117,7 +132,7 @@ public class SettingActivity extends AppCompatActivity {
     }
 
     /**
-     * Retrieve data from EditTextzview and submit it to the database
+     * Retrieve data from EditTextView and submit it to the database
      * Before doing so, check to make sure username is unique
      */
 
@@ -179,7 +194,7 @@ public class SettingActivity extends AppCompatActivity {
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
+                if (snapshot.exists()) {
                     //Update username
                     databaseReference.child(FirebaseAuth.getInstance().getUid()).child("username").setValue(newUsername);
                     //Toast.makeText(getApplicationContext(), "Saved new username", Toast.LENGTH_SHORT).show();
@@ -193,6 +208,16 @@ public class SettingActivity extends AppCompatActivity {
 
             }
         });
+    }
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        backToProfile();
+        return true;
+    }
+
+    private void backToProfile() {
+        Intent myIntent = new Intent(getApplicationContext(), ProfileActivity.class);
+        startActivityForResult(myIntent, 0);
     }
 
     }

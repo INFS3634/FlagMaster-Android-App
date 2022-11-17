@@ -40,6 +40,8 @@ public class LearnActivity extends AppCompatActivity implements RecyclerViewInte
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_learn);
+        setTitle("Country Dictionary");
+
         //Get the handle to RecyclerView
         recyclerView = findViewById(R.id.rvList);
 

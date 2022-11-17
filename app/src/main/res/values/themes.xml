@@ -14,6 +14,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="android:navigationBarColor">@color/white</item>
+        <item name="colorControlNormal">#0F9D58</item>
         //MaterialComponents.DayNight.DarkActionBar
     </style>
 </resources>
