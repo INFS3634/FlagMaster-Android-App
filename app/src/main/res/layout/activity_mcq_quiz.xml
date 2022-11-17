@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#0C3B2E"
     tools:background="#0C3B2E">
 
 
@@ -131,6 +132,7 @@
             android:id="@+id/choiceA"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:text="Option 1"
             android:textColor="#000"
             android:textSize="16sp" />
@@ -139,6 +141,7 @@
             android:id="@+id/choiceB"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:text="Option 2"
             android:textColor="#000"
             android:textSize="16sp" />
@@ -147,6 +150,7 @@
             android:id="@+id/choiceC"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:text="Option 3"
             android:textColor="#000"
             android:textSize="16sp" />
@@ -155,6 +159,7 @@
             android:id="@+id/choiceD"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:text="Option 4"
             android:textColor="#000"
             android:textSize="16sp" />

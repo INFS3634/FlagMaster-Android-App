@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -69,6 +70,7 @@ public class RegisterActivity extends AppCompatActivity {
         inputUsername = findViewById(R.id.inputUsername);
         inputEmail = findViewById(R.id.inputEmail);
         inputPassword = findViewById(R.id.inputPassword);
+        inputPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
         registerButton = findViewById(R.id.registerButton);
         switchToLogin = findViewById(R.id.switchToLogin);
         mLoadingBar = new ProgressDialog(RegisterActivity.this);

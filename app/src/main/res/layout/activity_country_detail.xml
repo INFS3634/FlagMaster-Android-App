@@ -147,23 +147,50 @@
         android:id="@+id/linkWiki"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="35dp"
+        android:linksClickable="true"
         android:text="Explore more from Wikipedia"
         android:textColor="#FFD53B"
-        android:textSize="18sp"
-        android:linksClickable="true"
-        app:layout_constraintStart_toEndOf="@+id/imageView8"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/areaTextView" />
 
+    <TextView
+        android:id="@+id/linkArc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="20dp"
+        android:linksClickable="true"
+        android:text="UNSW's International/Cultural Societies"
+        android:textColor="#FFD53B"
+        android:textSize="16sp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/areaTextView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/arcLogo"
+        app:layout_constraintTop_toBottomOf="@+id/linkWiki" />
+
     <ImageView
-        android:id="@+id/imageView8"
-        android:layout_width="50dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="615dp"
+        android:id="@+id/arcLogo"
+        android:layout_width="49dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="68dp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/areaTextView"
+        app:srcCompat="@drawable/arc" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="45dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/areaTextView"
         app:srcCompat="@drawable/external_link" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import au.edu.unsw.infs3634.unswlearning.countryAPI.Country;
@@ -29,9 +30,11 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class CountryDetailActivity extends AppCompatActivity {
     private static final String TAG = "CountryDetailActivity";
     public static final String INTENT_MESSAGE = "intent_message";
-    TextView countryNameTextView, capitalNameTextView, regionNameTextView, populationTextView, areaTextView, linkWiki;
-    ImageView flagImageView;
+    TextView countryNameTextView, capitalNameTextView, regionNameTextView, populationTextView,
+            areaTextView, linkWiki, linkArc;
+    ImageView flagImageView, arcLogo;
     private ArrayList<Country> countryList = new ArrayList<>();
+    Country country;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,9 @@ public class CountryDetailActivity extends AppCompatActivity {
         areaTextView=findViewById(R.id.areaTextView);
         flagImageView=findViewById(R.id.flagImageView);
         linkWiki = findViewById(R.id.linkWiki);
+        //UNSW Society showcase
+        linkArc = findViewById(R.id.linkArc);
+        arcLogo = findViewById(R.id.arcLogo);
 
         // calling the action bar
         ActionBar actionBar = getSupportActionBar();
@@ -81,7 +87,7 @@ public class CountryDetailActivity extends AppCompatActivity {
                     for (Country country: countries) {
                         countryList.add(country);
                     }
-                    Country country = countryList.get(0);
+                    country = countryList.get(0);
 
                     if (country != null) {
                         countryNameTextView.setText(country.getName());
@@ -104,6 +110,8 @@ public class CountryDetailActivity extends AppCompatActivity {
                             }
                         });
 
+                        //Insert UNSW societies' link
+                        showSocietyLink(country.getName());
                     }
                 }
 
@@ -114,14 +122,34 @@ public class CountryDetailActivity extends AppCompatActivity {
             });
         }
     }
-    // this event will enable the back
-    // function to the button on press
+
+    private void showSocietyLink(String countryName){
+        ArrayList<String> societyList = new ArrayList<>(Arrays.asList("China", "Bangladesh",
+                "Philippines", "France", "Hong Kong", "Indonesia", "Iran", "Korea", "Leban",
+                "Malaysia", "Myanmar", "Japan", "Pakistan", "Singapore", "Vietnam", "Spain",
+                "Sri Lanka", "Taiwan", "Thailand", "Turkey"));
+        for (String name: societyList) {
+            if(countryName.equals(name)){
+                linkArc.setVisibility(View.VISIBLE);
+                arcLogo.setVisibility(View.VISIBLE);
+                linkArc.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.arc.unsw.edu.au/clubs/club-admin/clubs-communities/new-international-cultural-clubs-community"));
+                        startActivity(intent);
+                    }
+                });
+            }
+        }
+    }
+    // this event will enable the back function to the button on press
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         Intent myIntent = new Intent(getApplicationContext(), LearnActivity.class);
         startActivityForResult(myIntent, 0);
         return true;
     }
+
 
 
 }
