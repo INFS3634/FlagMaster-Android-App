@@ -15,10 +15,16 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,11 +51,12 @@ public class MCQQuizActivity extends AppCompatActivity{
     final int questionCountTotal = 5;
     private MCQ currentQuestion;
     private int questionCount;
-    private int quizScore;
+    private static int quizScore;
     private boolean answered;
-
-    //Region question banks chosen
     public static String regionChosen;
+    //Firebase Database
+    private FirebaseDatabase mFirebaseDatabase;
+    private DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,13 +227,38 @@ public class MCQQuizActivity extends AppCompatActivity{
     }
 
     private void finishQuiz() {
-        //If user gets 5/5 correct answers, add 10 points to Total Points
+        //If user gets 5/5 correct answers, add 1 star
         if (quizScore == questionCountTotal) {
-            User currentUser = new User();
-            /*currentUser.addPoints();
-            currentUser.addLevelPassed();*/
+            updateStar();
         }
-        finish();
+        updatePoint();
+        //finish();
+        backToQuizActivity();
+    }
+
+    private void updateStar() {
+        //Set up Firebase Database
+        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
+        databaseReference = mFirebaseDatabase.getReference("USER");
+        //Add 1 star to currentStar
+        int currentStar = Integer.valueOf(QuizActivity.countStar.getText().toString());
+        currentStar += 1;
+        //Update new countStar to database
+        databaseReference.child(FirebaseAuth.getInstance().getUid()).child("countLevel").setValue(currentStar);
+    }
+
+    private void updatePoint() {
+        //For every correct answer, add 10 points
+        //Add 1 star to currentStar
+        int currentPoint = Integer.valueOf(QuizActivity.countPoint.getText().toString());
+        currentPoint += quizScore * 10;
+        //Update new countStar to database
+        databaseReference.child(FirebaseAuth.getInstance().getUid()).child("countPoint").setValue(currentPoint);
+    }
+
+    private void backToQuizActivity() {
+        Intent backToQuizIntent = new Intent(MCQQuizActivity.this, QuizActivity.class);
+        startActivity(backToQuizIntent);
     }
 
     @Override

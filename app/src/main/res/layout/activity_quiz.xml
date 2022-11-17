@@ -12,14 +12,24 @@
     //Draw a horizontal line at the top of the screen
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/starIcon"
         android:layout_width="45dp"
         android:layout_height="25dp"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="40dp"
         android:layout_marginTop="20dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/star" />
+
+    <ImageView
+        android:id="@+id/pointIcon"
+        android:layout_width="45dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/countPoint"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/lightning_icon" />
 
     <TextView
         android:id="@+id/africa"
@@ -56,12 +66,13 @@
 
     <TextView
         android:id="@+id/countStar"
-        android:layout_width="40dp"
+        android:layout_width="wrap_content"
         android:layout_height="25dp"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="22dp"
         android:textColor="#ffba00"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/starIcon"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -189,9 +200,9 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="40dp"
-        android:text="Earn more badges by completing more quizzes"
+        android:text="Earn more stars by completing more quizzes"
         android:textColor="#ffffff"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -201,8 +212,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="22dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginEnd="40dp"
         android:textColor="#ffba00"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

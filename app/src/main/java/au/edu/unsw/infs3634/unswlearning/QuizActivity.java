@@ -47,7 +47,8 @@ public class QuizActivity extends AppCompatActivity {
     private AlertDialog.Builder dialogBuilder;
     private AlertDialog dialog;
     private ImageView easyQuiz, hardQuiz;
-    private TextView regionChosenTv, countPoint, countStar;
+    private TextView regionChosenTv;
+    public static TextView countPoint, countStar;
     //Firebase Database
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference databaseReference;
@@ -67,9 +68,7 @@ public class QuizActivity extends AppCompatActivity {
         countStar = findViewById(R.id.countStar);
 
         //Set up Firebase Database
-        //mAuth = FirebaseAuth.getInstance();
         mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
-        //databaseReference = mFirebaseDatabase.getReference("USER");
         databaseReference = mFirebaseDatabase.getReference("USER");
 
         //Display user data
@@ -112,7 +111,6 @@ public class QuizActivity extends AppCompatActivity {
                     case R.id.profile:
                         System.out.println("Profile");
                         startActivity(new Intent(QuizActivity.this, ProfileActivity.class));
-                        //overridePendingTransition(0,0);
                         return true;
                 }
                 return false;
