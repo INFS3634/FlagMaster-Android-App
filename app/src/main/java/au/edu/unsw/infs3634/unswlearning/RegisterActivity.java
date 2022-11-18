@@ -149,8 +149,9 @@ public class RegisterActivity extends AppCompatActivity {
         } else if (username.isEmpty() || username.length() < 6 || username.length() > 20) {
             showError(inputUsername, "Username must be 6-20 characters long");
             return false;
-        } else if (email.isEmpty() || ! email.contains("@")) {
-            showError(inputEmail, "Invalid email");
+        } else if (email.isEmpty() || ! email.contains("@student.unsw.edu.au") ||
+                !email.contains("@ad.unsw.edu.au")) {
+            showError(inputEmail, "UNSW student email required");
             return false;
         } else if (password.isEmpty() || password.length() < 7) {
             showError(inputPassword, "Password must be at least 7 characters long");
