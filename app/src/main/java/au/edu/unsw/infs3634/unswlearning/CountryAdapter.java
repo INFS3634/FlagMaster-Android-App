@@ -49,7 +49,9 @@ public class CountryAdapter extends RecyclerView.Adapter<CountryAdapter.MyViewHo
         holder.countryName.setText(country.getName());
         holder.countryCapital.setText(country.getCapital());
         holder.countryRegion.setText(country.getRegion());
-        //Add Glide library to display country flag images
+        /**
+         * Add Glide library to display country flag images
+         */
         Glide.with(holder.itemView)
                 .load("https://countryflagsapi.com/png/" + country.getName() + "/")
                 .fitCenter()

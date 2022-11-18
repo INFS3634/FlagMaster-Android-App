@@ -50,26 +50,26 @@ public class CountryDetailActivity extends AppCompatActivity {
         areaTextView=findViewById(R.id.areaTextView);
         flagImageView=findViewById(R.id.flagImageView);
         linkWiki = findViewById(R.id.linkWiki);
-        //UNSW Society showcase
         linkArc = findViewById(R.id.linkArc);
         arcLogo = findViewById(R.id.arcLogo);
 
-        // calling the action bar
+        /**
+         * Add Back button in ActionBar
+         */
         ActionBar actionBar = getSupportActionBar();
-
-        // showing the back button in action bar
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
 
-        //Get the intent that started this activity and extract the string
+        /**
+         * Get the intent that started this activity and extract the string
+         * Display country details using API
+         */
+
         Intent intent = getIntent();
         if (intent.hasExtra(INTENT_MESSAGE)) {
             String message = intent.getStringExtra(INTENT_MESSAGE);
             Log.d(TAG, "Intent Message = " + message);
 
-            /**
-             * Use Country API to show country information
-             */
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://restcountries.com/")
                     .addConverterFactory(GsonConverterFactory.create())
@@ -89,6 +89,7 @@ public class CountryDetailActivity extends AppCompatActivity {
                     }
                     country = countryList.get(0);
 
+                    //Display country details
                     if (country != null) {
                         countryNameTextView.setText(country.getName());
                         capitalNameTextView.setText(country.getCapital());
@@ -101,6 +102,9 @@ public class CountryDetailActivity extends AppCompatActivity {
                                 .load("https://countryflagsapi.com/png/" + country.getName() + "/")
                                 .into(flagImageView);
 
+                        /**
+                         * Further external information about country
+                         */
                         //Click on Wiki link
                         linkWiki.setOnClickListener(new View.OnClickListener() {
                             @Override
@@ -142,6 +146,7 @@ public class CountryDetailActivity extends AppCompatActivity {
             }
         }
     }
+
     // this event will enable the back function to the button on press
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -149,7 +154,4 @@ public class CountryDetailActivity extends AppCompatActivity {
         startActivityForResult(myIntent, 0);
         return true;
     }
-
-
-
 }

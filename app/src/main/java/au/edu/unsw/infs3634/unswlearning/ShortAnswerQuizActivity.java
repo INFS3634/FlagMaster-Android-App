@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.room.Room;
 
@@ -63,6 +66,13 @@ public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends Ap
         userAnswerET = findViewById(R.id.userAnswerET);
         submitAnswerButton = findViewById(R.id.submitAnswerButton);
         checkAnswer = findViewById(R.id.checkAnswer);
+
+        // calling the action bar
+        ActionBar actionBar = getSupportActionBar();
+
+        // showing the back button in action bar
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24);
 
         //Take the region name from QuizActivity screen
         Intent intent = getIntent();
@@ -230,5 +240,11 @@ public class ShortAnswerQuizActivity<shortAnswerQuestionListByRegion> extends Ap
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
+    }
+    // this event will enable the back function to the button on press
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        backToQuizActivity();
+        return true;
     }
 }

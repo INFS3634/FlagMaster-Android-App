@@ -42,11 +42,6 @@ public class ProfileActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference databaseReference;
-    //private FirebaseAuth.AuthStateListener mAuthListener;
-    //private FirebaseMethods mFirebaseMethods;
-
-    //Create a new user (example)
-    //User user = new User("Paul Ramos", "paul_ramos_01", "hi", "test");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +68,6 @@ public class ProfileActivity extends AppCompatActivity {
         settingButton = findViewById(R.id.settingButton);
         //Firebase
         mContext = getApplicationContext();
-        //mFirebaseMethods = new FirebaseMethods(mContext);
 
         //Setup FirebaseAuth
         Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
@@ -86,7 +80,6 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 //Retrieve user data from database
-                //User result = (User) dataSnapshot.getValue();
                 User result = dataSnapshot.getValue(User.class);
 
                 if (result != null) {
@@ -96,8 +89,6 @@ public class ProfileActivity extends AppCompatActivity {
                     mCountLevel.setText(String.valueOf(result.getCountLevel()));
                     mCountPoint.setText(String.valueOf(result.getCountPoint()));
 
-                    //retrieveDataFromDB();
-                    //displayUserProfile(mFirebaseMethods.getUserSettings(dataSnapshot));
                 }
             }
 
@@ -150,126 +141,4 @@ public class ProfileActivity extends AppCompatActivity {
         //switch to Setting screen
         startActivity(intent);
     }
-
-    private void retrieveDataFromDB() {
-        //String userID = mAuth.getCurrentUser().getUid();
-        //Log.d(TAG, "checkIfUserIDExists: checking if " + userID + " exists in the database");
-
-       /* //Use Query database to check username
-        Query checkUserEmail = databaseReference
-                .child("user")
-                .orderByChild("email")
-                .equalTo(MainActivity.currentUserEmail);
-*/
-        //Search for email in the database
-        //Query checkUser = databaseReference.orderByChild(userID).equalTo(userEnteredPassword);
-        /*databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                if (snapshot.exists()) {
-                    Log.d(TAG, "retrieveDataFromDB");
-                    User currentUser = snapshot.getValue(User.class);
-
-                    mName.setText(currentUser.getName());
-                    mUsername.setText(currentUser.getUsername());
-                    mCountLevel.setText(String.valueOf(currentUser.getCountLevel()));
-                    mCountPoint.setText(String.valueOf(currentUser.getCountPoint()));*/
-                    /*
-                    String passwordFromDB = snapshot.child(userID).child("password").getValue(String.class);
-                    String usernameFromDB = snapshot.child(userID).child("username").getValue(String.class);
-                    String nameFromDB = snapshot.child(userID).child("name").getValue(String.class);
-                    String emailFromDB = snapshot.child(userID).child("email").getValue(String.class);*/
-
-                    /*//Pass user data into Profile page
-                    Intent intent = new Intent(getApplicationContext(), ProfileActivity.class);
-                    intent.putExtra("name", nameFromDB);
-                    intent.putExtra("username", usernameFromDB);
-                    startActivity(intent);
-                    */
-            /*        Log.d(TAG, "retrieveDataFromDB:  " + currentUser.toString());
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });*/
-
-    }
-/*
-------------------------------Firebase------------------------
- */
-
-    /**
-     * Set up Firebase Auth
-     */
-    /*private void setupFirebaseAuth() {
-        Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
-
-        mAuth = FirebaseAuth.getInstance();
-        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
-        databaseReference = mFirebaseDatabase.getReference("USER");*/
-
-        /*mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user != null) {
-                    //User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
-                }
-                else {
-                    //User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-            }
-        };*/
-
-    //Get the data snapshot to read data
-        /*databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //Retrieve user data from database
-                //displayUserProfile(mFirebaseMethods.getUserSettings(dataSnapshot));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("databaseReference failed!");
-            }
-        });
-    }*/
-
-
-  /*  private void displayUserProfile(UserSettings userSettings) {
-        //User user = userSettings.getUser();
-        Log.d(TAG, "displayUserProfile: retrieve data from firebase authentication");
-        //UserAccountSettings settings = userSettings.getSettings();
-
-        *//*mName.setText(settings.getName());
-        mUsername.setText(settings.getUsername());
-        mCountLevel.setText(String.valueOf(settings.getCount_level()));
-        mCountPoint.setText(String.valueOf(settings.getCount_point()));*//*
-
-    }*/
-
-
-
-
-
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }*/
 }

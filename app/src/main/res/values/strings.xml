@@ -14,7 +14,7 @@
     <string name="dbname_user_account_setting">user_account_setting</string>
     <string name="field_username">username</string>
     <string name="field_name">name</string>
-    <string name="database_url">infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app/</string>
+    <string name="database_url">"infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app/"</string>
     <string name="about">FlagMaster aims to provide users with a clear and accessible learning platform
         to learn about different flags and have a diverse understanding of countries’ geography.
         The application focuses on bringing an interactive, engaging, and personalized way for users
@@ -34,5 +34,6 @@ Click the Profile button in the navigation bar \n
         --> Click the Settings button on the top right corner \n
         --> Edit your details \n
         --> Save changes.</string>
+    <string name="arcLink">"https://www.arc.unsw.edu.au/clubs/club-admin/clubs-communities/new-international-cultural-clubs-community"</string>
 
 </resources>

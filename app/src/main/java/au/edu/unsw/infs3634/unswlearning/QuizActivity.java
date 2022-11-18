@@ -174,7 +174,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 regionChosen = "Asia";
                 createPopupWindow();
-                //launchMCQQuizActivity("Asia");
             }
         });
         //Choose Asia
@@ -183,7 +182,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 regionChosen = "Africa";
                 createPopupWindow();
-                //launchMCQQuizActivity("Africa");
             }
         });
         //Choose Asia
@@ -192,7 +190,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 regionChosen = "Europe";
                 createPopupWindow();
-                //launchMCQQuizActivity("Europe");
             }
         });
         //Choose Asia
@@ -201,7 +198,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 regionChosen = "North America";
                 createPopupWindow();
-                //launchMCQQuizActivity("North America");
             }
         });
         //Choose South America
@@ -210,7 +206,6 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 regionChosen = "South America";
                 createPopupWindow();
-                //launchMCQQuizActivity("South America");
             }
         });
         //Choose Oceania
@@ -219,35 +214,8 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View view) {
                 regionChosen = "Oceania";
                 createPopupWindow();
-                //launchMCQQuizActivity("Oceania");
             }
         });
 
     }
-
-    public void launchMCQQuizActivity (String regionChosen){
-        //refer when switching screen
-        //Intent intent = new Intent(QuizActivity.this, MCQQuizActivity.class); //refer to the current activity in main
-        //transport message from MainActivity to DetailActivity
-
-        //start new activity
-        //startActivity(intent); //call variable intent
-
-
-    }
-
-    public void launchShortAnswerActivity(String regionChosen){
-        //refer when switching screen
-        Intent intent = new Intent(QuizActivity.this, ShortAnswerQuizActivity.class); //refer to the current activity in main
-        //transport message from MainActivity to DetailActivity
-        intent.putExtra(ShortAnswerQuizActivity.regionChosen, regionChosen);
-        //start new activity
-        startActivity(intent); //call variable intent
-    }
-
-
-
-
-
-
 }

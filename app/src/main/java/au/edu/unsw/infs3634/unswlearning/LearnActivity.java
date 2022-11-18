@@ -1,5 +1,6 @@
 package au.edu.unsw.infs3634.unswlearning;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +35,6 @@ public class LearnActivity extends AppCompatActivity implements RecyclerViewInte
     ArrayList<Country> countryList = new ArrayList<>();
     private CountryAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

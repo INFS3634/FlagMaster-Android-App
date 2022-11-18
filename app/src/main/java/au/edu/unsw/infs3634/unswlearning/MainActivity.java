@@ -36,15 +36,12 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressDialog mLoadingBar;
     private TextView switchToRegister;
-    private Button continueAsGuest;
     private String email,password;
 
     //Firebase
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference databaseReference;
     private FirebaseAuth.AuthStateListener mAuthListener;
-    private FirebaseMethods firebaseMethods;
-    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 email = loginEmail.getText().toString();
                 password = loginPassword.getText().toString();
                 if(email.isEmpty() || password.isEmpty()) {
-                    Toast.makeText(mContext, "Please enter your email and password to sign in", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Please enter your email and password to sign in",
+                            Toast.LENGTH_SHORT).show();
                 } else {
                     checkCredentials();
                 }
@@ -83,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         switchToRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RegisterActivity.class); //refer to the current activity in main
+                Intent intent = new Intent(MainActivity.this, RegisterActivity.class);
                 //switch to Register screen
                 startActivity(intent);
             }

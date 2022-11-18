@@ -40,15 +40,12 @@ public class RegisterActivity extends AppCompatActivity {
 
     //Firebase
     private FirebaseAuth mAuth;
-    private FirebaseMethods firebaseMethods;
-    //private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference databaseReference;
 
     private String append = "";
     private static final String USER = "user";
     private User user;
-    private String userID;
 
 
     @Override
@@ -58,7 +55,6 @@ public class RegisterActivity extends AppCompatActivity {
 
         //Firebase
         mContext = RegisterActivity.this;
-        firebaseMethods = new FirebaseMethods(mContext);
         Log.d(TAG, "onCreate:started");
 
         /**
@@ -139,11 +135,8 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser currentUser) {
-        //String keyId = databaseReference.push().getKey();
-        //userID = mAuth.getCurrentUser().getUid();
         databaseReference.child(FirebaseAuth.getInstance().getUid()).setValue(user);
         Intent intent = new Intent(RegisterActivity.this, QuizActivity.class);
-        //intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
@@ -166,113 +159,6 @@ public class RegisterActivity extends AppCompatActivity {
             return true;
         }
     }
-
-    /*
-    ----------------------------Firebase---------------------------------------------
-     */
-    /**
-     * Check if username exists
-     * @param username
-     */
-    /*private void checkIfUsernameExists(final String username) {
-        Log.d(TAG, "checkIfUsernameExists: checking if " + username + " already exists");
-
-        mFirebaseDatabase = FirebaseDatabase.getInstance("https://infs3634-flagmaster-app-default-rtdb.asia-southeast1.firebasedatabase.app");
-        databaseReference = mFirebaseDatabase.getReference();
-        //Use Query database to check username
-        Query query = databaseReference
-                .child(getString(R.string.dbname_users))
-                .orderByChild(getString(R.string.field_username))
-                .equalTo(username);
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                //If username already exists
-                for (DataSnapshot singleSnapshot : snapshot.getChildren()) {
-                    if (singleSnapshot.exists()) {
-                        Log.d(TAG, "checkIfUsernameExists: FOUND A MATCH: " + singleSnapshot.getValue(User.class).getUsername());
-                        //Auto append random character in the end
-                        append = databaseReference.push().getKey().substring(3, 10);
-                        Log.d(TAG, "onDataChange: username already exists. Appending random string to name: " + append);
-                    }
-                }
-                String mUsername = username + append;
-
-                //Add new user to the database
-                firebaseMethods.addNewUser(name, mUsername, email, password);
-                Toast.makeText(mContext, "addNewUser successful", Toast.LENGTH_SHORT).show();
-
-                //mAuth.signOut();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }*/
-    /**
-     * Set up FirebaseAuth
-     */
-    /*private void setupFirebaseAuth() {
-        Log.d(TAG, "setupFirebaseAuth: setting up firebase authentication");
-
-
-
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-
-                if (user != null) {
-                    //User is signed in
-                    Log.d(TAG, "onAuthStateChanged:signed_in: " + user.getUid());
-                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            //1st check: Make sure username is not already in use
-                            if(firebaseMethods.checkIfUsernameExists(username, dataSnapshot)) {
-                                //If exists, append random characters
-                                append = databaseReference.push().getKey().substring(3,7);
-                                Log.d(TAG, "onDataChange: username already exists. Appending random string to username: " + append);
-                            }
-                    String mUsername = username + append;
-                     //checkIfUsernameExists(username);
-                    // add new user to the database
-                    firebaseMethods.addNewUser(name, mUsername, email, password);
-                    Toast.makeText(mContext, "addNewUser successful", Toast.LENGTH_SHORT).show();
-
-                            //mAuth.signOut();
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            //When there is an error changing the database
-                        }
-                    });
-                    //finish();
-                }
-                else {
-                    //User is signed out
-                    Log.d(TAG, "onAuthStateChanged:signed_out");
-                }
-            }
-        };
-    }*/
-
-    /*@Override
-    public void onStart(){
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        if(mAuthListener!= null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }*/
 
    private void showError(EditText input, String s) {
         input.setError(s);

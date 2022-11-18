@@ -59,6 +59,10 @@ public class SettingActivity extends AppCompatActivity {
         helpButton = findViewById(R.id.helpButton);
         signOutButton = findViewById(R.id.signOutButton);
 
+        //Disable EditTextView password and email
+        currentEmail.setEnabled(false);
+        currentPassword.setEnabled(false);
+
         // calling the action bar
         ActionBar actionBar = getSupportActionBar();
 
@@ -139,42 +143,9 @@ public class SettingActivity extends AppCompatActivity {
     private void saveProfileSettings() {
         newName = currentName.getText().toString();
         newUsername = currentUsername.getText().toString();
-        /*final String newEmail = currentEmail.getText().toString();
-        final String newPassword = currentPassword.getText().toString();*/
 
         databaseReference.child(FirebaseAuth.getInstance().getUid()).child("name").setValue(newName);
         checkIfUsernameExists(newUsername);
-        //Update new user information to database
-        /*databaseReference.child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //Retrieve user data from database
-                //User result = (User) dataSnapshot.getValue();
-                databaseReference.child(FirebaseAuth.getInstance().getUid()).child("name").setValue(newName);
-                checkIfUsernameExists(newUsername);
-                //databaseReference.child(FirebaseAuth.getInstance().getUid()).child("username").setValue(newUsername);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                System.out.println("databaseReference failed!");
-            }
-        });*/
-
-
-        //Case 1: User changed their username --> require to check unique username
-        //Compare username in EditTextView and username loaded from database
-                /*if(!mUserSettings.getUser().getUsername().equals(username)) {
-                    checkIfUsernameExists(username);
-                }
-                //Case 2: User changed their display name
-                else if (!mUserSettings.getUser().getName().equals(displayName)){
-                    mFirebaseMethods.updateDisplayName(displayName);
-                }
-                //Case 3: User changed Firebase Authenticated Email
-
-            }*/
-
 
         /**
          * Check if @param username already exists in the database

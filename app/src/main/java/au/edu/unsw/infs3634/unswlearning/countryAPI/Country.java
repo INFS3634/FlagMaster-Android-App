@@ -35,6 +35,70 @@ public class Country {
     @Expose
     private String flag;
 
+    //Constructor
+    public Country(){
+
+    }
+
+    /**
+     * Getter and Setter methods
+     */
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getAlpha3Code() {
+        return alpha3Code;
+    }
+
+    public void setAlpha3Code(String alpha3Code) {
+        this.alpha3Code = alpha3Code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public String getCapital() {
+        return capital;
+    }
+
+    public void setCapital(String capital) {
+        this.capital = capital;
+    }
+
+    public float getArea() {
+        return area;
+    }
+
+    public void setArea(float area) {
+        this.area = area;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
     public String getFlag() {
         return flag;
     }
@@ -42,66 +106,4 @@ public class Country {
     public void setFlag(String flag) {
         this.flag = flag;
     }
-
-    //Setter methods
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setAlpha3Code(String alpha3Code) {
-        this.alpha3Code = alpha3Code;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public void setCapital(String capital) {
-        this.capital = capital;
-    }
-
-    public void setArea(float area) {
-        this.area = area;
-    }
-
-    public void setPopulation(int population) {
-        this.population = population;
-    }
-
-
-    //Getter methods
-    public int getId() {
-        return id;
-    }
-
-    public String getAlpha3Code() {
-        return alpha3Code;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
-    public String getRegion() {
-        return this.region;
-    }
-
-    public String getCapital() {
-        return this.capital;
-    }
-
-    public float getArea() {
-        return this.area;
-    }
-
-    public int getPopulation() {
-        return this.population;
-    }
-
-
-
 }
