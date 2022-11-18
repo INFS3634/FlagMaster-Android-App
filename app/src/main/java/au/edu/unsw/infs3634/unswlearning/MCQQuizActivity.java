@@ -119,13 +119,10 @@ public class MCQQuizActivity extends AppCompatActivity{
         mcqDao.insert(new MCQ(16,"Europe", "Poland", "Luxembourg","Denmark","Netherlands","Denmark"));
         mcqDao.insert(new MCQ(17,"Europe", "Netherlands", "France","Italy","Romania","France"));
         mcqDao.insert(new MCQ(18,"Europe", "Sweden", "Germany","Luxembourg","Poland","Sweden"));
-        mcqDao.insert(new MCQ(19,"Europe", "UK", "Greece","Romania","Italy","UK"));
         mcqDao.insert(new MCQ(20,"Europe", "Greece", "Poland","Netherlands","Denmark","Netherlands"));
         mcqDao.insert(new MCQ(21,"Asia", "Iran", "Pakistan","Myanmar","Vietnam","Vietnam"));
-        mcqDao.insert(new MCQ(22,"Asia", "Philippines", "Japan","South Korea","Uzbekistan","Japan"));
         mcqDao.insert(new MCQ(23,"Asia", "Vietnam", "India","Singapore","Iran","Iran"));
         mcqDao.insert(new MCQ(24,"Asia", "Japan", "Myanmar","Pakistan","Phillippines","Pakistan"));
-        mcqDao.insert(new MCQ(25,"Asia", "South Korea", "Japan","Iran","Uzbekistan","South Korea"));
         mcqDao.insert(new MCQ(26,"North America", "Puerto Ricco", "Panama","United States","Canada","United States"));
         mcqDao.insert(new MCQ(27,"North America", "Costa Rica", "Cuba","Panama","Jamaica","Cuba"));
         mcqDao.insert(new MCQ(28,"North America", "Jamaica", "Mexico","Puerto Rico","The Bahamas","The Bahamas"));
